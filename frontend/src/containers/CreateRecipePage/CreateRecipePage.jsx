@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -6,11 +6,49 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
+import Alert from "@mui/material/Alert";
 
 const CreateRecipePage = () => {
+  const [title, setTitle] = useState("");
+  const [steps, setSteps] = useState("");
+  const [ingredients, setIngredients] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleSubmit = () => {
+    //sand data to backend using axios
+    postRecepieRequest();
+    console.log(title + "-" + steps + "-" + ingredients);
+    setShowAlert(true);
+    setTimeout(function () {
+      setShowAlert(false);
+    }, 2000);
+    setTitle("");
+    setSteps("");
+    setIngredients("");
+  };
+
+  const postRecepieRequest = async () => {
+    const recepie = {
+      title: "Tomatsuppe",
+      steps: "Hakk løk. Kok suppen",
+      ingredients: "1 løk,2 tomater",
+    };
+    await axios
+      .post("/recepie", recepie)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <p>CreateRecipePage side</p>
+      {showAlert ? (
+        <Alert severity="success">Velykket! Oppskrift ble lagt ut</Alert>
+      ) : null}
       <Box
         sx={{
           display: "flex",
@@ -54,6 +92,8 @@ const CreateRecipePage = () => {
                       <TextField
                         id="recepie-title-input"
                         label="Tittel"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                         fullWidth
                       />
                     </Grid>
@@ -71,6 +111,8 @@ const CreateRecipePage = () => {
                       <TextField
                         id="steps-input"
                         label="Fremgangsmåte"
+                        value={steps}
+                        onChange={(e) => setSteps(e.target.value)}
                         multiline
                         rows="10"
                         fullWidth
@@ -91,6 +133,8 @@ const CreateRecipePage = () => {
                         id="ingredients-input"
                         label="Ingredienser"
                         helperText='Ingredienser seppareres med komma ","'
+                        value={ingredients}
+                        onChange={(e) => setIngredients(e.target.value)}
                         multiline
                         rows="2"
                         fullWidth
@@ -114,7 +158,9 @@ const CreateRecipePage = () => {
                     </Grid>
                     <Grid item xs={10} />
                     <Grid item xs={2}>
-                      <Button variant="contained">Fullfør</Button>
+                      <Button variant="contained" onClick={handleSubmit}>
+                        Fullfør
+                      </Button>
                     </Grid>
                   </Grid>
                 </Box>
