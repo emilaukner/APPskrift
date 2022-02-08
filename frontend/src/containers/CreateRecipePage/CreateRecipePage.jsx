@@ -158,7 +158,11 @@ const CreateRecipePage = () => {
                     </Grid>
                     <Grid item xs={10} />
                     <Grid item xs={2}>
-                      <Button variant="contained" onClick={handleSubmit}>
+                      <Button
+                        variant="contained"
+                        onClick={handleSubmit}
+                        disabled={!title || !steps || !ingredients}
+                      >
                         Fullfør
                       </Button>
                     </Grid>
