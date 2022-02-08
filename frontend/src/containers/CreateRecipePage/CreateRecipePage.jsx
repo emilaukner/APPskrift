@@ -45,7 +45,6 @@ const CreateRecipePage = () => {
 
   return (
     <>
-      <p>CreateRecipePage side</p>
       {showAlert ? (
         <Alert severity="success">Velykket! Oppskrift ble lagt ut</Alert>
       ) : null}
