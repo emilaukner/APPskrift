@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import FrontPage from "./containers/FrontPage/FrontPage";
+import CreateRecipePage from "./containers/CreateRecipePage/CreateRecipePage";
 import './App.css';
+
 
 function App() {
   return (
@@ -13,6 +15,9 @@ function App() {
           </Route>
           <Route path="/my-recepies/">
             <p>My recepies page</p>
+          </Route>
+          <Route path="/create-recipe/">
+            <CreateRecipePage/>
           </Route>
         </Switch>
       </div>
