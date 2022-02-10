@@ -37,7 +37,7 @@ class CategorySerializer(serializers.ModelSerializer):
                 "title"
             )
 
-class Comment(serializers.ModelSerializer):
+class CommentSerializer(serializers.ModelSerializer):
         class Meta: 
             model = Comment
             fields = (
@@ -48,7 +48,7 @@ class Comment(serializers.ModelSerializer):
                 "user"
             )
 
-class Evaluation(serializers.ModelSerializer):
+class EvaluationSerializar(serializers.ModelSerializer):
         class Meta:
             model = Evaluation
             fields = (
