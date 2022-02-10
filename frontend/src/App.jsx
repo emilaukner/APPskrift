@@ -3,6 +3,7 @@ import FrontPage from "./containers/FrontPage/FrontPage";
 import CreateRecipePage from "./containers/CreateRecipePage/CreateRecipePage";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
           </Route>
         </Switch>
       </div>
-      <p>Footer component</p>
+      <Footer />
     </Router>
   );
 }

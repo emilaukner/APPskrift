@@ -25,6 +25,7 @@ const CreateRecipePage = () => {
     setTitle("");
     setSteps("");
     setIngredients("");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const postRecepieRequest = async () => {
