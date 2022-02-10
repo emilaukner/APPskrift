@@ -17,10 +17,10 @@ class User(models.Model):
     userId = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     admin = models.BooleanField(default=False, blank=False)
     username = models.CharField(max_length=50, unique=True, blank=False)
-    password = models.CharField(mas_length=50, blank=False)
+    password = models.CharField(max_length=50, blank=False)
     email = models.EmailField(max_length=254, unique=True)
     darkMode = models.BooleanField(default=False)
-    favorits = models.ForeignKey('Recipe', on_delete=models.CASCADE)
+    favorites = models.ForeignKey('Recipe', on_delete=models.CASCADE)
 
     def _str_(self):
         return self.username
@@ -63,7 +63,7 @@ class Comment(models.Model):
         return self.commentId
 
 class Evaluation(models.Model): 
-    stars = models.IntegerField(max_value=5, min_value=0)
+    stars = models.IntegerField()
     recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, blank=False)
     user = models.ForeignKey('User', on_delete=models.CASCADE, blank=False)
 
