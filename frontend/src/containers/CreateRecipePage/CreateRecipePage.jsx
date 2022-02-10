@@ -34,7 +34,7 @@ const CreateRecipePage = () => {
       ingredients: "1 løk,2 tomater",
     };
     await axios
-      .post("/recepie", recepie)
+      .post("/recpies", recepie)
       .then(function (response) {
         console.log(response);
       })
