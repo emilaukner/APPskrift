@@ -2,11 +2,12 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import FrontPage from "./containers/FrontPage/FrontPage";
 import CreateRecipePage from "./containers/CreateRecipePage/CreateRecipePage";
 import "./App.css";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
     <Router>
-      <p>Navbar</p>
+      <Navbar />
       <div style={{ backgroundColor: "#F8F8F8" }}>
         <Switch>
           <Route exact path="/">
@@ -14,6 +15,12 @@ function App() {
           </Route>
           <Route path="/my-recepies/">
             <p>My recepies page</p>
+          </Route>
+          <Route path="/my-favorites/">
+            <p>my favorites</p>
+          </Route>
+          <Route path="/saved-recepies/">
+            <p> saved-recepies </p>
           </Route>
           <Route path="/create-recipe/">
             <CreateRecipePage />
