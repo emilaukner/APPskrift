@@ -11,13 +11,8 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { NavLink } from "react-router-dom";
 
-const pages = [
-  "Hjem",
-  "Mine oppskrifter",
-  "Mine favoritter",
-  "Lagrede oppskrifter",
-];
 const settings = ["Min profil", "Logg ut"];
 
 const Navbar = () => {
@@ -86,31 +81,89 @@ const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              <NavLink to="/" style={{ textDecoration: "none" }}>
+                <MenuItem
+                  key="1"
+                  onClick={handleCloseNavMenu}
+                  style={{ textDecoration: "none" }}
+                >
+                  <Typography textAlign="center" style={{ color: "darkgray" }}>
+                    Hjem
+                  </Typography>
                 </MenuItem>
-              ))}
+              </NavLink>
+              <NavLink to="/my-recepies/" style={{ textDecoration: "none" }}>
+                <MenuItem key="2" onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center" style={{ color: "darkgray" }}>
+                    Mine oppskrifter
+                  </Typography>
+                </MenuItem>
+              </NavLink>
+              <NavLink to="/my-favorites/" style={{ textDecoration: "none" }}>
+                <MenuItem key="3" onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center" style={{ color: "darkgray" }}>
+                    Mine favoritter
+                  </Typography>
+                </MenuItem>
+              </NavLink>
+              <NavLink to="/saved-recepies/" style={{ textDecoration: "none" }}>
+                <MenuItem key="4" onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center" style={{ color: "darkgray" }}>
+                    Lagrede oppskrifter
+                  </Typography>
+                </MenuItem>
+              </NavLink>
             </Menu>
           </Box>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+            sx={{
+              flexGrow: 1,
+              display: { xs: "flex", md: "none" },
+              color: "darkgrey",
+            }}
           >
-            LOGO
+            APPSKRIFT
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            <NavLink to="/" style={{ textDecoration: "none" }}>
               <Button
-                key={page}
+                key="1"
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "darkgrey", display: "block" }}
               >
-                {page}
+                Hjem
               </Button>
-            ))}
+            </NavLink>
+            <NavLink to="/my-recepies/" style={{ textDecoration: "none" }}>
+              <Button
+                key="2"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "darkgrey", display: "block" }}
+              >
+                Mine oppskrifter
+              </Button>
+            </NavLink>
+            <NavLink to="/my-favorites/" style={{ textDecoration: "none" }}>
+              <Button
+                key="3"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "darkgrey", display: "block" }}
+              >
+                Mine favoritter
+              </Button>
+            </NavLink>
+            <NavLink to="/saved-recepies/" style={{ textDecoration: "none" }}>
+              <Button
+                key="4"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "darkgrey", display: "block" }}
+              >
+                Lagrede oppskrifter
+              </Button>
+            </NavLink>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

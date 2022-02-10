@@ -16,6 +16,12 @@ function App() {
           <Route path="/my-recepies/">
             <p>My recepies page</p>
           </Route>
+          <Route path="/my-favorites/">
+            <p>my favorites</p>
+          </Route>
+          <Route path="/saved-recepies/">
+            <p> saved-recepies </p>
+          </Route>
           <Route path="/create-recipe/">
             <CreateRecipePage />
           </Route>
