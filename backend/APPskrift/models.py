@@ -39,8 +39,8 @@ class Recipe(models.Model):
     ingredients = models.TextField(blank=False)
     steps = models.TextField(blank=False)
     dateMade = models.DateField(auto_now_add=True)
-    category = models.ForeignKey('Category', on_delete=models.CASCADE, blank=False)
-    publishedBy = models.ForeignKey('User', on_delete=models.CASCADE)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
+    publishedBy = models.ForeignKey('User', on_delete=models.CASCADE, null=True)
 
     def _str_(self):
         return self.title
