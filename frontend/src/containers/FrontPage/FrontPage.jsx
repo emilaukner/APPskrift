@@ -1,11 +1,12 @@
 import React from "react";
-import ExampleComponent from "../../components/ExampleComponent/ExampleComponent"
+import FullWidthImageHeader from "../../components/FullWidthImageHeader/FullWidthImageHeader"
+import Food2 from "../../assets/Food2.png";
 
 const FrontPage = () => {
     return (
       <>
-        <p>Front page</p>
-        <ExampleComponent/>
+        
+        <FullWidthImageHeader imgHeader = {Food2}/>
       </>
     );
   };
