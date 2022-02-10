@@ -20,7 +20,7 @@ class User(models.Model):
     password = models.CharField(max_length=50, blank=False)
     email = models.EmailField(max_length=254, unique=True)
     darkMode = models.BooleanField(default=False)
-    favorits = models.ForeignKey('Recipe', on_delete=models.CASCADE)
+    favorites = models.ManyToManyField('Recipe', on_delete=models.CASCADE)
 
     def _str_(self):
         return self.username
