@@ -23,6 +23,7 @@ class UserView(APIView):
 		if serializer.is_valid():
 			serializer.save()
 			return JsonResponse({"status":"ok"}, status=201)
+		print(serializer.errors)
 		return JsonResponse({"status":"Failed"}, status=400)
 
 class RecipeView(APIView):
@@ -37,13 +38,13 @@ class RecipeView(APIView):
 		if serializer.is_valid():
 			serializer.save()
 			return JsonResponse({"status":"ok"}, status=201)
+		print(serializer.errors)
 		return JsonResponse({"status":"Failed"}, status=400)
 
 class CategoryView(APIView): 
 	def get(self, request):
 		queryset = Category.objects.all()
 		serializer = CategorySerializer(queryset, many=True)
-		print("---- Data: ", serializer.data)
 		return JsonResponse(serializer.data, safe=False)
 
 	def post(self, request):
@@ -52,6 +53,7 @@ class CategoryView(APIView):
 		if serializer.is_valid():
 			serializer.save()
 			return JsonResponse({"status":"ok"}, status=201)
+		print(serializer.errors)
 		return JsonResponse({"status":"Failed"}, status=400)
 
 class CommentView(APIView):
@@ -66,6 +68,7 @@ class CommentView(APIView):
 		if serializer.is_valid():
 			serializer.save()
 			return JsonResponse({"status":"ok"}, status=201)
+		print(serializer.errors)
 		return JsonResponse({"status":"Failed"}, status=400)
 
 class EvaluationView(APIView):
@@ -80,4 +83,5 @@ class EvaluationView(APIView):
 		if serializer.is_valid():
 			serializer.save()
 			return JsonResponse({"status":"ok"}, status=201)
+		print(serializer.errors)
 		return JsonResponse({"status":"Failed"}, status=400)
