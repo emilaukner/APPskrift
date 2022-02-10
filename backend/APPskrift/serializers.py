@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import APPSkrift
+from .models import User
 
-class APPSkriftSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = APPSkrift
-        fields = ('id', 'title', 'description', 'completed')
+        model = User
+        fields = ('userId', 'admin', 'username', 'password', 'email', 'darkMode', 'favorites')
