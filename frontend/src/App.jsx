@@ -2,11 +2,12 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import FrontPage from "./containers/FrontPage/FrontPage";
 import CreateRecipePage from "./containers/CreateRecipePage/CreateRecipePage";
 import "./App.css";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
     <Router>
-      <p>Navbar</p>
+      <Navbar />
       <div style={{ backgroundColor: "#F8F8F8" }}>
         <Switch>
           <Route exact path="/">
