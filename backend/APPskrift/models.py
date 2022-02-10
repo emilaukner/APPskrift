@@ -20,7 +20,7 @@ class User(models.Model):
     password = models.CharField(max_length=50, blank=False)
     email = models.EmailField(max_length=254, unique=True)
     darkMode = models.BooleanField(default=False)
-    favorites = models.ForeignKey('Recipe', on_delete=models.CASCADE)
+    favorites = models.ManyToManyField('Recipe')
 
     def _str_(self):
         return self.username
@@ -40,7 +40,7 @@ class Recipe(models.Model):
     steps = models.TextField(blank=False)
     dateMade = models.DateField(auto_now_add=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, blank=False)
-    publishedBy = models.ForeignKey('User', on_delete=models.CASCADE, blank=False)
+    publishedBy = models.ForeignKey('User', on_delete=models.CASCADE)
 
     def _str_(self):
         return self.title
