@@ -28,7 +28,6 @@ function App() {
           </Route>
         </Switch>
       </div>
-      <p>Footer component</p>
       <Footer />
     </Router>
   );
