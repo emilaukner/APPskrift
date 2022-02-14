@@ -16,7 +16,7 @@ const CreateRecipePage = () => {
 
   const handleSubmit = () => {
     //sand data to backend using axios
-    postRecepieRequest();
+    postRecipeRequest();
     console.log(title + "-" + steps + "-" + ingredients);
     setShowAlert(true);
     setTimeout(function () {
@@ -28,14 +28,14 @@ const CreateRecipePage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const postRecepieRequest = async () => {
-    const recepie = {
+  const postRecipeRequest = async () => {
+    const recipe = {
       title: "Tomatsuppe",
       steps: "Hakk løk. Kok suppen",
       ingredients: "1 løk,2 tomater",
     };
     await axios
-      .post("/recepie", recepie)
+      .post("/recipes", recipe)
       .then(function (response) {
         console.log(response);
       })
