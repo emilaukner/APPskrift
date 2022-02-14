@@ -20,12 +20,7 @@ const SingleRecepieModule = (props) => {
   return (
     <>
       <Card sx={{ maxWidth: 300 }}>
-        <CardMedia
-          component="img"
-          height="250"
-          image={props.image}
-          alt="single dish"
-        />
+        <CardMedia component="img" height="250" image={props.image} />
         <CardContent>
           <Grid
             container
