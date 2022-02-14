@@ -1,10 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FullWidthImageHeader from "../../components/FullWidthImageHeader/FullWidthImageHeader";
 import Food from "../../assets/Food.png";
 import SingleRecepieModule from "../../components/SingleRecepieModule/SingleRecepieModule";
 import Dish from "../../assets/DishDeleteMe.png";
+import axios from "axios";
 
 const FrontPage = () => {
+
+	const [recipeData, setRecipeData] = useState([]);
+
+	useEffect(() => {
+		getRecipesRequest();
+	}, [])
+
+	const getRecipesRequest = async () => {
+    await axios
+      .get("/recipes")
+      .then(function (response) {
+        console.log(response);
+				setRecipeData(response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+	const createRecipeModules = () => {
+		var recipes = []
+		for(var i = 0; i < recipeData.length; i++) {
+			var recipe = recipeData[i];
+			recipes.push(
+				<SingleRecepieModule
+          title={recipe.title}
+          image={Dish}
+          meal="Dessert"
+          cousine="European"
+          timeEstimate={recipe.estimate}
+          difficulty={recipe.difficulty}
+          likedByUser={false}
+          numberOfLikes={253}
+        />
+			)
+		}
+		return recipes;
+	}
+
   return (
     <>
       <FullWidthImageHeader imgHeader={Food} />
@@ -16,46 +56,7 @@ const FrontPage = () => {
           paddingBottom: "4%",
         }}
       >
-        <SingleRecepieModule
-          title="Rasberry pie"
-          image={Dish}
-          meal="Dessert"
-          cousine="European"
-          timeEstimate={30}
-          difficulty="E"
-          likedByUser={false}
-          numberOfLikes={253}
-        />
-        <SingleRecepieModule
-          title="Rasberry pie"
-          image={Dish}
-          meal="Dessert"
-          cousine="European"
-          timeEstimate={30}
-          difficulty="H"
-          likedByUser={true}
-          numberOfLikes={253}
-        />
-        <SingleRecepieModule
-          title="Rasberry pie"
-          image={Dish}
-          meal="Dessert"
-          cousine="European"
-          timeEstimate={30}
-          difficulty="H"
-          likedByUser={true}
-          numberOfLikes={253}
-        />
-        <SingleRecepieModule
-          title="Rasberry pie"
-          image={Dish}
-          meal="Dessert"
-          cousine="European"
-          timeEstimate={30}
-          difficulty="H"
-          likedByUser={true}
-          numberOfLikes={253}
-        />
+				{createRecipeModules()}
       </div>
     </>
   );

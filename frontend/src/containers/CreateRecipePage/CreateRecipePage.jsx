@@ -8,6 +8,8 @@ import Button from "@mui/material/Button";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import Alert from "@mui/material/Alert";
 
+import axios from "axios";
+
 const CreateRecipePage = () => {
   const [title, setTitle] = useState("");
   const [steps, setSteps] = useState("");
