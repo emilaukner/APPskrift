@@ -14,10 +14,22 @@ const FrontPage = () => {
           paddingTop: "10%",
         }}
       >
-        <SingleRecepieModule />
-        <SingleRecepieModule />
-        <SingleRecepieModule />
-        <SingleRecepieModule />
+        <SingleRecepieModule
+          title="Rasberry pie"
+          meal="Dessert"
+          cousine="European"
+          timeEstimate="30"
+          difficulty="E"
+          liked={false}
+        />
+        <SingleRecepieModule
+          title="Rasberry pie"
+          meal="Dessert"
+          cousine="European"
+          timeEstimate="30"
+          difficulty="M"
+          liked={true}
+        />
       </div>
     </>
   );
