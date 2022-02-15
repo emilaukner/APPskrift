@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import Alert from "@mui/material/Alert";
+import axios from "axios";
 
 import axios from "axios";
 
@@ -15,15 +16,12 @@ const CreateRecipePage = () => {
   const [steps, setSteps] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+	const [errorShow, setErrorShow] = useState(false);
 
   const handleSubmit = () => {
     //sand data to backend using axios
     postRecipeRequest();
     console.log(title + "-" + steps + "-" + ingredients);
-    setShowAlert(true);
-    setTimeout(function () {
-      setShowAlert(false);
-    }, 2000);
     setTitle("");
     setSteps("");
     setIngredients("");
@@ -32,17 +30,29 @@ const CreateRecipePage = () => {
 
   const postRecipeRequest = async () => {
     const recipe = {
-      title: "Tomatsuppe",
-      steps: "Hakk løk. Kok suppen",
-      ingredients: "1 løk,2 tomater",
+			title: title,
+			difficulty: "E",
+			estimate: 10,
+			ingredients: ingredients,
+			steps: steps,
+			category: "",
+			publishedBy: ""
     };
     await axios
-      .post("/recipes", recipe)
+      .post("/recipes/", recipe)
       .then(function (response) {
         console.log(response);
+				setShowAlert(true);
+				setTimeout(function () {
+					setShowAlert(false);
+				}, 2000);
       })
       .catch(function (error) {
         console.log(error);
+				setErrorShow(true);
+				setTimeout(function () {
+					setErrorShow(false);
+				}, 2000);
       });
   };
 
@@ -50,6 +60,9 @@ const CreateRecipePage = () => {
     <>
       {showAlert ? (
         <Alert severity="success">Velykket! Oppskrift ble lagt ut</Alert>
+      ) : null}
+			{errorShow ? (
+        <Alert severity="error">Feilet! Oppskriften ble ikke lagt til</Alert>
       ) : null}
       <Box
         sx={{
