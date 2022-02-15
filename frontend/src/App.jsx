@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import FrontPage from "./containers/FrontPage/FrontPage";
 import CreateRecipePage from "./containers/CreateRecipePage/CreateRecipePage";
+import UserRecipePage from "./containers/UserRecipePage/UserRecipePage";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 
@@ -14,7 +15,7 @@ function App() {
             <FrontPage />
           </Route>
           <Route path="/my-recepies/">
-            <p>My recepies page</p>
+            <UserRecipePage/>
           </Route>
           <Route path="/my-favorites/">
             <p>my favorites</p>
