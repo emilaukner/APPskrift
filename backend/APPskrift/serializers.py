@@ -11,7 +11,8 @@ class UserSerializer(serializers.ModelSerializer):
                 "password", 
                 "email", 
                 "darkMode", 
-                "favorites"
+                "favorites",
+								"saved"
             )
 
 class RecipeSerializer(serializers.ModelSerializer):
@@ -48,7 +49,7 @@ class CommentSerializer(serializers.ModelSerializer):
                 "user"
             )
 
-class EvaluationSerializar(serializers.ModelSerializer):
+class EvaluationSerializer(serializers.ModelSerializer):
         class Meta:
             model = Evaluation
             fields = (

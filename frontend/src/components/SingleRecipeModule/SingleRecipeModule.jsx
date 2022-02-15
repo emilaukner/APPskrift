@@ -10,6 +10,8 @@ import {
   IconButton,
   Box,
 } from "@mui/material";
+import { useState } from "react";
+import axios from "axios";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -31,8 +33,8 @@ const SingleRecipeModule = (props) => {
 
   const postLikeRecepie = async () => {
     await axios
-      .post(`/users/${currentUserId}/favorites/`, {
-        data: { id: `${props.recipieId}` },
+      .post(`/users/2c4799ed-203a-4162-9f33-9a577a8ba6fc/favorites/`, {
+ 				id: `${props.recipeId}`,
       })
       .then(() => {
         setLiked(!liked);
@@ -44,8 +46,8 @@ const SingleRecipeModule = (props) => {
 
   const postSaveRecipe = async () => {
     await axios
-      .post(`/users/${currentUserId}/saved/`, {
-        data: { id: `${props.recipieId}` },
+      .post(`/users/2c4799ed-203a-4162-9f33-9a577a8ba6fc/saved/`, {
+        id: `${props.recipeId}`,
       })
       .then(() => {
         setSaved(!saved);
@@ -96,7 +98,7 @@ const SingleRecipeModule = (props) => {
                 aria-label="add to favorites"
                 sx={{ fontSize: "1em", color: "darkgrey" }}
               >
-                {liked ? (
+                {!liked ? (
                   <FavoriteBorderIcon />
                 ) : (
                   <FavoriteIcon sx={{ color: "Crimson" }} />

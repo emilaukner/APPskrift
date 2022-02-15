@@ -20,7 +20,8 @@ class User(models.Model):
     password = models.CharField(max_length=50, blank=False)
     email = models.EmailField(max_length=254, unique=True)
     darkMode = models.BooleanField(default=False)
-    favorites = models.ManyToManyField('Recipe', blank=True)
+    favorites = models.ManyToManyField('Recipe', blank=True, related_name="favorite")
+    saved = models.ManyToManyField('Recipe', blank=True, related_name="saved")
 
     def _str_(self):
         return self.username

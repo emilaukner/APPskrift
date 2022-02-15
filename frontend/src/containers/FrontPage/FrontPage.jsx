@@ -13,7 +13,7 @@ const FrontPage = () => {
   //This function gets all liked recepies by current user
   const getRecipesLikedRequest = async () => {
     await axios
-      .get(`/users/${currentUserId}/favorites/`)
+      .get(`/users/2c4799ed-203a-4162-9f33-9a577a8ba6fc/favorites/`)
       .then((response) => {
         setRecipeLikedData(response.data);
       })
@@ -25,7 +25,7 @@ const FrontPage = () => {
   //This function gets all saved recepies by current user
   const getRecipesSavedRequest = async () => {
     await axios
-      .get(`/users/${currentUserId}/saved/`)
+      .get(`/users/2c4799ed-203a-4162-9f33-9a577a8ba6fc/saved/`)
       .then((response) => {
         setRecipeSavedData(response.data);
       })
@@ -39,7 +39,6 @@ const FrontPage = () => {
     await axios
       .get("/recipes/")
       .then((response) => {
-        console.log(response);
         setRecipeData(response.data);
       })
       .catch((error) => {
@@ -55,18 +54,20 @@ const FrontPage = () => {
   }, []);
 
   const createRecipeModules = () => {
+		console.log("Saved:", recipeSavedData)
+		console.log("Liked:", recipeLikedData)
     const recipes = recipeData.map((recipe) => {
       return (
         <SingleRecepieModule
-          recipieId={recipe.id}
+          recipeId={recipe.recipeId}
           title={recipe.title}
           image={Dish}
           meal="Dessert"
           cousine="European"
           timeEstimate={recipe.estimate}
           difficulty={recipe.difficulty}
-          likedByUser={recipeLikedData.includes(id) ? true : false}
-          savedByUser={recipeSavedData.includes(id) ? true : false}
+          likedByUser={recipeLikedData.includes(recipe.recipeId) ? true : false}
+          savedByUser={recipeSavedData.includes(recipe.recipeId) ? true : false}
           numberOfLikes={253}
         />
       );
