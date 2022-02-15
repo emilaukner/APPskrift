@@ -16,15 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
-from rest_framework import routers
-from APPskrift import views
+from rest_framework_nested import routers
+from APPskrift.views import UserView, RecipeView, CategoryView, CommentView, EvaluationView
 
-router = routers.DefaultRouter()
 #Wire up our API using automatic URL routing
 #Additionally, we include login URLs for the browsable API
+router = routers.SimpleRouter()
+router.register(r'users', UserView)
+router.register(r'recipes', RecipeView)
+router.register(r'categories', CategoryView)
+router.register(r'comments', CommentView)
+router.register(r'evaluations', EvaluationView)
 
 urlpatterns = [
-    path('', include('APPskrift.urls')),
+    path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
 ]
