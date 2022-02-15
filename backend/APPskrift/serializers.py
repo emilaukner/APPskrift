@@ -48,7 +48,7 @@ class CommentSerializer(serializers.ModelSerializer):
                 "user"
             )
 
-class EvaluationSerializar(serializers.ModelSerializer):
+class EvaluationSerializer(serializers.ModelSerializer):
         class Meta:
             model = Evaluation
             fields = (

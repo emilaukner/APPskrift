@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets
-from .serializers import UserSerializer, RecipeSerializer, CategorySerializer, CommentSerializer, EvaluationSerializar
+from .serializers import UserSerializer, RecipeSerializer, CategorySerializer, CommentSerializer, EvaluationSerializer
 from .models import User, Recipe, Category, Comment, Evaluation
 
 from rest_framework.parsers import JSONParser
@@ -28,5 +28,5 @@ class CommentView(viewsets.ModelViewSet):
 	queryset = Comment.objects.all()
 
 class EvaluationView(viewsets.ModelViewSet):
-	serializer_class = EvaluationSerializar
+	serializer_class = EvaluationSerializer
 	queryset = Evaluation.objects.all()
