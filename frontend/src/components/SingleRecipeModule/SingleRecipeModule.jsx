@@ -15,8 +15,46 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 
-const SingleRecepieModule = (props) => {
+const SingleRecipeModule = (props) => {
+  const [liked, setLiked] = useState(props.savedByUser);
+  const [saved, setSaved] = useState(props.likedByUser);
+
+  const LikeRecipe = () => {
+    postLikeRecepie();
+  };
+
+  const SaveRecipe = () => {
+    postSaveRecipe();
+  };
+
+  const postLikeRecepie = async () => {
+    await axios
+      .post(`/users/${currentUserId}/favorites/`, {
+        data: { id: `${props.recipieId}` },
+      })
+      .then(() => {
+        setLiked(!liked);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const postSaveRecipe = async () => {
+    await axios
+      .post(`/users/${currentUserId}/saved/`, {
+        data: { id: `${props.recipieId}` },
+      })
+      .then(() => {
+        setSaved(!saved);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <Card sx={{ maxWidth: 300 }}>
@@ -34,8 +72,8 @@ const SingleRecepieModule = (props) => {
               </Typography>
             </Grid>
             <Grid item xs={2}>
-              <IconButton>
-                <BookmarkBorderIcon />
+              <IconButton onClick={SaveRecipe}>
+                {saved ? <BookmarkAddedIcon /> : <BookmarkBorderIcon />}
               </IconButton>
             </Grid>
             <Grid item xs={12}>
@@ -54,10 +92,11 @@ const SingleRecepieModule = (props) => {
           >
             <Box>
               <IconButton
+                onClick={LikeRecipe}
                 aria-label="add to favorites"
                 sx={{ fontSize: "1em", color: "darkgrey" }}
               >
-                {props.likedByUser ? (
+                {liked ? (
                   <FavoriteBorderIcon />
                 ) : (
                   <FavoriteIcon sx={{ color: "Crimson" }} />
@@ -100,4 +139,4 @@ const SingleRecepieModule = (props) => {
   );
 };
 
-export default SingleRecepieModule;
+export default SingleRecipeModule;
