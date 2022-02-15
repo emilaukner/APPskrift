@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FullWidthImageHeader from "../../components/FullWidthImageHeader/FullWidthImageHeader";
+import FloatingCreateButton from "../../components/FloatingCreateButton/FloatingCreateButton";
 import Food from "../../assets/Food.png";
 import SingleRecepieModule from "../../components/SingleRecipeModule/SingleRecipeModule";
 import Dish from "../../assets/DishDeleteMe.png";
@@ -77,6 +78,7 @@ const FrontPage = () => {
   return (
     <>
       <FullWidthImageHeader imgHeader={Food} />
+      
       <div
         style={{
           display: "flex",
@@ -87,6 +89,7 @@ const FrontPage = () => {
       >
         {createRecipeModules()}
       </div>
+      <FloatingCreateButton showButton={true}/> 
     </>
   );
 };
