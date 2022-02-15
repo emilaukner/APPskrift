@@ -43,6 +43,7 @@ class UserView(viewsets.ModelViewSet):
 	
 	@saved.mapping.post
 	def add_saved(self, request, pk=True):
+		print(request.data)
 		saved_pk = request.data["id"]
 		print(saved_pk)
 		user = self.get_object()
