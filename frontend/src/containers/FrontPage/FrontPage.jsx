@@ -26,10 +26,8 @@ const FrontPage = () => {
   };
 
 	const createRecipeModules = () => {
-		var recipes = []
-		for(var i = 0; i < recipeData.length; i++) {
-			var recipe = recipeData[i];
-			recipes.push(
+		const recipes = recipeData.map(() => {
+			return(
 				<SingleRecepieModule
           title={recipe.title}
           image={Dish}
@@ -40,8 +38,8 @@ const FrontPage = () => {
           likedByUser={false}
           numberOfLikes={253}
         />
-			)
-		}
+			);
+		});
 		return recipes;
 	}
 
