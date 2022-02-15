@@ -26,7 +26,7 @@ const FrontPage = () => {
   };
 
 	const createRecipeModules = () => {
-		const recipes = recipeData.map(() => {
+		const recipes = recipeData.map((recipe) => {
 			return(
 				<SingleRecepieModule
           title={recipe.title}
