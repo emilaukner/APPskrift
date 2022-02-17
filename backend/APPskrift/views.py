@@ -50,6 +50,13 @@ class UserView(viewsets.ModelViewSet):
 		recipe = get_object_or_404(Recipe, pk=saved_pk)
 		user.saved.add(recipe)
 		return Response("Nice", status=200)
+	
+	@saved.mapping.delete
+	def remove_saved(self, request, pk=True):
+		user = self.get_object()
+		recipe = get_object_or_404(Recipe, pk=request.data["id"])
+		user.saved.remove(recipe)
+		return Response("OK", status=200)
 
 
 class RecipeView(viewsets.ModelViewSet):
