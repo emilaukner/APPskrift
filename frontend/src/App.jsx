@@ -5,6 +5,7 @@ import UserRecipePage from "./containers/UserRecipePage/UserRecipePage";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import ViewRecipe from "./containers/ViewRecipe/ViewRecipe";
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route path="/create-recipe/">
             <CreateRecipePage />
+          </Route>
+          <Route path="/view-recipe/">
+            <ViewRecipe/>
           </Route>
         </Switch>
       </div>
