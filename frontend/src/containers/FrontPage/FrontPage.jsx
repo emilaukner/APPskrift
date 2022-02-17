@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FullWidthImageHeader from "../../components/FullWidthImageHeader/FullWidthImageHeader";
-import FloatingCreateButton from "../../components/FloatingCreateButton/FloatingCreateButton";
+import FloatingCreateRecipeButton from "../../components/FloatingCreateRecipeButton/FloatingCreateRecipeButton";
 import Food from "../../assets/Food.png";
 import SingleRecepieModule from "../../components/SingleRecipeModule/SingleRecipeModule";
 import Dish from "../../assets/DishDeleteMe.png";
@@ -55,8 +55,8 @@ const FrontPage = () => {
   }, []);
 
   const createRecipeModules = () => {
-		console.log("Saved:", recipeSavedData)
-		console.log("Liked:", recipeLikedData)
+    console.log("Saved:", recipeSavedData);
+    console.log("Liked:", recipeLikedData);
     const recipes = recipeData.map((recipe) => {
       return (
         <SingleRecepieModule
@@ -79,7 +79,7 @@ const FrontPage = () => {
   return (
     <>
       <FullWidthImageHeader imgHeader={Food} />
-      
+
       <div
         style={{
           display: "flex",
@@ -90,7 +90,7 @@ const FrontPage = () => {
       >
         {createRecipeModules()}
       </div>
-      <FloatingCreateButton showButton={true}/> 
+      <FloatingCreateRecipeButton showButton={true} />
     </>
   );
 };
