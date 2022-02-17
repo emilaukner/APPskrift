@@ -40,8 +40,8 @@ class Recipe(models.Model):
     ingredients = models.TextField(blank=False)
     steps = models.TextField(blank=False)
     dateMade = models.DateField(auto_now_add=True)
-    category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
-    publishedBy = models.ForeignKey('User', on_delete=models.CASCADE, null=True)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, blank=False)
+    publishedBy = models.ForeignKey('User', on_delete=models.CASCADE)
 
     def _str_(self):
         return self.title
@@ -58,7 +58,7 @@ class Comment(models.Model):
     comment = models.TextField(blank=False)
     dateTimeMade = models.DateTimeField(auto_now_add=True)
     recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, blank=False)
-    user = models.ForeignKey('User', on_delete=models.CASCADE, blank=False)
+    publishedBy = models.ForeignKey('User', on_delete=models.CASCADE, blank=False)
     
     def __str__(self): 
         return self.commentId
@@ -66,7 +66,7 @@ class Comment(models.Model):
 class Evaluation(models.Model): 
     stars = models.IntegerField()
     recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, blank=False)
-    user = models.ForeignKey('User', on_delete=models.CASCADE, blank=False)
+    publishedBy = models.ForeignKey('User', on_delete=models.CASCADE, blank=False)
 
     def __str__(self): 
         return self.stars

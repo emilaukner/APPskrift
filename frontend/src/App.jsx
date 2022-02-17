@@ -16,13 +16,13 @@ function App() {
           <Route exact path="/">
             <FrontPage />
           </Route>
-          <Route path="/my-recepies/">
+          <Route path="/my-recipes/">
             <UserRecipePage/>
           </Route>
           <Route path="/my-favorites/">
             <p>my favorites</p>
           </Route>
-          <Route path="/saved-recepies/">
+          <Route path="/saved-recipes/">
             <p> saved-recepies </p>
           </Route>
           <Route path="/create-recipe/">
