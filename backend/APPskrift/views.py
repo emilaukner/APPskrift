@@ -33,6 +33,15 @@ class UserView(viewsets.ModelViewSet):
 		user.favorites.add(recipe)
 		return Response("Nice", status=200)
 
+	@favorites.mapping.delete
+	def remove_favorites(self, request, pk=True):
+		recipe_pk = request.data["id"]
+		print(recipe_pk)
+		user = self.get_object()
+		recipe = get_object_or_404(Recipe, pk=recipe_pk)
+		user.favorites.remove(recipe)
+		return Response("OK", status=200)
+
 	@action(methods=['get'], detail=True)
 	def saved(self, request, pk=True):
 		user = get_object_or_404(User, pk=self.kwargs.get("pk"))
