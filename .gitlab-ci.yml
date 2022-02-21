@@ -34,7 +34,7 @@ unit-test-job:   # This job runs in the test stage.
   image: python:3.10
   script:
     - cd backend
-    - python /manage.py test
+    - python manage.py test
     - echo "Code coverage is 90%"
 
 lint-test-job:   # This job also runs in the test stage.
