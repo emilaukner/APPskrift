@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Fab } from "@mui/material/";
 import EditIcon from "@mui/icons-material/Edit";
 import { Link } from "react-router-dom";
-import { StyledDiv } from "../FullWidthImageHeader/style";
+import { StyledDiv } from "./style";
 
 const CreateRecipeButton = (props) => {
   return (
