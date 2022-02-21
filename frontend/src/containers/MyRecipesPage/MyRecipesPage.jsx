@@ -213,7 +213,7 @@ const MyRecipesPage = () => {
                           return (
                             <TableRow
                               component={Link}
-                              to={`/recipes/${row.id}/`}
+                              to={`/recipe/${row.id}/`}
                               style={{ textDecoration: "none", color: "black" }}
                               hover
                               role="checkbox"
