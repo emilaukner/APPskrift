@@ -16,7 +16,6 @@ import { Link } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Backdrop from "@mui/material/Backdrop";
 
 const MyRecipesPage = () => {
   //========= Hook that stores my recepies ======/
@@ -48,15 +47,13 @@ const MyRecipesPage = () => {
   ]);
 
   //=========== API get request for all "My recipes" =========//
-  /*
   useEffect(() => {
     axios
-      .get(`/users/2c4799ed-203a-4162-9f33-9a577a8ba6fc/recepies/`)
+      .get(`/users/2c4799ed-203a-4162-9f33-9a577a8ba6fc/recipes/`)
       .then((response) => {
         setMyRecipes(response.data);
       });
   }, []);
-  */
 
   //============= Create column types ============//
   const columns = [
