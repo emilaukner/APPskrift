@@ -96,6 +96,18 @@ class UserViewTestCase(APITestCase):
 		self.assertEqual(response.status_code, status.HTTP_200_OK)
 		self.assertEqual(self.user.favorites.get(recipeId=new_favorite.recipeId).title, "new favorite")
 
+	def test_delete_saved(self):
+			response = self.client.post("/users/" + str(self.user.userId.hex) + "/favorites/", {
+				"id": str(self.favorite.recipeId)
+			})
+			self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+			try:
+				self.user.favorite.get(recipeId=self.favorite.recipeId)
+				fail("Favorited recipe should not exist after deletion")
+			except:
+				pass
+
 	def test_get_saved(self):
 		response = self.client.get("/users/" + str(self.user.userId.hex) + "/saved/")
 		self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -109,3 +121,15 @@ class UserViewTestCase(APITestCase):
 		self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 		self.assertEqual(self.user.saved.get(recipeId=new_saved.recipeId).title, "new saved")
+
+	def test_delete_saved(self):
+		response = self.client.post("/users/" + str(self.user.userId.hex) + "/saved/", {
+			"id": str(self.saved.recipeId)
+		})
+		self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+		try:
+			self.user.saved.get(recipeId=self.saved.recipeId)
+			fail("Saved recipe should not exist after deletion")
+		except:
+			pass
