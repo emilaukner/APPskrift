@@ -1,23 +1,49 @@
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import { Grid, Typography, Button } from "@mui/material";
+import { Grid, Typography, Button, Alert } from "@mui/material";
 import { TextField } from "@mui/material";
 import { useState } from "react";
 import { StyledLoginPopup } from "./LoginPopUp.style";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
-const LogInPopUp = () => {
+const LogInPopUp = ({visible}) => {
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
+	const [error, setError] = useState(false);
+	const [show, setShow] = useState(visible);
+
+	const submitLogin = async () => {
+		await axios
+		.post("/login/", {
+			email: email,
+			password: password
+		})
+		.then((res) => {
+			console.log("Login was successful")
+			setShow(false);
+		})
+		.catch((err) => {
+			console.log(err)
+			setError(true);
+			setTimeout(function () {
+				setError(false);
+			}, 2000);
+		})
+	}
 
 	return(
-		<StyledLoginPopup>
+		<StyledLoginPopup show={show}>		
 			<Box 
 				sx={{
-					width: "100%",
+					width: "50%",
 					display: "flex",
 				}}
 			>
 					<Paper sx={{padding: "7%", width: "100%"}}>
+					{error ? (
+						<Alert severity="error">Feilet! Kunne ikke logge inn!</Alert>
+					) : null}
 						<Grid container spacing={2}>
 							<Grid item xs={12}>
 								<Typography variant="h4" component="div" gutterBottom>
@@ -53,9 +79,18 @@ const LogInPopUp = () => {
 								/>
 							</Grid>
 							<Grid item xs={12}>
-								<Button variant="contained">
+								<Button 
+									variant="contained"
+									sx={{
+										width: "100%",
+									}}
+									onClick={submitLogin}
+								>
 									Log in
 								</Button>
+							</Grid>
+							<Grid item xs={12}>
+								<Link onClick={() => console.log("Create user requested")}>Create user</Link>
 							</Grid>
 						</Grid>
 					</Paper>
