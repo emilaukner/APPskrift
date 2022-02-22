@@ -5,6 +5,7 @@ import Food from "../../assets/Food.png";
 import SingleRecepieModule from "../../components/SingleRecipeModule/SingleRecipeModule";
 import Dish from "../../assets/DishDeleteMe.png";
 import axios from "axios";
+import UserProfileComponent from "../../components/UserProfileComponent/UserProfileComponent";
 
 const FrontPage = () => {
   const [recipeData, setRecipeData] = useState([]);
@@ -90,6 +91,7 @@ const FrontPage = () => {
       >
         {createRecipeModules()}
       </div>
+      <UserProfileComponent showProfile={true}/>
       <FloatingCreateRecipeButton showButton={true} />
     </>
   );

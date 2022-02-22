@@ -12,6 +12,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
+import UserProfileComponent from "../UserProfileComponent/UserProfileComponent"
+import Popup from "reactjs-popup";
 
 const settings = ["Min profil", "Logg ut"];
 
@@ -23,7 +25,7 @@ const Navbar = () => {
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
+    setAnchorElUser(<UserProfileComponent showProfile={true}/>);
   };
 
   const handleCloseNavMenu = () => {
@@ -32,6 +34,10 @@ const Navbar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleOpenProfile = () => {
+    <UserProfileComponent showProfile="true"/>
   };
 
   return (
@@ -189,9 +195,10 @@ const Navbar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <><MenuItem key={"Min profil"} onClick={handleOpenProfile}>
                   <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
+                </MenuItem><MenuItem key={"Logg Ut"} onClick={handleCloseUserMenu}>
+                  </MenuItem></>
               ))}
             </Menu>
           </Box>
