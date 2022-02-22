@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import MyRecipesPage from "./containers/MyRecipesPage/MyRecipesPage";
 import SingleRecipePage from "./containers/SingleRecipePage/SingleRecipePage";
+import ViewRecipe from "./containers/ViewRecipe/ViewRecipe";
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
           </Route>
           <Route path="/recipe/:id">
             <SingleRecipePage />
+          </Route>
+          <Route path="/view-recipe/">
+            <ViewRecipe/>
           </Route>
         </Switch>
       </div>
