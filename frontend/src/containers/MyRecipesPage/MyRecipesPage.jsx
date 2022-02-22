@@ -21,7 +21,7 @@ const MyRecipesPage = () => {
   //========= Hook that stores my recepies ======/
   const [myRecipes, setMyRecipes] = useState([
     {
-      id: 40,
+      recipeId: 40,
       dateMade: "20/10/2022",
       title: "Kjøttboller",
       difficulty: "E",
@@ -29,7 +29,7 @@ const MyRecipesPage = () => {
       estimate: "30 min",
     },
     {
-      id: 41,
+      recipeId: 41,
       dateMade: "20/10/2023",
       title: "Pizza",
       difficulty: "H",
@@ -37,7 +37,7 @@ const MyRecipesPage = () => {
       estimate: "15 min",
     },
     {
-      id: 42,
+      recipeId: 42,
       dateMade: "22/10/2023",
       title: "Suppe",
       difficulty: "M",
@@ -49,7 +49,7 @@ const MyRecipesPage = () => {
   //=========== API get request for all "My recipes" =========//
   useEffect(() => {
     axios
-      .get(`/users/2c4799ed-203a-4162-9f33-9a577a8ba6fc/recipes/`)
+      .get(`/users/b7b14922-478a-41d1-9f81-ebcc4d53cb79/recipes/`)
       .then((response) => {
         setMyRecipes(response.data);
       });
@@ -99,7 +99,7 @@ const MyRecipesPage = () => {
   const addRecepiesToRows = myRecipes.forEach((recipe) => {
     rows.push(
       createData(
-        recipe.id,
+        recipe.recipeId,
         recipe.dateMade,
         recipe.title,
         recipe.difficulty === "E"
@@ -118,12 +118,12 @@ const MyRecipesPage = () => {
         recipe.estimate,
         <>
           <IconButton
-            onClick={(event) => handleEditRecipeClick(event, recipe.id)}
+            onClick={(event) => handleEditRecipeClick(event, recipe.recipeId)}
           >
             <EditIcon />
           </IconButton>
           <IconButton
-            onClick={(event) => handleDeleteRecipeClick(event, recipe.id)}
+            onClick={(event) => handleDeleteRecipeClick(event, recipe.recipeId)}
           >
             <DeleteIcon />
           </IconButton>
@@ -144,16 +144,14 @@ const MyRecipesPage = () => {
     event.preventDefault();
     event.stopPropagation();
     deleteRecipe(id);
-    console.log("Delete: " + id);
+		addRecepiesToRows();
     //TODO Show success or fail og API delete request. First ask user to confirm and then delete?
   };
 
   //==============API delete request to delete singel recipe ============//
   const deleteRecipe = (recipeId) => {
     axios
-      .delete(`/users/2c4799ed-203a-4162-9f33-9a577a8ba6fc/recipes/`, {
-        id: `${recipeId}`,
-      })
+      .delete(`/recipes/${recipeId}/`)
       .then(() => {})
       .catch((error) => {
         console.log(error);
