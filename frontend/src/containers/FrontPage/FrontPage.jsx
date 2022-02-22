@@ -14,7 +14,7 @@ const FrontPage = () => {
   //This function gets all liked recepies by current user
   const getRecipesLikedRequest = async () => {
     await axios
-      .get(`/users/2c4799ed-203a-4162-9f33-9a577a8ba6fc/favorites/`)
+      .get(`/users/5791cd11-7f6a-4fc5-bbc3-bd09a289ca9d/favorites/`)
       .then((response) => {
         setRecipeLikedData(response.data);
       })
@@ -26,7 +26,7 @@ const FrontPage = () => {
   //This function gets all saved recepies by current user
   const getRecipesSavedRequest = async () => {
     await axios
-      .get(`/users/2c4799ed-203a-4162-9f33-9a577a8ba6fc/saved/`)
+      .get(`/users/5791cd11-7f6a-4fc5-bbc3-bd09a289ca9d/saved/`)
       .then((response) => {
         setRecipeSavedData(response.data);
       })
