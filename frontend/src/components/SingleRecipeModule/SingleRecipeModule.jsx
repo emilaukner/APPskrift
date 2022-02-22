@@ -21,8 +21,8 @@ import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 
 const SingleRecipeModule = (props) => {
   //React hooks with the states liked and saved
-  const [liked, setLiked] = useState(props.savedByUser);
-  const [saved, setSaved] = useState(props.likedByUser);
+  const [liked, setLiked] = useState(props.likedByUser);
+  const [saved, setSaved] = useState(props.savedByUser);
 
   /* Function that is called when user presses like button.
   If liked = true a delete request is made. If liked = false a post request is made.*/
@@ -40,7 +40,7 @@ const SingleRecipeModule = (props) => {
   //TODO change hardcoded userId to `${currentUserId}`
   const postLikeRecipe = async () => {
     await axios
-      .post(`/users/2c4799ed-203a-4162-9f33-9a577a8ba6fc/favorites/`, {
+      .post(`/users/5791cd11-7f6a-4fc5-bbc3-bd09a289ca9d/favorites/`, {
         id: `${props.recipeId}`,
       })
       .then(() => {
@@ -55,8 +55,10 @@ const SingleRecipeModule = (props) => {
   //TODO change hardcoded userId to `${currentUserId}`
   const postUnlikeRecipe = async () => {
     await axios
-      .delete(`/users/2c4799ed-203a-4162-9f33-9a577a8ba6fc/favorites/`, {
-        id: `${props.recipeId}`,
+      .delete(`/users/5791cd11-7f6a-4fc5-bbc3-bd09a289ca9d/favorites/`, {
+				data: {
+					id: `${props.recipeId}`,
+				}
       })
       .then(() => {
         setLiked(!liked);
@@ -70,7 +72,7 @@ const SingleRecipeModule = (props) => {
   //TODO change hardcoded userId to `${currentUserId}`
   const postSaveRecipe = async () => {
     await axios
-      .post(`/users/2c4799ed-203a-4162-9f33-9a577a8ba6fc/saved/`, {
+      .post(`/users/5791cd11-7f6a-4fc5-bbc3-bd09a289ca9d/saved/`, {
         id: `${props.recipeId}`,
       })
       .then(() => {
@@ -85,8 +87,10 @@ const SingleRecipeModule = (props) => {
   //TODO change hardcoded userId to `${currentUserId}`
   const postUnsaveRecipe = async () => {
     await axios
-      .delete(`/users/2c4799ed-203a-4162-9f33-9a577a8ba6fc/saved/`, {
-        id: `${props.recipeId}`,
+      .delete(`/users/5791cd11-7f6a-4fc5-bbc3-bd09a289ca9d/saved/`, {
+				data: {
+					id: `${props.recipeId}`,
+				}
       })
       .then(() => {
         setSaved(!saved);

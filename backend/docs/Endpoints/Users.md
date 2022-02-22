@@ -31,3 +31,64 @@ Body format:
     "darkMode": false //Optional
 }
 ```
+
+## DELETE
+At the following endpoint: `users/{USER_ID}/` send a delete request and the user will be deleted
+
+# Detail view at /users/{USER_ID}/
+
+## Saved recipes at
+Can be found at endpoint: `users/{USER_ID}/saved/`
+
+### GET
+Retrieves a list of `recipeId`s that the current user has saved
+
+### POST
+Adds a recipe in the database to the saved recipes of the user
+
+Format of body:
+
+```json
+{
+	"id": RECIPE_ID
+}
+```
+
+### DELETE
+Removes a recipe in the database from the saved recipes of the user
+
+Format of body:
+
+```json
+{
+	"id": RECIPE_ID
+}
+```
+
+## Favorite recipes at
+Can be found at endpoint: `users/{USER_ID}/favorites/`
+
+### GET
+Retrieves a list of `recipeId`s that the current user has favorited
+
+### POST
+Adds a recipe in the database to the favorited recipes of the user
+
+Format of body:
+
+```json
+{
+	"id": RECIPE_ID
+}
+```
+
+### DELETE
+Removes a recipe in the database from the favorited recipes of the user
+
+Format of body:
+
+```json
+{
+	"id": RECIPE_ID
+}
+```
