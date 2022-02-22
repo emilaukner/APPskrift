@@ -17,7 +17,6 @@ const CreateRecipePage = () => {
   const [errorShow, setErrorShow] = useState(false);
 
   const handleSubmit = () => {
-    //sand data to backend using axios
     postRecipeRequest();
     console.log(title + "-" + steps + "-" + ingredients);
     setTitle("");
