@@ -5,23 +5,25 @@ import { TextField } from "@mui/material";
 import { useState } from "react";
 import { StyledLoginPopup } from "./LoginPopUp.style";
 import { Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import axios from "axios";
 
-const LogInPopUp = ({visible}) => {
+const LogInPopUp = ({onClose, show}) => {
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
 	const [error, setError] = useState(false);
-	const [show, setShow] = useState(visible);
+	const [cookie, setCookie] = useCookies(["user"])
 
 	const submitLogin = async () => {
 		await axios
-		.post("/login/", {
+		.post("/auth/", {
 			email: email,
 			password: password
 		})
 		.then((res) => {
-			console.log("Login was successful")
-			setShow(false);
+			console.log("Login was successful", res)
+			onClose();
+			setCookie("userId", res.data.userId);
 		})
 		.catch((err) => {
 			console.log(err)

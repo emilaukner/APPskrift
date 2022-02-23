@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import Alert from "@mui/material/Alert";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const CreateRecipePage = () => {
   const [title, setTitle] = useState("");
@@ -15,6 +16,7 @@ const CreateRecipePage = () => {
   const [ingredients, setIngredients] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [errorShow, setErrorShow] = useState(false);
+	const [cookie, setCookie] = useCookies(["user"])
 
   const handleSubmit = () => {
     //sand data to backend using axios
@@ -34,7 +36,7 @@ const CreateRecipePage = () => {
       ingredients: ingredients,
       steps: steps,
       category: "",
-      publishedBy: "",
+      publishedBy: cookie.userId,
     };
     await axios
       .post("/recipes/", recipe)

@@ -11,6 +11,7 @@ import {
   Box,
 } from "@mui/material";
 import { useState } from "react";
+import { useCookies } from "react-cookie"; 
 import axios from "axios";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -23,6 +24,7 @@ const SingleRecipeModule = (props) => {
   //React hooks with the states liked and saved
   const [liked, setLiked] = useState(props.likedByUser);
   const [saved, setSaved] = useState(props.savedByUser);
+	const [cookie, setCookie] = useCookies(["user"])
 
   /* Function that is called when user presses like button.
   If liked = true a delete request is made. If liked = false a post request is made.*/
@@ -40,7 +42,7 @@ const SingleRecipeModule = (props) => {
   //TODO change hardcoded userId to `${currentUserId}`
   const postLikeRecipe = async () => {
     await axios
-      .post(`/users/5791cd11-7f6a-4fc5-bbc3-bd09a289ca9d/favorites/`, {
+      .post(`/users/${cookie.userId}/favorites/`, {
         id: `${props.recipeId}`,
       })
       .then(() => {
@@ -55,7 +57,7 @@ const SingleRecipeModule = (props) => {
   //TODO change hardcoded userId to `${currentUserId}`
   const postUnlikeRecipe = async () => {
     await axios
-      .delete(`/users/5791cd11-7f6a-4fc5-bbc3-bd09a289ca9d/favorites/`, {
+      .delete(`/users/${cookie.userId}d/favorites/`, {
 				data: {
 					id: `${props.recipeId}`,
 				}
@@ -72,7 +74,7 @@ const SingleRecipeModule = (props) => {
   //TODO change hardcoded userId to `${currentUserId}`
   const postSaveRecipe = async () => {
     await axios
-      .post(`/users/5791cd11-7f6a-4fc5-bbc3-bd09a289ca9d/saved/`, {
+      .post(`/users/${cookie.userId}/saved/`, {
         id: `${props.recipeId}`,
       })
       .then(() => {
@@ -87,7 +89,7 @@ const SingleRecipeModule = (props) => {
   //TODO change hardcoded userId to `${currentUserId}`
   const postUnsaveRecipe = async () => {
     await axios
-      .delete(`/users/5791cd11-7f6a-4fc5-bbc3-bd09a289ca9d/saved/`, {
+      .delete(`/users/${cookie.userId}/saved/`, {
 				data: {
 					id: `${props.recipeId}`,
 				}

@@ -17,6 +17,8 @@ import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import { useCookies } from "react-cookie";
+
 const MyRecipesPage = () => {
   //========= Hook that stores my recepies ======/
   const [myRecipes, setMyRecipes] = useState([
@@ -45,6 +47,8 @@ const MyRecipesPage = () => {
       estimate: "35 min",
     },
   ]);
+
+	const [cookie, setCookie] = useCookies(["user"])
 
   //=========== API get request for all "My recipes" =========//
   useEffect(() => {
@@ -151,7 +155,7 @@ const MyRecipesPage = () => {
   //==============API delete request to delete singel recipe ============//
   const deleteRecipe = (recipeId) => {
     axios
-      .delete(`/users/2c4799ed-203a-4162-9f33-9a577a8ba6fc/recipes/`, {
+      .delete(`/users/${cookie.userId}/recipes/`, {
         id: `${recipeId}`,
       })
       .then(() => {})
