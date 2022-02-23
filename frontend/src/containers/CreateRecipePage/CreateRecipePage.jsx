@@ -34,7 +34,7 @@ const CreateRecipePage = () => {
       ingredients: ingredients,
       steps: steps,
       category: "",
-      publishedBy: "",
+      publishedBy: "b7b14922-478a-41d1-9f81-ebcc4d53cb79",
     };
     await axios
       .post("/recipes/", recipe)
