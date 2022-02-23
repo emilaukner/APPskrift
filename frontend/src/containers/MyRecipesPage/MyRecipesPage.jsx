@@ -19,9 +19,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const MyRecipesPage = () => {
   //========= Hook that stores my recepies ======/
+	const [rows, setRows] = useState([])
   const [myRecipes, setMyRecipes] = useState([
     {
-      id: 40,
+      recipeId: 40,
       dateMade: "20/10/2022",
       title: "Kjøttboller",
       difficulty: "E",
@@ -29,7 +30,7 @@ const MyRecipesPage = () => {
       estimate: "30 min",
     },
     {
-      id: 41,
+      recipeId: 41,
       dateMade: "20/10/2023",
       title: "Pizza",
       difficulty: "H",
@@ -37,7 +38,7 @@ const MyRecipesPage = () => {
       estimate: "15 min",
     },
     {
-      id: 42,
+      recipeId: 42,
       dateMade: "22/10/2023",
       title: "Suppe",
       difficulty: "M",
@@ -48,12 +49,22 @@ const MyRecipesPage = () => {
 
   //=========== API get request for all "My recipes" =========//
   useEffect(() => {
-    axios
-      .get(`/users/2c4799ed-203a-4162-9f33-9a577a8ba6fc/recipes/`)
-      .then((response) => {
-        setMyRecipes(response.data);
-      });
+		getRecipes();
   }, []);
+
+	useEffect(() => {
+		addRecipesToRows();
+	}, [myRecipes]);
+
+	const getRecipes = () => {
+		axios
+		.get(`/users/b7b14922-478a-41d1-9f81-ebcc4d53cb79/recipes/`)
+		.then((response) => {
+			console.log("Updating recipes:", response.data)
+			setMyRecipes(response.data);
+			addRecipesToRows();
+		});
+	}
 
   //============= Create column types ============//
   const columns = [
@@ -95,42 +106,46 @@ const MyRecipesPage = () => {
   };
 
   //==== Creates rows for each recepie from API request and add to table (as rows) ====//
-  let rows = [];
-  const addRecepiesToRows = myRecipes.forEach((recipe) => {
-    rows.push(
-      createData(
-        recipe.id,
-        recipe.dateMade,
-        recipe.title,
-        recipe.difficulty === "E"
-          ? "Easy"
-          : recipe.difficulty === "M"
-          ? "Medium"
-          : recipe.difficulty === "H"
-          ? "Hard"
-          : "",
-        <Rating
-          name="half-rating-read"
-          defaultValue={recipe.score}
-          precision={0.5}
-          readOnly
-        />,
-        recipe.estimate,
-        <>
-          <IconButton
-            onClick={(event) => handleEditRecipeClick(event, recipe.id)}
-          >
-            <EditIcon />
-          </IconButton>
-          <IconButton
-            onClick={(event) => handleDeleteRecipeClick(event, recipe.id)}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </>
-      )
-    );
-  });
+  const addRecipesToRows = () => {
+		let temp = []
+		console.log("Adding recipes to row:", myRecipes)
+		myRecipes.forEach((recipe) => {
+			temp.push(
+				createData(
+					recipe.recipeId,
+					recipe.dateMade,
+					recipe.title,
+					recipe.difficulty === "E"
+						? "Easy"
+						: recipe.difficulty === "M"
+						? "Medium"
+						: recipe.difficulty === "H"
+						? "Hard"
+						: "",
+					<Rating
+						name="half-rating-read"
+						defaultValue={recipe.score}
+						precision={0.5}
+						readOnly
+					/>,
+					recipe.estimate,
+					<>
+						<IconButton
+							onClick={(event) => handleEditRecipeClick(event, recipe.recipeId)}
+						>
+							<EditIcon />
+						</IconButton>
+						<IconButton
+							onClick={(event) => handleDeleteRecipeClick(event, recipe.recipeId)}
+						>
+							<DeleteIcon />
+						</IconButton>
+					</>
+				)
+			);
+		});
+		setRows(temp);
+}
 
   //========== Functions to handle delete and edit of recepies =======//
   const handleEditRecipeClick = (event, id) => {
@@ -144,17 +159,16 @@ const MyRecipesPage = () => {
     event.preventDefault();
     event.stopPropagation();
     deleteRecipe(id);
-    console.log("Delete: " + id);
     //TODO Show success or fail og API delete request. First ask user to confirm and then delete?
   };
 
   //==============API delete request to delete singel recipe ============//
   const deleteRecipe = (recipeId) => {
     axios
-      .delete(`/users/2c4799ed-203a-4162-9f33-9a577a8ba6fc/recipes/`, {
-        id: `${recipeId}`,
-      })
-      .then(() => {})
+      .delete(`/recipes/${recipeId}/`)
+      .then(() => {
+				getRecipes();
+			})
       .catch((error) => {
         console.log(error);
       });
@@ -191,7 +205,6 @@ const MyRecipesPage = () => {
             </Typography>
             <br />
             <br />
-            {addRecepiesToRows}
             <Box sx={{ width: "100%" }}>
               <Paper sx={{ width: "100%", overflow: "hidden" }}>
                 <TableContainer>
