@@ -97,3 +97,14 @@ class CommentView(viewsets.ModelViewSet):
 class EvaluationView(viewsets.ModelViewSet):
 	serializer_class = EvaluationSerializer
 	queryset = Evaluation.objects.all()
+
+class AuthenticationView(APIView):
+	def post(self, request):
+		email = request.data["email"]
+		password = request.data["password"]
+		try:
+			user = User.objects.get(email=email, password=password)
+			serializer = UserSerializer(user)
+			return Response(serializer.data)
+		except User.DoesNotExist:
+			return Response("error", status=500)
