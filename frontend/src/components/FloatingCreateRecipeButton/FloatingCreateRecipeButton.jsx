@@ -8,16 +8,16 @@ const CreateRecipeButton = (props) => {
   return (
     <>
       {props.showButton ? (
-      <StyledDiv>
-        <Link to="/create-recipe/">
+        <StyledDiv>
+          <Link to="/create-recipe/" style={{ textDecoration: "none" }}>
             <Box>
               <Fab variant="extended">
                 <EditIcon />
                 Create Recipe
               </Fab>
             </Box>
-        </Link>
-      </StyledDiv>
+          </Link>
+        </StyledDiv>
       ) : null}
     </>
   );
