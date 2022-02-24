@@ -37,8 +37,10 @@ const Navbar = () => {
   };
 
   const handleOpenProfile = () => {
-    <UserProfileComponent showProfile="true"/>
+    <UserProfileComponent showProfile={true}/>
   };
+
+
 
   return (
     <AppBar position="static" style={{ background: "#FFFFFF" }}>
@@ -194,12 +196,12 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <><MenuItem key={"Min profil"} onClick={handleOpenProfile}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem><MenuItem key={"Logg Ut"} onClick={handleCloseUserMenu}>
-                  </MenuItem></>
-              ))}
+               <MenuItem key={"Min Profil"} onClick={handleOpenProfile}>
+                  <Typography textAlign="center">My Profile</Typography>
+                </MenuItem>
+                <MenuItem key={"Logg Ut"} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Logg Ut</Typography>
+                </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
