@@ -1,8 +1,6 @@
 from cgi import test
-from msilib.schema import Error
 from unicodedata import category
 from django.test import TestCase
-from sympy import re
 
 from APPskrift.models import Recipe, User, Category, Comment, Evaluation
 
