@@ -43,3 +43,12 @@ Takes in the following body and saves as a recipe:
 	"publishedBy": ""
 }
 ```
+
+## DELETE
+At the following endpoint: `recipes/{RECIPE_ID}/` send a delete request and the recipe will be deleted
+
+# Detail view at /recipes/{RECIPE_ID}
+
+## GET
+Shows the datails about the given recipe
+

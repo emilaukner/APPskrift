@@ -16,6 +16,20 @@ class UserView(viewsets.ModelViewSet):
 	serializer_class = UserSerializer
 	queryset = User.objects.all()
 
+	@action(methods=["get"], detail=True)
+	def recipes(self, request, pk=True):
+		recipes = None
+		try:
+			recipes = Recipe.objects.filter(publishedBy=self.kwargs.get("pk"))
+			user_recipes = RecipeSerializer(recipes, many=True)
+			return Response(user_recipes.data)
+			
+		except Recipe.DoesNotExist as e:
+			recipes = []
+			print(e)
+			return Response(recipes)
+		
+
 	@action(methods=['get'], detail=True)
 	def favorites(self, request, pk=True):
 		user = get_object_or_404(User, pk=self.kwargs.get("pk"))
@@ -83,3 +97,14 @@ class CommentView(viewsets.ModelViewSet):
 class EvaluationView(viewsets.ModelViewSet):
 	serializer_class = EvaluationSerializer
 	queryset = Evaluation.objects.all()
+
+class AuthenticationView(APIView):
+	def post(self, request):
+		email = request.data["email"]
+		password = request.data["password"]
+		try:
+			user = User.objects.get(email=email, password=password)
+			serializer = UserSerializer(user)
+			return Response(serializer.data)
+		except User.DoesNotExist:
+			return Response("error", status=500)

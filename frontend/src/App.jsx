@@ -5,7 +5,9 @@ import UserRecipePage from "./containers/UserRecipePage/UserRecipePage";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-import ViewRecipe from "./containers/ViewRecipe/ViewRecipe";
+import MyRecipesPage from "./containers/MyRecipesPage/MyRecipesPage";
+import SingleRecipePage from "./containers/SingleRecipePage/SingleRecipePage";
+
 
 function App() {
   return (
@@ -17,7 +19,7 @@ function App() {
             <FrontPage />
           </Route>
           <Route path="/my-recipes/">
-            <UserRecipePage/>
+            <MyRecipesPage />
           </Route>
           <Route path="/my-favorites/">
             <p>my favorites</p>
@@ -28,8 +30,8 @@ function App() {
           <Route path="/create-recipe/">
             <CreateRecipePage />
           </Route>
-          <Route path="/view-recipe/">
-            <ViewRecipe/>
+          <Route path="/recipe/:id">
+            <SingleRecipePage />
           </Route>
         </Switch>
       </div>
