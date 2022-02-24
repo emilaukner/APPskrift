@@ -16,6 +16,20 @@ class UserView(viewsets.ModelViewSet):
 	serializer_class = UserSerializer
 	queryset = User.objects.all()
 
+	@action(methods=["get"], detail=True)
+	def recipes(self, request, pk=True):
+		recipes = None
+		try:
+			recipes = Recipe.objects.filter(publishedBy=self.kwargs.get("pk"))
+			user_recipes = RecipeSerializer(recipes, many=True)
+			return Response(user_recipes.data)
+			
+		except Recipe.DoesNotExist as e:
+			recipes = []
+			print(e)
+			return Response(recipes)
+		
+
 	@action(methods=['get'], detail=True)
 	def favorites(self, request, pk=True):
 		user = get_object_or_404(User, pk=self.kwargs.get("pk"))
@@ -32,6 +46,15 @@ class UserView(viewsets.ModelViewSet):
 		recipe = get_object_or_404(Recipe, pk=recipe_pk)
 		user.favorites.add(recipe)
 		return Response("Nice", status=200)
+
+	@favorites.mapping.delete
+	def remove_favorites(self, request, pk=True):
+		recipe_pk = request.data["id"]
+		print(recipe_pk)
+		user = self.get_object()
+		recipe = get_object_or_404(Recipe, pk=recipe_pk)
+		user.favorites.remove(recipe)
+		return Response("OK", status=200)
 
 	@action(methods=['get'], detail=True)
 	def saved(self, request, pk=True):
@@ -50,6 +73,13 @@ class UserView(viewsets.ModelViewSet):
 		recipe = get_object_or_404(Recipe, pk=saved_pk)
 		user.saved.add(recipe)
 		return Response("Nice", status=200)
+	
+	@saved.mapping.delete
+	def remove_saved(self, request, pk=True):
+		user = self.get_object()
+		recipe = get_object_or_404(Recipe, pk=request.data["id"])
+		user.saved.remove(recipe)
+		return Response("OK", status=200)
 
 
 class RecipeView(viewsets.ModelViewSet):
@@ -67,3 +97,14 @@ class CommentView(viewsets.ModelViewSet):
 class EvaluationView(viewsets.ModelViewSet):
 	serializer_class = EvaluationSerializer
 	queryset = Evaluation.objects.all()
+
+class AuthenticationView(APIView):
+	def post(self, request):
+		email = request.data["email"]
+		password = request.data["password"]
+		try:
+			user = User.objects.get(email=email, password=password)
+			serializer = UserSerializer(user)
+			return Response(serializer.data)
+		except User.DoesNotExist:
+			return Response("error", status=500)

@@ -5,6 +5,8 @@ import UserRecipePage from "./containers/UserRecipePage/UserRecipePage";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import MyRecipesPage from "./containers/MyRecipesPage/MyRecipesPage";
+import SingleRecipePage from "./containers/SingleRecipePage/SingleRecipePage";
 
 function App() {
   return (
@@ -15,17 +17,20 @@ function App() {
           <Route exact path="/">
             <FrontPage />
           </Route>
-          <Route path="/my-recepies/">
-            <UserRecipePage/>
+          <Route path="/my-recipes/">
+            <MyRecipesPage />
           </Route>
           <Route path="/my-favorites/">
             <p>my favorites</p>
           </Route>
-          <Route path="/saved-recepies/">
+          <Route path="/saved-recipes/">
             <p> saved-recepies </p>
           </Route>
           <Route path="/create-recipe/">
             <CreateRecipePage />
+          </Route>
+          <Route path="/recipe/:id">
+            <SingleRecipePage />
           </Route>
         </Switch>
       </div>
