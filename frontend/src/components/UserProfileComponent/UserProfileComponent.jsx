@@ -27,15 +27,12 @@ const UserProfileComponent = (props) => {
     const [lastName, setlastName] = useState("yy");
     const [email, setemail] = useState("eeS");
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
   
   return (
     <>
-    {props.showProfile ?
-    handleOpen
-    : handleClose}
       <Modal 
           open={open}
           onClose={handleClose}

@@ -13,19 +13,19 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
 import UserProfileComponent from "../UserProfileComponent/UserProfileComponent"
-import Popup from "reactjs-popup";
 
 const settings = ["Min profil", "Logg ut"];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
-    setAnchorElUser(<UserProfileComponent showProfile={true}/>);
+    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
@@ -37,12 +37,14 @@ const Navbar = () => {
   };
 
   const handleOpenProfile = () => {
-    <UserProfileComponent showProfile={true}/>
+    setOpen(!open);
   };
 
 
 
   return (
+    <>
+    {open ? <UserProfileComponent/> : null}
     <AppBar position="static" style={{ background: "#FFFFFF" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ backgorundColor: "red" }}>
@@ -197,7 +199,7 @@ const Navbar = () => {
               onClose={handleCloseUserMenu}
             >
                <MenuItem key={"Min Profil"} onClick={handleOpenProfile}>
-                  <Typography textAlign="center">My Profile</Typography>
+                  <Typography textAlign="center">Min Profil</Typography>
                 </MenuItem>
                 <MenuItem key={"Logg Ut"} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Logg Ut</Typography>
@@ -207,6 +209,7 @@ const Navbar = () => {
         </Toolbar>
       </Container>
     </AppBar>
+    </>
   );
 };
 export default Navbar;
