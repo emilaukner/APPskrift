@@ -1,5 +1,6 @@
 import React from "react";
 import Paper from "@mui/material/Paper";
+import CloseIcon from "@mui/icons-material/Close";
 import { StyledProfilePopup } from "./style";
 import { useState } from "react";
 import Box from "@mui/material/Box";
@@ -15,18 +16,6 @@ const UserProfileComponent = ({onClose, show}) => {
     const [lastName, setlastName] = useState("yy");
     const [email, setemail] = useState("eeS");
   
-
-    const style =    {
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: 400,
-        bgcolor: "background.paper",
-        border: "2px solid #000",
-        boxShadow: 24,
-        p: 4,
-      }
   return (
     <>
     <StyledProfilePopup show={show}>
@@ -38,6 +27,17 @@ const UserProfileComponent = ({onClose, show}) => {
               justifyContent="center"
               alignItems="center"
               >
+                <Grid xs={1}>
+                  <CloseIcon 
+					style={{
+	    				fill: "red",
+                        cursor: "pointer",
+                        justifyContent: "right",
+                    }}
+					onClick={onClose}
+				    />
+                </Grid>
+                
                   <Grid item xs={12}>
                       <img src=""/>
                   </Grid>
