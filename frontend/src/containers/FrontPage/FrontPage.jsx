@@ -5,7 +5,6 @@ import Food from "../../assets/Food.png";
 import SingleRecepieModule from "../../components/SingleRecipeModule/SingleRecipeModule";
 import Dish from "../../assets/DishDeleteMe.png";
 import axios from "axios";
-import LogInPopUp from "../../components/LogInPopUp/LogInPopUp";
 import { useCookies } from "react-cookie";
 
 const FrontPage = () => {
@@ -96,7 +95,6 @@ const FrontPage = () => {
         {createRecipeModules()}
       </div>
       <FloatingCreateRecipeButton showButton={true} />
-			<LogInPopUp onClose={() => setLoginShow(false)} show={loginShow}/>
     </>
   );
 };

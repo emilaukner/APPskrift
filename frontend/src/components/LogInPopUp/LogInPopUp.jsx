@@ -6,6 +6,7 @@ import { useState } from "react";
 import { StyledLoginPopup } from "./LoginPopUp.style";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import CreateUser from "../CreateUser/CreateUser";
 import axios from "axios";
 
 const LogInPopUp = ({onClose, show}) => {
@@ -13,6 +14,7 @@ const LogInPopUp = ({onClose, show}) => {
 	const [password, setPassword] = useState();
 	const [error, setError] = useState(false);
 	const [cookie, setCookie] = useCookies(["user"])
+	const [showCreateUser, setShowCreateUser] = useState(false);
 
 	const submitLogin = async () => {
 		await axios
@@ -36,13 +38,8 @@ const LogInPopUp = ({onClose, show}) => {
 
 	return(
 		<StyledLoginPopup show={show}>		
-			<Box 
-				sx={{
-					width: "50%",
-					display: "flex",
-				}}
-			>
-					<Paper sx={{padding: "7%", width: "100%"}}>
+ 				<Box sx={{ width: "30%", top: "5%", left: "37.5%", position: "fixed" }}>
+					<Paper sx={{padding: "7%"}}>
 					{error ? (
 						<Alert severity="error">Feilet! Kunne ikke logge inn!</Alert>
 					) : null}
@@ -92,11 +89,15 @@ const LogInPopUp = ({onClose, show}) => {
 								</Button>
 							</Grid>
 							<Grid item xs={12}>
-								<Link onClick={() => console.log("Create user requested")}>Create user</Link>
+								<Link onClick={() => setShowCreateUser(true)}>Create user</Link>
 							</Grid>
 						</Grid>
 					</Paper>
 			</Box>
+			<CreateUser 
+				show={showCreateUser} 
+				onComplete={() => setShowCreateUser(false)}
+			/>
 		</StyledLoginPopup>
 	)
 }
