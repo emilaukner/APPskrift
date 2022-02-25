@@ -19,7 +19,7 @@ const settings = ["Min profil", "Logg ut"];
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [open, setOpen] = React.useState(false);
+  const [profileShow, setProfileShow] = React.useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -36,15 +36,10 @@ const Navbar = () => {
     setAnchorElUser(null);
   };
 
-  const handleOpenProfile = () => {
-    setOpen(!open);
-  };
-
 
 
   return (
     <>
-    {open ? <UserProfileComponent/> : null}
     <AppBar position="static" style={{ background: "#FFFFFF" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ backgorundColor: "red" }}>
@@ -198,7 +193,7 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-               <MenuItem key={"Min Profil"} onClick={handleOpenProfile}>
+               <MenuItem key={"Min Profil"} onClick={() => setProfileShow(true)}>
                   <Typography textAlign="center">Min Profil</Typography>
                 </MenuItem>
                 <MenuItem key={"Logg Ut"} onClick={handleCloseUserMenu}>
@@ -208,6 +203,7 @@ const Navbar = () => {
           </Box>
         </Toolbar>
       </Container>
+      <UserProfileComponent onClose={() => setProfileShow(false)} show = {profileShow}/>
     </AppBar>
     </>
   );
