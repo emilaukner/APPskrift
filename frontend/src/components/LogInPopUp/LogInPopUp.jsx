@@ -46,12 +46,12 @@ const LogInPopUp = ({onClose, show}) => {
 						<Grid container spacing={2}>
 							<Grid item xs={12}>
 								<Typography variant="h4" component="div" gutterBottom>
-									Log In
+									Logg Inn
 								</Typography>
 							</Grid>
 							<Grid item xs={12}>
 								<Typography variant="p" component="div" gutterBottom>
-									Start creating your own recipes now!
+									Begynn å lag dine egne oppskrifter nå!
 								</Typography>
 							</Grid>
 							<Grid item xs={12}>
@@ -69,7 +69,7 @@ const LogInPopUp = ({onClose, show}) => {
 								<TextField
 									id="login-input"
 									type="password"
-									label="Password"
+									label="Passord"
 									value={password}
 									onChange={(e) => setPassword(e.target.value)}
 									sx={{
@@ -85,11 +85,11 @@ const LogInPopUp = ({onClose, show}) => {
 									}}
 									onClick={submitLogin}
 								>
-									Log in
+									Logg inn
 								</Button>
 							</Grid>
 							<Grid item xs={12}>
-								<Link onClick={() => setShowCreateUser(true)}>Create user</Link>
+								<Link onClick={() => setShowCreateUser(true)}>Lag en bruker</Link>
 							</Grid>
 						</Grid>
 					</Paper>
