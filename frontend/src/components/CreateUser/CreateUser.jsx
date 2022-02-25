@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { Button } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { StyledCreateUser } from "./CreateUser.style";
 
@@ -52,6 +53,14 @@ const CreateUser = (props) => {
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid>
             <Paper sx={{ padding: "7%" }}>
+							<CloseIcon 
+								style={{
+									fill: "red",
+									cursor: "pointer",
+									marginLeft: "100%"
+								}}
+								onClick={props.onClose}
+							/>
               <Typography variant="h5" component="div" gutterBottom>
                 Opprett ny bruker
               </Typography>

@@ -6,10 +6,12 @@ import { useState } from "react";
 import { StyledLoginPopup } from "./LoginPopUp.style";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import CloseIcon from '@mui/icons-material/Close';
 import CreateUser from "../CreateUser/CreateUser";
 import axios from "axios";
+import { grid } from "@mui/system";
 
-const LogInPopUp = ({onClose, show}) => {
+const LogInPopUp = ({onClose, onSuccess, show}) => {
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
 	const [error, setError] = useState(false);
@@ -24,7 +26,7 @@ const LogInPopUp = ({onClose, show}) => {
 		})
 		.then((res) => {
 			console.log("Login was successful", res)
-			onClose();
+			onSuccess();
 			setCookie("userId", res.data.userId);
 		})
 		.catch((err) => {
@@ -36,18 +38,32 @@ const LogInPopUp = ({onClose, show}) => {
 		})
 	}
 
+	const onCreateUserClose = () => {
+		setShowCreateUser(false);
+		onClose();
+	}
+
 	return(
-		<StyledLoginPopup show={show}>		
+		<StyledLoginPopup show={show}>
  				<Box sx={{ width: "30%", top: "5%", left: "37.5%", position: "fixed" }}>
-					<Paper sx={{padding: "7%"}}>
+					<Paper sx={{padding: "7%"}}>	
 					{error ? (
 						<Alert severity="error">Feilet! Kunne ikke logge inn!</Alert>
 					) : null}
 						<Grid container spacing={2}>
-							<Grid item xs={12}>
+							<Grid item xs={11}>
 								<Typography variant="h4" component="div" gutterBottom>
 									Logg Inn
 								</Typography>
+							</Grid>
+							<Grid item xs={1}>
+								<CloseIcon 
+								style={{
+									fill: "red",
+									cursor: "pointer",
+								}}
+								onClick={onClose}
+								/>
 							</Grid>
 							<Grid item xs={12}>
 								<Typography variant="p" component="div" gutterBottom>
@@ -97,6 +113,7 @@ const LogInPopUp = ({onClose, show}) => {
 			<CreateUser 
 				show={showCreateUser} 
 				onComplete={() => setShowCreateUser(false)}
+				onClose={onCreateUserClose}
 			/>
 		</StyledLoginPopup>
 	)

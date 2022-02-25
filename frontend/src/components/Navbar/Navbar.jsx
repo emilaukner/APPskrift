@@ -221,7 +221,11 @@ const Navbar = () => {
           </Box>
         </Toolbar>
       </Container>
-			<LogInPopUp onClose={handleLogInComplete} show={loginShow}/>
+			<LogInPopUp 
+				onSuccess={handleLogInComplete} 
+				onClose={() => setLoginShow(false)} 
+				show={loginShow}
+			/>
     </AppBar>
   );
 };
