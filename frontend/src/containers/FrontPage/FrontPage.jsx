@@ -9,31 +9,26 @@ import CreateUser from "../../components/CreateUser/CreateUser";
 import { ToggleButtonGroup, ToggleButton, Paper } from "@mui/material";
 import { Box, Grid, Divider, Typography } from "@mui/material";
 import { useCookies } from "react-cookie";
+import { getFilteredRecipes } from "./helpers";
 
 const FrontPage = () => {
   //TODO make catogories a own component
   //===============Categories selection =======================//
-  const [meal, setMeal] = useState();
-  const [estimate, setEstimate] = useState();
-  const [cousine, setCousine] = useState();
+  const [meal, setMeal] = useState(() => []);
+  const [estimate, setEstimate] = useState(() => []);
+  const [cousine, setCousine] = useState(() => []);
   const [otherCategories, setOtherCategories] = useState(() => []);
 
   const handleChangeMeal = (event, newMeal) => {
-    if (newMeal !== null) {
-      setMeal(newMeal);
-    }
+    setMeal(newMeal);
   };
 
   const handleChangeEstimate = (event, newEstimate) => {
-    if (newEstimate !== null) {
-      setEstimate(newEstimate);
-    }
+    setEstimate(newEstimate);
   };
 
   const handleChangeCousine = (event, newCouisine) => {
-    if (newCouisine !== null) {
-      setCousine(newCouisine);
-    }
+    setCousine(newCouisine);
   };
 
   const handleChangeOtherCategories = (event, newOtherCategories) => {
@@ -44,9 +39,9 @@ const FrontPage = () => {
   const [recipeData, setRecipeData] = useState([]);
   const [recipeLikedData, setRecipeLikedData] = useState([]);
   const [recipeSavedData, setRecipeSavedData] = useState([]);
-	const [loginShow, setLoginShow] = useState(true);
+  const [loginShow, setLoginShow] = useState(true);
 
-	const [cookie, setCookie] = useCookies(["user"])
+  const [cookie, setCookie] = useCookies(["user"]);
 
   //This function gets all liked recepies by current user
   const getRecipesLikedRequest = async () => {
@@ -94,7 +89,13 @@ const FrontPage = () => {
   const createRecipeModules = () => {
     console.log("Saved:", recipeSavedData);
     console.log("Liked:", recipeLikedData);
-    const recipes = recipeData.map((recipe) => {
+    const recipes = getFilteredRecipes(
+      recipeData,
+      meal,
+      estimate,
+      cousine,
+      otherCategories
+    ).map((recipe) => {
       return (
         <SingleRecepieModule
           recipeId={recipe.recipeId}
@@ -120,13 +121,12 @@ const FrontPage = () => {
       {/* TODO move category to own component*/}
       <Box
         sx={{
-          marginTop: "2%",
+          marginTop: "1%",
         }}
-        justifyContent="center"
       >
         <Grid container>
-          <Grid item xs={1} />
-          <Grid item xs={10}>
+          <Grid item xs />
+          <Grid container xs={10}>
             <Paper>
               <Grid container rowSpacing={1} sx={{ padding: "2%" }}>
                 <Grid item xs={3}>
@@ -209,6 +209,7 @@ const FrontPage = () => {
               </Grid>
             </Paper>
           </Grid>
+          <Grid item xs />
         </Grid>
       </Box>
 
