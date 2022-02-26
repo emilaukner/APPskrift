@@ -12,12 +12,17 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import LogInPopUp from "../LogInPopUp/LogInPopUp";
 
 const settings = ["Min profil", "Logg ut"];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+	const [cookie, setCookie, removeCookie] = useCookies(["user"])
+	const [userLoggedIn, setUserLoggedIn] = React.useState(cookie.userId != null);
+	const [loginShow, setLoginShow] = React.useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -33,6 +38,16 @@ const Navbar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+	const handleLogInComplete = () => {
+		setUserLoggedIn(true);
+		setLoginShow(false);
+	}
+
+	const handleLogOut = () => {
+		removeCookie("userId");
+		setUserLoggedIn(false);
+	}
 
   return (
     <AppBar position="static" style={{ background: "#FFFFFF" }}>
@@ -188,15 +203,29 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              
+							<MenuItem key="Min profil" onClick={handleCloseUserMenu}>
+								<Typography textAlign="center">Min profil</Typography>
+							</MenuItem>
+							
+							{userLoggedIn ? 
+								<MenuItem key="Logg ut" onClick={handleLogOut}>
+									<Typography textAlign="center">Logg ut</Typography>
+								</MenuItem>
+							:
+								<MenuItem key="Logg inn" onClick={() => setLoginShow(true)}>
+									<Typography textAlign="center">Logg inn</Typography>
+								</MenuItem>
+							}
             </Menu>
           </Box>
         </Toolbar>
       </Container>
+			<LogInPopUp 
+				onSuccess={handleLogInComplete} 
+				onClose={() => setLoginShow(false)} 
+				show={loginShow}
+			/>
     </AppBar>
   );
 };

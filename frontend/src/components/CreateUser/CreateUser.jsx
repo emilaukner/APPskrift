@@ -6,11 +6,13 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { Button } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 import FileUploadIcon from "@mui/icons-material/FileUpload";
+import { StyledCreateUser } from "./CreateUser.style";
 
 //========TODO backdrop when login and create user is showed =========//
 
-const CreateUser = () => {
+const CreateUser = (props) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,6 +39,7 @@ const CreateUser = () => {
         setPassword("");
         setConfirmPassword("");
         setProfilePicture("");
+				props.onComplete();
       })
       .catch(function (error) {
         console.log(error);
@@ -45,11 +48,19 @@ const CreateUser = () => {
   };
 
   return (
-    <>
+    <StyledCreateUser show={props.show}>
       <Box sx={{ width: "30%", top: "5%", left: "37.5%", position: "fixed" }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid>
             <Paper sx={{ padding: "7%" }}>
+							<CloseIcon 
+								style={{
+									fill: "red",
+									cursor: "pointer",
+									marginLeft: "100%"
+								}}
+								onClick={props.onClose}
+							/>
               <Typography variant="h5" component="div" gutterBottom>
                 Opprett ny bruker
               </Typography>
@@ -160,7 +171,7 @@ const CreateUser = () => {
           </Grid>
         </Grid>
       </Box>
-    </>
+    </StyledCreateUser>
   );
 };
 

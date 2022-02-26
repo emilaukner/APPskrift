@@ -7,6 +7,8 @@ import TextField from "@mui/material/TextField";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import Alert from "@mui/material/Alert";
 import axios from "axios";
+
+import { useCookies } from "react-cookie";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Divider from "@mui/material/Divider";
@@ -19,6 +21,7 @@ const CreateRecipePage = () => {
   const [ingredients, setIngredients] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [errorShow, setErrorShow] = useState(false);
+	const [cookie, setCookie] = useCookies(["user"])
 
   //===============Categories selection =======================//
   const [meal, setMeal] = useState("Frokost");
@@ -70,7 +73,7 @@ const CreateRecipePage = () => {
       ingredients: ingredients,
       steps: steps,
       category: "",
-      publishedBy: "b7b14922-478a-41d1-9f81-ebcc4d53cb79",
+      publishedBy: cookie.userId,
     };
 
     /* TODO SLIK VI MÅ GJØRE OM API TIL Å TA IMOT RECIPE, SLETTE DEN OVER
