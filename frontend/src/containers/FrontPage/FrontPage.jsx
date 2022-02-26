@@ -8,6 +8,7 @@ import axios from "axios";
 import CreateUser from "../../components/CreateUser/CreateUser";
 import { ToggleButtonGroup, ToggleButton, Paper } from "@mui/material";
 import { Box, Grid, Divider, Typography } from "@mui/material";
+import { useCookies } from "react-cookie";
 
 const FrontPage = () => {
   //TODO make catogories a own component
@@ -43,11 +44,14 @@ const FrontPage = () => {
   const [recipeData, setRecipeData] = useState([]);
   const [recipeLikedData, setRecipeLikedData] = useState([]);
   const [recipeSavedData, setRecipeSavedData] = useState([]);
+	const [loginShow, setLoginShow] = useState(true);
+
+	const [cookie, setCookie] = useCookies(["user"])
 
   //This function gets all liked recepies by current user
   const getRecipesLikedRequest = async () => {
     await axios
-      .get(`/users/5791cd11-7f6a-4fc5-bbc3-bd09a289ca9d/favorites/`)
+      .get(`/users/${cookie.userId}/favorites/`)
       .then((response) => {
         setRecipeLikedData(response.data);
       })
@@ -59,7 +63,7 @@ const FrontPage = () => {
   //This function gets all saved recepies by current user
   const getRecipesSavedRequest = async () => {
     await axios
-      .get(`/users/5791cd11-7f6a-4fc5-bbc3-bd09a289ca9d/saved/`)
+      .get(`/users/${cookie.userId}/saved/`)
       .then((response) => {
         setRecipeSavedData(response.data);
       })

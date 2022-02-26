@@ -17,6 +17,8 @@ import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import { useCookies } from "react-cookie";
+
 const MyRecipesPage = () => {
   //========= Hook that stores my recepies ======/
 	const [rows, setRows] = useState([])
@@ -47,6 +49,8 @@ const MyRecipesPage = () => {
     },
   ]);
 
+	const [cookie, setCookie] = useCookies(["user"])
+
   //=========== API get request for all "My recipes" =========//
   useEffect(() => {
 		getRecipes();
@@ -58,7 +62,7 @@ const MyRecipesPage = () => {
 
 	const getRecipes = () => {
 		axios
-		.get(`/users/b7b14922-478a-41d1-9f81-ebcc4d53cb79/recipes/`)
+		.get(`/users/${cookie.userId}/recipes/`)
 		.then((response) => {
 			console.log("Updating recipes:", response.data)
 			setMyRecipes(response.data);
