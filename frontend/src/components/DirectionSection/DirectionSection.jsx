@@ -1,35 +1,32 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { Typography, Grid } from "@mui/material";
-import axios from "axios";
-import { useParams } from "react-router-dom";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+
 
 
   
-const DirectionSection = () => {
+const DirectionSection = (props) => {
 
-  const { id } = useParams();  
-  const [recipe, setRecipe] = useState(); 
-  useEffect(() => {
-    axios
-      .get(`/recipes/${id}/`)
-      .then((response) => {
-        setRecipe(response.data);
-      })
-  })
+
+  //const steps = props.steps    HELP
+  const steps = "hei dette er testing av test. Hit skal recipe.steps når det funker"
   
 
   return (
     <>
-      <Grid>
-        <Typography style={{fontSize: "2em", fontWeight: "bold", margin:"4%", marginLeft: "5%"}}>Slik gjør du det</Typography>
-      </Grid>
-      <Grid style={{padding: "2%"}}>
-        <p>heilo what is up</p>
-      </Grid>
-
-      
-        
-       
+      <Box>
+        <Paper>
+            <Grid container style={{padding:"4%"}}>
+                <Grid item xs={12}>
+                    <Typography style={{fontSize: "2em", fontWeight: "bold"}}>Fremgangsmåte</Typography>
+                     </Grid>
+            <Grid item xs={12} style={{paddingTop:"3%"}}>
+            <Typography paragraph={true}>{steps}</Typography> 
+          </Grid>
+        </Grid>
+      </Paper>
+    </Box>        
     </>
   );
 };

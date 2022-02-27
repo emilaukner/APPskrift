@@ -1,0 +1,1 @@
+Folder for Single recipe header component.
