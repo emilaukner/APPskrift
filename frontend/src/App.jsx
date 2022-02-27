@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import MyRecipesPage from "./containers/MyRecipesPage/MyRecipesPage";
 import SingleRecipePage from "./containers/SingleRecipePage/SingleRecipePage";
+import CreateUser from "./components/CreateUser/CreateUser";
 
 
 function App() {
@@ -17,6 +18,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <FrontPage />
+          </Route>
+          <Route path="/create-new-account/">
+            <CreateUser />
           </Route>
           <Route path="/my-recipes/">
             <MyRecipesPage />
