@@ -18,9 +18,14 @@ const IngredientSection = () => {
       .then((response) => {
         setRecipe(response.data);
       })
+      .catch((error) => {
+        console.log(error);
+      })
   })
-  const ingredientList = random.split(',');
-  console.log(ingredientList);
+
+  
+  const ingredientList = ["lol", "lol"];
+  
   
 
   return (

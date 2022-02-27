@@ -18,6 +18,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
+import { Link } from "react-router-dom";
 
 const SingleRecipeModule = (props) => {
   //React hooks with the states liked and saved
@@ -26,13 +27,17 @@ const SingleRecipeModule = (props) => {
 
   /* Function that is called when user presses like button.
   If liked = true a delete request is made. If liked = false a post request is made.*/
-  const LikeRecipe = () => {
+  const LikeRecipe = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     liked ? postUnlikeRecipe() : postLikeRecipe();
   };
 
   /* Function that is called when user presses save button.
   If saved = true a delete request is made. If saved = false a post request is made.*/
-  const SaveRecipe = () => {
+  const SaveRecipe = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     saved ? postUnsaveRecipe() : postSaveRecipe();
   };
 
@@ -102,84 +107,86 @@ const SingleRecipeModule = (props) => {
 
   return (
     <>
-      <Card sx={{ maxWidth: 300 }}>
-        <CardMedia component="img" height="250" image={props.image} />
-        <CardContent>
-          <Grid
-            container
-            rowSpacing={0}
-            columnSpacing={0}
-            sx={{ lineHeight: 0 }}
-          >
-            <Grid item xs={10}>
-              <Typography variant="h5" component="div">
-                <Box sx={{ fontWeight: "bold" }}>{props.title}</Box>
-              </Typography>
+      <Link to={`/recipe/${props.recipeId}/`} style={{textDecoration:"none"}}>
+        <Card sx={{ maxWidth: 300 }}>
+          <CardMedia component="img" height="250" image={props.image} />
+          <CardContent>
+            <Grid
+              container
+              rowSpacing={0}
+              columnSpacing={0}
+              sx={{ lineHeight: 0 }}
+            >
+              <Grid item xs={10}>
+                <Typography variant="h5" component="div">
+                  <Box sx={{ fontWeight: "bold" }}>{props.title}</Box>
+                </Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <IconButton onClick={SaveRecipe}>
+                  {saved ? <BookmarkAddedIcon /> : <BookmarkBorderIcon />}
+                </IconButton>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="h8">
+                  {props.meal} ∘ {props.cousine}
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item xs={2}>
-              <IconButton onClick={SaveRecipe}>
-                {saved ? <BookmarkAddedIcon /> : <BookmarkBorderIcon />}
-              </IconButton>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="h8">
-                {props.meal} ∘ {props.cousine}
-              </Typography>
-            </Grid>
-          </Grid>
-          <Divider sx={{ paddingTop: "11%" }} />
-          <CardActions
-            sx={{
-              justifyContent: "space-around",
-              lineHeight: 0,
-              padding: 0,
-            }}
-          >
-            <Box>
-              <IconButton
-                onClick={LikeRecipe}
-                aria-label="add to favorites"
-                sx={{ fontSize: "1em", color: "darkgrey" }}
+            <Divider sx={{ paddingTop: "11%" }} />
+            <CardActions
+              sx={{
+                justifyContent: "space-around",
+                lineHeight: 0,
+                padding: 0,
+              }}
+            >
+              <Box>
+                <IconButton
+                  onClick={LikeRecipe}
+                  aria-label="add to favorites"
+                  sx={{ fontSize: "1em", color: "darkgrey" }}
+                >
+                  {!liked ? (
+                    <FavoriteBorderIcon />
+                  ) : (
+                    <FavoriteIcon sx={{ color: "Crimson" }} />
+                  )}
+                  <Typography>{props.numberOfLikes}</Typography>
+                </IconButton>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  color: "darkgrey",
+                }}
               >
-                {!liked ? (
-                  <FavoriteBorderIcon />
-                ) : (
-                  <FavoriteIcon sx={{ color: "Crimson" }} />
-                )}
-                <Typography>{props.numberOfLikes}</Typography>
-              </IconButton>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                color: "darkgrey",
-              }}
-            >
-              <AccessTimeIcon />
-              <Typography>{props.timeEstimate} min</Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                color: "darkgrey",
-              }}
-            >
-              <LocalDiningIcon />
-              <Typography>
-                {props.difficulty === "E"
-                  ? "Easy"
-                  : props.difficulty === "M"
-                  ? "Medium"
-                  : props.difficulty === "H"
-                  ? "Hard"
-                  : ""}
-              </Typography>
-            </Box>
-          </CardActions>
-        </CardContent>
-      </Card>
+                <AccessTimeIcon />
+                <Typography>{props.timeEstimate} min</Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  color: "darkgrey",
+                }}
+              >
+                <LocalDiningIcon />
+                <Typography>
+                  {props.difficulty === "E"
+                    ? "Easy"
+                    : props.difficulty === "M"
+                    ? "Medium"
+                    : props.difficulty === "H"
+                    ? "Hard"
+                    : ""}
+                </Typography>
+              </Box>
+            </CardActions>
+          </CardContent>
+        </Card>
+      </Link>
     </>
   );
 };
