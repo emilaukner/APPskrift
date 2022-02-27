@@ -3,6 +3,10 @@ import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { List, ListItem, ListItemText } from '@mui/material';
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Divider from "@mui/material/Divider";
 
 
 const random = "ost, 3 løk, 500 g kjøtdeig"; 
@@ -30,27 +34,25 @@ const IngredientSection = () => {
 
   return (
     <>
-      <Typography style={{fontSize: "2em", fontWeight: "bold", margin:"4%", marginLeft: "5%"}}>Ingredienser</Typography>
-
-      
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}> {ingredientList.map((value) => (
-          <ListItem key={value} disableGutters>
-        
+    <Box style={{width:"20%"}}>
+      <Paper>
+        <Grid container style={{padding:"10%"}}>
+          <Grid item xs={12}>
+            <Typography style={{fontSize: "2em", fontWeight: "bold"}}>Ingredienser</Typography>
+            </Grid>
+          <Grid item xs={12} style={{paddingTop:"15%"}}>
+          <Divider/>
+          <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}> {ingredientList.map((value) => (          
+          <ListItem key={value} disableGutters divider>    
             <ListItemText primary={value} />
-          </ListItem>
-        ))}
-        </List>
+          </ListItem>           
+          ))}
+          </List>
+          </Grid>
+        </Grid>
+      </Paper>
+    </Box>   
     </>
   );
 };
-
-/* <div>
-        {ingredientList.map((ingredient, index) => (
-          <>
-            <hr style={{margin:"2%", marginLeft:"5%", border:"1px solid lightgrey"}}></hr>
-            <Typography style={{fontSize: "1em", margin:"2%", marginLeft: "7%"}}key={index} item={ingredient}>{ingredient.key}</Typography>
-            </>
-          ))}    
-      </div>    */
-
 export default IngredientSection;
