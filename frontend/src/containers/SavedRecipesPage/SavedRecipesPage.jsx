@@ -1,7 +1,7 @@
 import { useCookies } from "react-cookie";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Typography } from "@mui/material";
+import { Paper, Typography, Box, Grid } from "@mui/material";
 
 const SavedRecipesPage = () => {
   const [recipeData, setRecipeData] = useState([]);
@@ -83,14 +83,23 @@ const SavedRecipesPage = () => {
 
   return (
     <>
-      <Typography
-        variant="h4"
-        component="div"
-        gutterBottom
-        sx={{ paddingLeft: "5%", paddingTop: "5%" }}
-      >
-        Lagrede oppskrifter
-      </Typography>
+      <Box>
+        <Grid container style={{ paddingTop: "2%" }}>
+          <Grid item xs={1} />
+          <Grid item xs={10}>
+            <Paper>
+              <Typography
+                variant="h4"
+                component="div"
+                gutterBottom
+                sx={{ padding: "3%", textAlign: "center" }}
+              >
+                Lagrede oppskrifter
+              </Typography>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Box>
 
       <div
         style={{
