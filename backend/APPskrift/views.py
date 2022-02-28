@@ -90,16 +90,6 @@ class CategoryView(viewsets.ModelViewSet):
 	serializer_class = CategorySerializer
 	queryset = Category.objects.all()
 
-	def create(self, request):
-		serializer = CategorySerializer(data=request.data)
-		try:
-			c = Category(title=request.data["title"])
-			c.save()
-			return Response(status=201)
-		except:
-			return Response(status=400)
-
-
 class CommentView(viewsets.ModelViewSet):
 	serializer_class = CommentSerializer
 	queryset = Comment.objects.all()

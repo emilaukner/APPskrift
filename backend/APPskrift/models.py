@@ -71,7 +71,7 @@ class Recipe(models.Model):
         return self.title
 
 class Category(models.Model): 
-    title = models.CharField(primary_key=True, editable=False, max_length=255)
+    title = models.CharField(primary_key=True, editable=True, max_length=255)
 
     def __str__(self): 
         return self.title

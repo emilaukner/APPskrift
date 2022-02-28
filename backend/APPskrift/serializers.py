@@ -28,7 +28,7 @@ class RecipeSerializer(serializers.ModelSerializer):
                     "cousine",
                     "estimate",
                     "meal",
-					"category",
+					"categories",
 					"publishedBy"
 				)
                 
