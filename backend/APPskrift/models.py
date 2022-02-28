@@ -32,14 +32,38 @@ class Recipe(models.Model):
         ('M', 'Medium'),
         ('H', 'Hard'),
     )
+    COUSINES = [
+        ("Europeisk", "Europeisk"),
+        ("Asiatisk", "Asiatisk"),
+        ("Fransk", "Fransk"),
+        ("Amerikansk", "Amerikansk"),
+        ("Indisk", "Indian"),
+        ("Annet", "Annet")
+	]
+
+    TIME_ESTIMATES = [
+        ("15 min", "15 min"),
+        ("30 min", "30 min"),
+        ("45 min", "45 min"),
+        ("1 time", "1 hour"),
+        ("Over 1 time", "Over 1 time")
+    ]
+
+    MEALS = [
+        ("Frokost", "Frokost"),
+        ("Lunsj", "Lunsj"),
+        ("Middag", "Middag")
+    ]
 
     recipeId = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=120, blank=False)
     difficulty = models.CharField(max_length=1, choices=DIFFICULTIES, default='E', blank=False)
-    estimate = models.IntegerField(blank=False)
     ingredients = models.TextField(blank=False)
     steps = models.TextField(blank=False)
     dateMade = models.DateField(auto_now_add=True)
+    cousine = models.CharField(max_length=255, choices=COUSINES, default="Annet", blank=False)
+    estimate = models.CharField(max_length=255, choices=TIME_ESTIMATES, default="15 min", blank=False)
+    meal = models.CharField(max_length=255, choices=MEALS, default="Middag", blank=False)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
     publishedBy = models.ForeignKey('User', on_delete=models.CASCADE, null=True)
 

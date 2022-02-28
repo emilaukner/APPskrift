@@ -22,10 +22,12 @@ class RecipeSerializer(serializers.ModelSerializer):
 					"recipeId",
 					"title",
 					"difficulty",
-					"estimate",
 					"ingredients",
 					"steps",
 					"dateMade",
+                    "cousine",
+                    "estimate",
+                    "meal",
 					"category",
 					"publishedBy"
 				)
