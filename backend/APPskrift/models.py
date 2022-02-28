@@ -64,15 +64,14 @@ class Recipe(models.Model):
     cousine = models.CharField(max_length=255, choices=COUSINES, default="Annet", blank=False)
     estimate = models.CharField(max_length=255, choices=TIME_ESTIMATES, default="15 min", blank=False)
     meal = models.CharField(max_length=255, choices=MEALS, default="Middag", blank=False)
-    category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
+    categories = models.ManyToManyField('Category', blank=True, related_name="categories")
     publishedBy = models.ForeignKey('User', on_delete=models.CASCADE, null=True)
 
     def _str_(self):
         return self.title
 
 class Category(models.Model): 
-    categoryId = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField(max_length=50, blank=False)
+    title = models.CharField(primary_key=True, editable=False, max_length=255)
 
     def __str__(self): 
         return self.title

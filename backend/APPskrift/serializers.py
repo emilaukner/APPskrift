@@ -36,8 +36,7 @@ class CategorySerializer(serializers.ModelSerializer):
         class Meta: 
             model = Category
             fields = (
-                "categoryId", 
-                "title"
+                "title",
             )
 
 class CommentSerializer(serializers.ModelSerializer):
