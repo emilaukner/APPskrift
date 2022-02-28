@@ -14,15 +14,16 @@ import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import LogInPopUp from "../LogInPopUp/LogInPopUp";
+import Logo from "../../assets/Logo.png";
 
 const settings = ["Min profil", "Logg ut"];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-	const [cookie, setCookie, removeCookie] = useCookies(["user"])
-	const [userLoggedIn, setUserLoggedIn] = React.useState(cookie.userId != null);
-	const [loginShow, setLoginShow] = React.useState(false);
+  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+  const [userLoggedIn, setUserLoggedIn] = React.useState(cookie.userId != null);
+  const [loginShow, setLoginShow] = React.useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -39,15 +40,15 @@ const Navbar = () => {
     setAnchorElUser(null);
   };
 
-	const handleLogInComplete = () => {
-		setUserLoggedIn(true);
-		setLoginShow(false);
-	}
+  const handleLogInComplete = () => {
+    setUserLoggedIn(true);
+    setLoginShow(false);
+  };
 
-	const handleLogOut = () => {
-		removeCookie("userId");
-		setUserLoggedIn(false);
-	}
+  const handleLogOut = () => {
+    removeCookie("userId");
+    setUserLoggedIn(false);
+  };
 
   return (
     <AppBar position="static" style={{ background: "#FFFFFF" }}>
@@ -63,7 +64,10 @@ const Navbar = () => {
               color: "#A9A9A9",
             }}
           >
-            APPSKRIFT
+            {/*APPSKRIFT*/}
+            <NavLink to="/">
+              <img src={Logo} height="45px" />
+            </NavLink>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -140,7 +144,10 @@ const Navbar = () => {
               color: "darkgrey",
             }}
           >
-            APPSKRIFT
+            {/*APPSKRIFT*/}
+            <NavLink to="/">
+              <img src={Logo} height="35px" />
+            </NavLink>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <NavLink to="/" style={{ textDecoration: "none" }}>
@@ -203,29 +210,28 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              
-							<MenuItem key="Min profil" onClick={handleCloseUserMenu}>
-								<Typography textAlign="center">Min profil</Typography>
-							</MenuItem>
-							
-							{userLoggedIn ? 
-								<MenuItem key="Logg ut" onClick={handleLogOut}>
-									<Typography textAlign="center">Logg ut</Typography>
-								</MenuItem>
-							:
-								<MenuItem key="Logg inn" onClick={() => setLoginShow(true)}>
-									<Typography textAlign="center">Logg inn</Typography>
-								</MenuItem>
-							}
+              <MenuItem key="Min profil" onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">Min profil</Typography>
+              </MenuItem>
+
+              {userLoggedIn ? (
+                <MenuItem key="Logg ut" onClick={handleLogOut}>
+                  <Typography textAlign="center">Logg ut</Typography>
+                </MenuItem>
+              ) : (
+                <MenuItem key="Logg inn" onClick={() => setLoginShow(true)}>
+                  <Typography textAlign="center">Logg inn</Typography>
+                </MenuItem>
+              )}
             </Menu>
           </Box>
         </Toolbar>
       </Container>
-			<LogInPopUp 
-				onSuccess={handleLogInComplete} 
-				onClose={() => setLoginShow(false)} 
-				show={loginShow}
-			/>
+      <LogInPopUp
+        onSuccess={handleLogInComplete}
+        onClose={() => setLoginShow(false)}
+        show={loginShow}
+      />
     </AppBar>
   );
 };
