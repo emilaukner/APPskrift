@@ -1,5 +1,4 @@
-import React from "react";
-import ReactRoundedImage from "react-rounded-image";
+import React, { useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import CloseIcon from "@mui/icons-material/Close";
 import { StyledProfilePopup } from "./style";
@@ -9,18 +8,33 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Button from '@mui/material/Button';
 import Profileimg from "../../assets/headshot.png";
+import axios from "axios";
+import { borderRadius } from "@mui/system";
 
-const UserProfileComponent = ({onLogout, onClose, show}) => {
+const UserProfileComponent = ({cookie, onLogOut, onClose, show}) => {
 
-    const [userID, setUserID] = useState("");
-    const [userImage, setImage] = useState("qq");
-    const [firstName, setfirstName] = useState("xx");
-    const [lastName, setlastName] = useState("yy");
-    const [email, setemail] = useState("eeS");
+    const [userID, setUserID] = useState();
+    const [userImage, setImage] = useState();
+    const [userName, setUserName] = useState();
+    const [email, setemail] = useState();
 
-    const handleLogOut = () => {
-        
-    }
+    useEffect(() => {
+		getUser();
+  }, []);
+
+    const getUser = async () => {
+        await axios
+        .get(`/users/${cookie.userId}`)
+        .then((res) => {
+            console.log(res.data.userId);
+            setUserID(res.data.userId);
+            setUserName(res.data.username);
+            setemail(res.data.email);
+        })
+        .catch((err) => {
+			console.log(err)
+		})
+    };
   
   return (
     <>
@@ -45,29 +59,25 @@ const UserProfileComponent = ({onLogout, onClose, show}) => {
               justifyContent="center"
               alignItems="center"
               >
-
                     <Grid item xs={12}>
-                    <ReactRoundedImage image={Profileimg}
-                    roundedColor="#FFFFFF"
-                    imageWidth="150"
-                    imageHeight="150"/>
+                        <img alt="profilePicture" src={Profileimg} height="200" width="200" style={{borderRadius:"50%"}}/>
                     </Grid>
                     <Grid item xs={12}>
                         <Typography>
-                            Fornavn Etternavn
+                        {userName}
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <Typography>
-                            Email
+                            {email}
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Button variant="text" onClick={() => onLogout()}>Logg ut</Button>
+                        <Button variant="text" onClick={onLogOut}>Logg ut</Button>
                     </Grid>
-                    <Grid item xs={12}>
+                    {/*<Grid item xs={12}>
                         <Button variant="text">Slett konto</Button>
-                    </Grid>
+                        </Grid>*/}
                 </Grid>
               </Paper>
           </Box>

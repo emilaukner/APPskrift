@@ -12,7 +12,6 @@ const FrontPage = () => {
   const [recipeData, setRecipeData] = useState([]);
   const [recipeLikedData, setRecipeLikedData] = useState([]);
   const [recipeSavedData, setRecipeSavedData] = useState([]);
-	const [loginShow, setLoginShow] = useState(true);
 
 	const [cookie, setCookie] = useCookies(["user"])
 

@@ -56,6 +56,7 @@ const Navbar = () => {
   const handleLogOut = () => {
     removeCookie("userId");
     setUserLoggedIn(false);
+    setProfileShow(false);
   };
 
   return (
@@ -235,7 +236,7 @@ const Navbar = () => {
           </Box>
         </Toolbar>
       </Container>
-      <UserProfileComponent onLogout={onLogout} onClose={() => setProfileShow(false)} show = {profileShow}/>
+      <UserProfileComponent onLogOut={handleLogOut} onClose={() => setProfileShow(false)} show = {profileShow} cookie = {cookie}/>
       <LogInPopUp
         onSuccess={handleLogInComplete}
         onClose={() => setLoginShow(false)}
