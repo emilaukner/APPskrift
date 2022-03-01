@@ -5,11 +5,12 @@ If a category is selected, only recepies matching the categories is returned
 
 export const getFilteredRecipes = (recipeData, meal, estimate, cousine, otherCategories) => 
     recipeData.filter(recipe => {
-        if (!meal.length && !estimate.length && !cousine.length && !meal.length && !otherCategories.length ) return true;
-        return (recipe.meal.some(spesificMeal => meal.includes(spesificMeal)) 
-                || recipe.estimate.some(spesificEstimate => estimate.includes(spesificEstimate)) 
-                || recipe.cousine.some(spesificCousine => cousine.includes(spesificCousine)) 
-                || recipe.otherCategories.some(spesificOtherCategories => otherCategories.includes(spesificOtherCategories))
+        console.log(recipe.meal)
+        if (!meal.length && !estimate.length && !cousine.length && !otherCategories.length ) return true;
+        return (!meal.length ? true : meal.includes(recipe.meal)
+                && !estimate.length ? true : estimate.includes(recipe.estimate) 
+                && !cousine.length ? true : cousine.includes(recipe.cousine) 
+                && !otherCategories.length ? true : recipe.categories.some(spesificOtherCategories => otherCategories.includes(spesificOtherCategories))
         );
     }
 );

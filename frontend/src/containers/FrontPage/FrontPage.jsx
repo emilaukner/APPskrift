@@ -87,8 +87,7 @@ const FrontPage = () => {
   }, []);
 
   const createRecipeModules = () => {
-    console.log("Saved:", recipeSavedData);
-    console.log("Liked:", recipeLikedData);
+    console.log(recipeData)
     const recipes = getFilteredRecipes(
       recipeData,
       meal,
