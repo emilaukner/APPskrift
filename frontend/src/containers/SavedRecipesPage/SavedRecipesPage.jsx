@@ -2,6 +2,7 @@ import { useCookies } from "react-cookie";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Paper, Typography, Box, Grid } from "@mui/material";
+import SingleRecipeModule from "../../components/SingleRecipeModule/SingleRecipeModule";
 
 const SavedRecipesPage = () => {
   const [recipeData, setRecipeData] = useState([]);
@@ -60,7 +61,7 @@ const SavedRecipesPage = () => {
       .filter((recipe) => recipeSavedData.includes(recipe.recipeId))
       .map((recipe) => {
         return (
-          <SingleRecepieModule
+          <SingleRecipeModule
             recipeId={recipe.recipeId}
             title={recipe.title}
             image={Dish}
