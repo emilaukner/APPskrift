@@ -66,8 +66,8 @@ const SavedRecipesPage = () => {
             recipeId={recipe.recipeId}
             title={recipe.title}
             image={Dish}
-            meal="Dessert"
-            cousine="European"
+            meal={recipe.meal}
+            cousine={recipe.cousine}
             timeEstimate={recipe.estimate}
             difficulty={recipe.difficulty}
             likedByUser={

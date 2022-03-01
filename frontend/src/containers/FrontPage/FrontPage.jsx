@@ -12,8 +12,9 @@ const FrontPage = () => {
   const [recipeData, setRecipeData] = useState([]);
   const [recipeLikedData, setRecipeLikedData] = useState([]);
   const [recipeSavedData, setRecipeSavedData] = useState([]);
+  const [loginShow, setLoginShow] = useState(true);
 
-	const [cookie, setCookie] = useCookies(["user"])
+  const [cookie, setCookie] = useCookies(["user"]);
 
   //This function gets all liked recepies by current user
   const getRecipesLikedRequest = async () => {
@@ -67,8 +68,8 @@ const FrontPage = () => {
           recipeId={recipe.recipeId}
           title={recipe.title}
           image={Dish}
-          meal="Dessert"
-          cousine="European"
+          meal={recipe.meal}
+          cousine={recipe.cousine}
           timeEstimate={recipe.estimate}
           difficulty={recipe.difficulty}
           likedByUser={recipeLikedData.includes(recipe.recipeId) ? true : false}
