@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Typography, Grid, Avatar } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
@@ -8,23 +8,46 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CircleIcon from '@mui/icons-material/Circle';
 import Food from "../../assets/Food.png";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
+import axios from "axios";
 
 
 const SingleRecipeHeader = (props) => {
 
-  
+  const [user, setUser] = useState();
+  const [recipe, setRecipe] = useState(props.recipe);
+
+  console.log(props);
+
+  useEffect(() => {
+    axios
+      .get(`/${props.recipe.publishedBy}/`)
+      .then((response) => {
+        setUser(response.data.username);
+      })
+  })
 
 
   //const title = props.title    HELP
-  const title = "Test: Blomkålsuppe";
+  const title = props.recipe.title;
   //const score = props.score    HELP
   const score = 4.5;
   const scoreNumber = 250;
   //const numberOfLikes = props.numberOfLikes    HELP
   const numberOfLikes = 355;
-  const difficulty = "Enkel"; 
-  const time = "25 min";
-  const name = "Ole Gunnar";
+  let difficulty = "Enkel";
+  switch(props.recipe.difficulty) {
+    case "E":
+      difficulty = "Enkel"
+      break;
+    case "M":
+      difficulty = "Medium"
+      break;
+    case "H":
+      difficulty = "Vanskelig"
+      break;
+  }
+  const time = props.recipe.estimate;
+  const name = user;
   const avatarImage = Food; 
 
 

@@ -22,15 +22,23 @@ const SingleRecipePage = () => {
 
   // Bilder må legges inn i modellen, før den kan importeres hit
 
+  if(!recipe) {
+    return(
+      <>
+        Could not find recipe
+      </>
+    )
+  }
+
   return (
     <>
       <Grid container spacing={5} style={{padding:"2%"}}>
         <Grid item xs={3}>
           <Avatar src={avatarImage} variant="square" style={{width:"100%", height:"100%"}}></Avatar>
         </Grid>
-        <Grid item xs={9}>{SingleRecipeHeader(recipe)}</Grid>
-        <Grid item xs={3}>{IngredientSection(recipe)}</Grid>
-        <Grid item xs={9}>{DirectionSection(recipe)}</Grid>
+        <Grid item xs={9}><SingleRecipeHeader recipe={recipe}/></Grid>
+        <Grid item xs={3}><IngredientSection recipe={recipe}/></Grid>
+        <Grid item xs={9}><DirectionSection recipe={recipe}/></Grid>
       </Grid>
       
       

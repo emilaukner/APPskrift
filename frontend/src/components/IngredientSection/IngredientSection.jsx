@@ -10,9 +10,7 @@ import Divider from "@mui/material/Divider";
   
 const IngredientSection = (props) => {
 
-  //  const ingredientList = props.ingredients.split(',')    HELP
-  const ingredientList = ["100g kjøttdeig", "ost", "1 egg"];
-  
+  const ingredientList = props.recipe.ingredients.split(',') 
   
 
   return (

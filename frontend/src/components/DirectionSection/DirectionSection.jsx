@@ -8,10 +8,7 @@ import Box from "@mui/material/Box";
   
 const DirectionSection = (props) => {
 
-
-  //const steps = props.steps    HELP
-  const steps = "hei dette er testing av test. Hit skal recipe.steps når det funker"
-  
+  const steps = props.recipe.steps
 
   return (
     <>
