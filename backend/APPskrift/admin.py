@@ -1,11 +1,13 @@
 from django.contrib import admin
 
-from .models import APPSkrift
-
-class APPskriftAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'completed')
+from .models import *
 
 # Register your models here.
 
-admin.site.register(APPSkrift, APPskriftAdmin)
+admin.site.register(User)
+admin.site.register(Recipe)
+admin.site.register(Category)
+admin.site.register(Comment)
+admin.site.register(Evaluation)
+
 
