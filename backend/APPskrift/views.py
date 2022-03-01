@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from .serializers import UserSerializer, RecipeSerializer, CategorySerializer, CommentSerializer, EvaluationSerializer
 from .models import User, Recipe, Category, Comment, Evaluation
 
-from rest_framework.parsers import JSONParser
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -83,6 +83,7 @@ class UserView(viewsets.ModelViewSet):
 
 
 class RecipeView(viewsets.ModelViewSet):
+	parser_classes = (MultiPartParser, FormParser)
 	serializer_class = RecipeSerializer
 	queryset = Recipe.objects.all()
 

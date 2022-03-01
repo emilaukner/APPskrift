@@ -29,6 +29,7 @@ class RecipeSerializer(serializers.ModelSerializer):
                     "estimate",
                     "meal",
 					"categories",
+                    "image",
 					"publishedBy"
 				)
                 
