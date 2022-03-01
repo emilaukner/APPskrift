@@ -15,10 +15,11 @@ class RecipeTestCase(APITestCase):
 		data = {
 			"title": "Test",
 			"difficulty": "E",
-			"estimate": 10,
+			"estimate": "15 min",
 			"ingredients": "Banan",
 			"steps": "1. Spis",
-			"category": "",
+			"categories": [],
+			"meal": "Middag",
 			"publishedBy": ""
 		}
 

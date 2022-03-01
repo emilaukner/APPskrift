@@ -24,7 +24,6 @@ class CategoryTest(TestCase):
         testCategory = Category(title='Vegetar')
         testCategory.save()
         self.assertIs(isinstance(testCategory, Category), True)
-        self.assertIsNotNone(testCategory.categoryId)
         self.assertIs(testCategory.title, 'Vegetar')
         testCategory.delete()
 
