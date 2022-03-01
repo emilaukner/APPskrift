@@ -47,6 +47,10 @@ const Navbar = () => {
     setAnchorElUser(null);
   }
 
+  const handleLogin = () => {
+    setLoginShow(true);
+    setAnchorElUser(null);
+  }
 
   const handleLogInComplete = () => {
     setUserLoggedIn(true);
@@ -220,15 +224,16 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-               <MenuItem key={"Min Profil"} onClick={handleProfile}>
+              {userLoggedIn ? (                
+              <MenuItem display={{profileItem: "none"}} key={"Min Profil"} onClick={handleProfile}>
                   <Typography textAlign="center">Min Profil</Typography>
-                </MenuItem>
+              </MenuItem>) : null}
               {userLoggedIn ? (
                 <MenuItem key="Logg ut" onClick={handleLogOut}>
                   <Typography textAlign="center">Logg ut</Typography>
                 </MenuItem>
               ) : (
-                <MenuItem key="Logg inn" onClick={() => setLoginShow(true)}>
+                <MenuItem key="Logg inn" onClick={handleLogin}>
                   <Typography textAlign="center">Logg inn</Typography>
                 </MenuItem>
               )}
