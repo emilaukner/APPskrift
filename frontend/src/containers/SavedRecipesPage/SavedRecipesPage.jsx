@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Paper, Typography, Box, Grid } from "@mui/material";
 import SingleRecipeModule from "../../components/SingleRecipeModule/SingleRecipeModule";
+import Dish from "../../assets/DishDeleteMe.png";
 
 const SavedRecipesPage = () => {
   const [recipeData, setRecipeData] = useState([]);
