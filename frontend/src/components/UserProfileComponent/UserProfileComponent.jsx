@@ -10,17 +10,19 @@ import Button from '@mui/material/Button';
 import Profileimg from "../../assets/headshot.png";
 import axios from "axios";
 import { borderRadius } from "@mui/system";
+import { useCookies } from "react-cookie";
 
-const UserProfileComponent = ({cookie, onLogOut, onClose, show}) => {
+const UserProfileComponent = ({onLogOut, onClose, show}) => {
 
     const [userID, setUserID] = useState();
     const [userImage, setImage] = useState();
     const [userName, setUserName] = useState();
     const [email, setemail] = useState();
+    const [cookie, setCookie, removeCookie] = useCookies(["user"]);
 
     useEffect(() => {
 		getUser();
-  }, []);
+  }, [show]);
 
     const getUser = async () => {
         await axios
