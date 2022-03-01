@@ -36,6 +36,11 @@ const Navbar = () => {
     setAnchorElUser(null);
   };
 
+  const handleProfile = () => {
+    setProfileShow(true);
+    setAnchorElUser(null);
+  }
+
 
 
   return (
@@ -193,7 +198,7 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-               <MenuItem key={"Min Profil"} onClick={() => setProfileShow(true)}>
+               <MenuItem key={"Min Profil"} onClick={handleProfile}>
                   <Typography textAlign="center">Min Profil</Typography>
                 </MenuItem>
                 <MenuItem key={"Logg Ut"} onClick={handleCloseUserMenu}>
@@ -203,7 +208,7 @@ const Navbar = () => {
           </Box>
         </Toolbar>
       </Container>
-      <UserProfileComponent onClose={() => setProfileShow(false)} show = {profileShow}/>
+      <UserProfileComponent onLogout={onLogout} onClose={() => setProfileShow(false)} show = {profileShow}/>
     </AppBar>
     </>
   );
