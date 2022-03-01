@@ -86,6 +86,7 @@ const CreateRecipePage = () => {
       meal: meal,
       estimate: estimate,
       cousine: cousine,
+      categories: otherCategories
     };
 
     await axios
