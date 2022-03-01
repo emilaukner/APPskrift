@@ -8,6 +8,7 @@ import Footer from "./components/Footer/Footer";
 import MyRecipesPage from "./containers/MyRecipesPage/MyRecipesPage";
 import SingleRecipePage from "./containers/SingleRecipePage/SingleRecipePage";
 import CreateUser from "./components/CreateUser/CreateUser";
+import SavedRecipesPage from "./containers/SavedRecipesPage/SavedRecipesPage";
 
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
             <p>my favorites</p>
           </Route>
           <Route path="/saved-recipes/">
-            <p> saved-recepies </p>
+            <SavedRecipesPage />
           </Route>
           <Route path="/create-recipe/">
             <CreateRecipePage />

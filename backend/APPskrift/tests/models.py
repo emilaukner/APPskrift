@@ -12,20 +12,19 @@ def create_dummy_users(number_of_users):
 
 def create_dummy_recipe(number_of_recipes):
     recipes = []
-    cat = Category(title='category')
+    cat = Category(title='Vegetar')
     cat.save()
     for i in range(1, number_of_recipes + 1):
-        recipes.append(Recipe(title='food', estimate=1, ingredients='stuff', steps='make the food', category=cat))
+        recipes.append(Recipe(title='food', estimate=1, ingredients='stuff', steps='make the food'))
     return recipes
 
 class CategoryTest(TestCase):
     def test_create_category_yields_category(self):
         """Assert that creating a category yields a valid category"""
-        testCategory = Category(title='Vegetarian')
+        testCategory = Category(title='Vegetar')
         testCategory.save()
         self.assertIs(isinstance(testCategory, Category), True)
-        self.assertIsNotNone(testCategory.categoryId)
-        self.assertIs(testCategory.title, 'Vegetarian')
+        self.assertIs(testCategory.title, 'Vegetar')
         testCategory.delete()
 
 class UserTest(TestCase):
@@ -62,15 +61,14 @@ class RecipeTest(TestCase):
         """Assert that creating a recipe created a valid recipe"""
         user = create_dummy_users(1)[0]
         user.save()
-        testCategory = Category(title='Vegetarian')
+        testCategory = Category(title='Vegetar')
         testCategory.save()
-        recipe = Recipe(title='Food', difficulty='H', estimate=10, ingredients='Lots of stuff', steps='Make it with the stuff', category=testCategory, publishedBy=user)
+        recipe = Recipe(title='Food', difficulty='H', estimate=10, ingredients='Lots of stuff', steps='Make it with the stuff', publishedBy=user)
         self.assertEquals(recipe.title, 'Food')
         self.assertEquals(recipe.difficulty, 'H')
         self.assertIs(recipe.estimate, 10)
         self.assertEquals(recipe.ingredients, 'Lots of stuff')
         self.assertEquals(recipe.steps, 'Make it with the stuff')
-        self.assertIs(recipe.category, testCategory)
         self.assertIs(recipe.publishedBy, user)
         user.delete()
 
@@ -78,9 +76,9 @@ class RecipeTest(TestCase):
         """Create a recipe to a user and then deleting the user should delete recipe"""
         user = create_dummy_users(1)[0]
         user.save()
-        testCategory = Category(title='Vegetarian')
+        testCategory = Category(title='Vegetar')
         testCategory.save()
-        testRecipe = Recipe(title='DummyDelete', difficulty='H', estimate=10, ingredients='Lots of stuff', steps='Make it with the stuff', category=testCategory, publishedBy=user)
+        testRecipe = Recipe(title='DummyDelete', difficulty='H', estimate=10, ingredients='Lots of stuff', steps='Make it with the stuff', publishedBy=user)
         testRecipe.save()
         id = testRecipe.recipeId
         user.delete()

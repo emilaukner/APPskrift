@@ -66,29 +66,28 @@ const CreateRecipePage = () => {
   };
 
   const postRecipeRequest = async () => {
-    const recipe = {
-      title: title,
-      difficulty: "E",
-      estimate: 10,
-      ingredients: ingredients,
-      steps: steps,
-      category: "",
-      publishedBy: cookie.userId,
-    };
+    // const recipe = {
+    //   title: title,
+    //   difficulty: "E",
+    //   estimate: 10,
+    //   ingredients: ingredients,
+    //   steps: steps,
+    //   category: "",
+    //   publishedBy: cookie.userId,
+    // };
 
-    /* TODO SLIK VI MÅ GJØRE OM API TIL Å TA IMOT RECIPE, SLETTE DEN OVER
+    // TODO SLIK VI MÅ GJØRE OM API TIL Å TA IMOT RECIPE, SLETTE DEN OVER
     const recipe = {
       title: title,
       difficulty: "E",
       ingredients: ingredients,
       steps: steps,
-      publishedBy: "b7b14922-478a-41d1-9f81-ebcc4d53cb79",
+      publishedBy: cookie.userId,
       meal: meal,
       estimate: estimate,
       cousine: cousine,
-      otherCategories: otherCategories,
+      categories: otherCategories
     };
-    */
 
     await axios
       .post("/recipes/", recipe)

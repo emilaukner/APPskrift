@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react";
-import FullWidthImageHeader from "../../components/FullWidthImageHeader/FullWidthImageHeader";
-import FloatingCreateRecipeButton from "../../components/FloatingCreateRecipeButton/FloatingCreateRecipeButton";
-import Food from "../../assets/Food.png";
-import SingleRecepieModule from "../../components/SingleRecipeModule/SingleRecipeModule";
-import Dish from "../../assets/DishDeleteMe.png";
-import axios from "axios";
 import { useCookies } from "react-cookie";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Paper, Typography, Box, Grid } from "@mui/material";
+import SingleRecipeModule from "../../components/SingleRecipeModule/SingleRecipeModule";
+import Dish from "../../assets/DishDeleteMe.png";
 
-const FrontPage = () => {
+const SavedRecipesPage = () => {
   const [recipeData, setRecipeData] = useState([]);
   const [recipeLikedData, setRecipeLikedData] = useState([]);
   const [recipeSavedData, setRecipeSavedData] = useState([]);
-  const [loginShow, setLoginShow] = useState(true);
 
   const [cookie, setCookie] = useCookies(["user"]);
 
@@ -61,28 +58,50 @@ const FrontPage = () => {
   const createRecipeModules = () => {
     console.log("Saved:", recipeSavedData);
     console.log("Liked:", recipeLikedData);
-    const recipes = recipeData.map((recipe) => {
-      return (
-        <SingleRecepieModule
-          recipeId={recipe.recipeId}
-          title={recipe.title}
-          image={Dish}
-          meal={recipe.meal}
-          cousine={recipe.cousine}
-          timeEstimate={recipe.estimate}
-          difficulty={recipe.difficulty}
-          likedByUser={recipeLikedData.includes(recipe.recipeId) ? true : false}
-          savedByUser={recipeSavedData.includes(recipe.recipeId) ? true : false}
-          numberOfLikes={253}
-        />
-      );
-    });
+    const recipes = recipeData
+      .filter((recipe) => recipeSavedData.includes(recipe.recipeId))
+      .map((recipe) => {
+        return (
+          <SingleRecipeModule
+            recipeId={recipe.recipeId}
+            title={recipe.title}
+            image={Dish}
+            meal={recipe.meal}
+            cousine={recipe.cousine}
+            timeEstimate={recipe.estimate}
+            difficulty={recipe.difficulty}
+            likedByUser={
+              recipeLikedData.includes(recipe.recipeId) ? true : false
+            }
+            savedByUser={
+              recipeSavedData.includes(recipe.recipeId) ? true : false
+            }
+            numberOfLikes={253}
+          />
+        );
+      });
     return recipes;
   };
 
   return (
     <>
-      <FullWidthImageHeader imgHeader={Food} />
+      <Box>
+        <Grid container style={{ paddingTop: "2%" }}>
+          <Grid item xs={1} />
+          <Grid item xs={10}>
+            <Paper>
+              <Typography
+                variant="h4"
+                component="div"
+                gutterBottom
+                sx={{ padding: "3%", textAlign: "center" }}
+              >
+                Lagrede oppskrifter
+              </Typography>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Box>
 
       <div
         style={{
@@ -94,9 +113,8 @@ const FrontPage = () => {
       >
         {createRecipeModules()}
       </div>
-      <FloatingCreateRecipeButton showButton={true} />
     </>
   );
 };
 
-export default FrontPage;
+export default SavedRecipesPage;
