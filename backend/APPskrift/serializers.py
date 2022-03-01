@@ -22,11 +22,13 @@ class RecipeSerializer(serializers.ModelSerializer):
 					"recipeId",
 					"title",
 					"difficulty",
-					"estimate",
 					"ingredients",
 					"steps",
 					"dateMade",
-					"category",
+                    "cousine",
+                    "estimate",
+                    "meal",
+					"categories",
 					"publishedBy"
 				)
                 
@@ -34,8 +36,7 @@ class CategorySerializer(serializers.ModelSerializer):
         class Meta: 
             model = Category
             fields = (
-                "categoryId", 
-                "title"
+                "title",
             )
 
 class CommentSerializer(serializers.ModelSerializer):
