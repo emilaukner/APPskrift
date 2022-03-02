@@ -205,7 +205,7 @@ const CreateRecipePage = () => {
                         fullWidth
                       />
                     </Grid>
-                    <Grid item xs={4} sx={{ marginTop: "2%" }}>
+                    {/* <Grid item xs={4} sx={{ marginTop: "2%" }}>
                       <Typography
                         variant="subtitle1"
                         gutterBottom
@@ -219,7 +219,7 @@ const CreateRecipePage = () => {
                         Last opp bilde
                         <FileUploadIcon />
                       </Button>
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12} style={{ marginTop: "10%" }}>
                       <Divider textAlign="center">
                         <Typography>Kategorier</Typography>

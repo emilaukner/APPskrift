@@ -128,18 +128,18 @@ const CreateUser = (props) => {
                   )}
                 </Grid>
 
-                <Grid item xs={4} sx={{ marginTop: "2%" }}>
+                {/* <Grid item xs={4} sx={{ marginTop: "2%" }}>
                   <Typography variant="subtitle1" gutterBottom component="div">
                     Legg til bilde
                   </Typography>
                 </Grid>
                 <Grid item xs={8} sx={{ marginTop: "2%" }}>
-                  {/* TODO implement image oppload  */}
+                  TODO implement image oppload 
                   <Button variant="outlined">
                     Last opp bilde
                     <FileUploadIcon />
                   </Button>
-                </Grid>
+                </Grid> */}
                 <br />
                 <br />
                 <Grid
