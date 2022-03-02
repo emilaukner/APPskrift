@@ -8,7 +8,14 @@ import Box from "@mui/material/Box";
   
 const DirectionSection = (props) => {
 
-  const steps = props.recipe.steps
+  const createParagraphedSteps = () => {
+    const steps = props.recipe.steps.split('\n')
+    console.log(steps);
+
+    return steps.map((step) =>
+      <Typography paragraph={true}>{step}</Typography> 
+    )
+  }
 
   return (
     <>
@@ -19,7 +26,7 @@ const DirectionSection = (props) => {
                     <Typography style={{fontSize: "2em", fontWeight: "bold"}}>Fremgangsmåte</Typography>
                      </Grid>
             <Grid item xs={12} style={{paddingTop:"3%"}}>
-            <Typography paragraph={true}>{steps}</Typography> 
+            {createParagraphedSteps()}
           </Grid>
         </Grid>
       </Paper>
