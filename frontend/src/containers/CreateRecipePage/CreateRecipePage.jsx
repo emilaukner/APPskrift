@@ -267,7 +267,7 @@ const CreateRecipePage = () => {
 
                     <Grid item xs={4}>
                       <Typography variant="subtitle1" component="div">
-                        Vannskelighetsgrad
+                        Vanskelighetsgrad
                       </Typography>
                     </Grid>
                     <Grid item xs={8}>
