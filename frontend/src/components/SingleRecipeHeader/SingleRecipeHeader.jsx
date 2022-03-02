@@ -5,14 +5,12 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Rating from "@mui/material/Rating";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import CircleIcon from '@mui/icons-material/Circle';
+import CircleIcon from "@mui/icons-material/Circle";
 import Food from "../../assets/Food.png";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import axios from "axios";
 
-
 const SingleRecipeHeader = (props) => {
-
   const [user, setUser] = useState();
   const [recipe, setRecipe] = useState(props.recipe);
 
@@ -23,11 +21,11 @@ const SingleRecipeHeader = (props) => {
       .get(`/users/${props.recipe.publishedBy}/`)
       .then((response) => {
         setUser(response.data.username);
-      }).catch((error)=> {
-        console.log(error)      }
-      )
-  }, [])
-
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   //const title = props.title    HELP
   const title = props.recipe.title;
@@ -37,34 +35,36 @@ const SingleRecipeHeader = (props) => {
   //const numberOfLikes = props.numberOfLikes    HELP
   const numberOfLikes = 355;
   let difficulty = "Enkel";
-  switch(props.recipe.difficulty) {
+  switch (props.recipe.difficulty) {
     case "E":
-      difficulty = "Enkel"
+      difficulty = "Enkel";
       break;
     case "M":
-      difficulty = "Medium"
+      difficulty = "Medium";
       break;
     case "H":
-      difficulty = "Vanskelig"
+      difficulty = "Vanskelig";
       break;
   }
   const time = props.recipe.estimate;
   const name = user;
-  const avatarImage = Food; 
-
-
-  
+  const avatarImage = Food;
 
   return (
     <>
       <Box>
-        
-        <Grid container style={{padding:"0%"}}>
-            <Grid item xs={12} style={{padding: "1%"}}>
-                <Typography style={{fontSize: "3em", fontWeight: "bold"}}>{title}</Typography>
-            </Grid>
-            <Grid item xs={12} style={{paddingBottom:"2%", paddingLeft:"1%", display:"flex"}}>
-                {/* <Box style={{display: "flex", padding:"0.7%"}}>
+        <Grid container style={{ padding: "0%" }}>
+          <Grid item xs={12} style={{ padding: "1%" }}>
+            <Typography style={{ fontSize: "3em", fontWeight: "bold" }}>
+              {title}
+            </Typography>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            style={{ paddingBottom: "2%", paddingLeft: "1%", display: "flex" }}
+          >
+            {/* <Box style={{display: "flex", padding:"0.7%"}}>
                   <Rating 
                       name="half-rating-read"
                       defaultValue={score}
@@ -73,22 +73,30 @@ const SingleRecipeHeader = (props) => {
                   />
                   <Typography style={{fontSize:"1em", color: "darkgrey"}}>{scoreNumber}</Typography>
                 </Box>
-                
-                {FavoriteButton(props)} */}
-            </Grid>   
-            <Grid item xs={12}><Divider/></Grid>
-            <Grid item xs={12} style={{display:"flex", padding:"1%"}}>
-                <Typography>{difficulty}</Typography>
-                <CircleIcon sx={{ color: "darkgrey", fontSize:"7px", padding:"7px"}}></CircleIcon>
-                <Typography>{time}</Typography>
-            </Grid>
-            <Grid item xs={12} style={{display:"flex", padding: "1%"}}>
-                <Avatar src={avatarImage} style={{height: 56, width: 56}}></Avatar>
-                <Typography style={{padding: 14, align:"center"}}>{name}</Typography>
-            </Grid>
+                */}
+            {FavoriteButton(props)}
+          </Grid>
+          <Grid item xs={12}>
+            <Divider />
+          </Grid>
+          <Grid item xs={12} style={{ display: "flex", padding: "1%" }}>
+            <Typography>{difficulty}</Typography>
+            <CircleIcon
+              sx={{ color: "darkgrey", fontSize: "7px", padding: "7px" }}
+            ></CircleIcon>
+            <Typography>{time}</Typography>
+          </Grid>
+          <Grid item xs={12} style={{ display: "flex", padding: "1%" }}>
+            <Avatar
+              src={avatarImage}
+              style={{ height: 56, width: 56 }}
+            ></Avatar>
+            <Typography style={{ padding: 14, align: "center" }}>
+              {name}
+            </Typography>
+          </Grid>
         </Grid>
-       
-      </Box>        
+      </Box>
     </>
   );
 };
