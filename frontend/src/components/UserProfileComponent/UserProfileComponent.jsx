@@ -9,8 +9,6 @@ import Grid from "@mui/material/Grid";
 import Button from '@mui/material/Button';
 import Profileimg from "../../assets/headshot.png";
 import axios from "axios";
-import { borderRadius } from "@mui/system";
-import { useCookies } from "react-cookie";
 
 const UserProfileComponent = ({onLogOut, onClose, show, userId}) => {
 
