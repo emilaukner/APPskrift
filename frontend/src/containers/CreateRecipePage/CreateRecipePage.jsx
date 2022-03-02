@@ -21,7 +21,7 @@ const CreateRecipePage = () => {
   const [ingredients, setIngredients] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [errorShow, setErrorShow] = useState(false);
-	const [cookie, setCookie] = useCookies(["user"])
+  const [cookie, setCookie] = useCookies(["user"]);
 
   //===============Categories selection =======================//
   const [meal, setMeal] = useState("Frokost");
@@ -86,7 +86,7 @@ const CreateRecipePage = () => {
       meal: meal,
       estimate: estimate,
       cousine: cousine,
-      categories: otherCategories
+      categories: otherCategories,
     };
 
     await axios
@@ -197,7 +197,7 @@ const CreateRecipePage = () => {
                       <TextField
                         id="ingredients-input"
                         label="Ingredienser"
-                        helperText='Ingredienser seppareres med komma ","'
+                        helperText='Ingredienser separeres med komma ","'
                         value={ingredients}
                         onChange={(e) => setIngredients(e.target.value)}
                         multiline
