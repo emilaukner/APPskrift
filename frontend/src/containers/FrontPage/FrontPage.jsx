@@ -8,6 +8,7 @@ import axios from "axios";
 import CreateUser from "../../components/CreateUser/CreateUser";
 import { ToggleButtonGroup, ToggleButton, Paper } from "@mui/material";
 import { Box, Grid, Divider, Typography } from "@mui/material";
+import UserProfileComponent from "../../components/UserProfileComponent/UserProfileComponent";
 import { useCookies } from "react-cookie";
 import { getFilteredRecipes } from "./helpers";
 
@@ -100,8 +101,8 @@ const FrontPage = () => {
           recipeId={recipe.recipeId}
           title={recipe.title}
           image={Dish}
-          meal="Dessert"
-          cousine="European"
+          meal={recipe.meal}
+          cousine={recipe.cousine}
           timeEstimate={recipe.estimate}
           difficulty={recipe.difficulty}
           likedByUser={recipeLikedData.includes(recipe.recipeId) ? true : false}
@@ -222,6 +223,7 @@ const FrontPage = () => {
       >
         {createRecipeModules()}
       </div>
+      <UserProfileComponent showProfile={true}/>
       <FloatingCreateRecipeButton showButton={true} />
     </>
   );
