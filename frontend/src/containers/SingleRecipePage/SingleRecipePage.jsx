@@ -17,7 +17,7 @@ const SingleRecipePage = () => {
       .then((response) => {
         setRecipe(response.data);
       })
-  })
+  }, [])
   const avatarImage = Food; 
 
   // Bilder må legges inn i modellen, før den kan importeres hit

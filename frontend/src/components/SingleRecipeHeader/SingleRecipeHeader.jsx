@@ -20,11 +20,13 @@ const SingleRecipeHeader = (props) => {
 
   useEffect(() => {
     axios
-      .get(`/${props.recipe.publishedBy}/`)
+      .get(`/users/${props.recipe.publishedBy}/`)
       .then((response) => {
         setUser(response.data.username);
-      })
-  })
+      }).catch((error)=> {
+        console.log(error)      }
+      )
+  }, [])
 
 
   //const title = props.title    HELP
