@@ -91,7 +91,7 @@ const MyRecipesPage = () => {
     },
     {
       id: "options",
-      label: "Options",
+      label: "Valg",
       minWidth: 40,
     },
   ];
