@@ -154,7 +154,7 @@ const SingleRecipeModule = (props) => {
                   ) : (
                     <FavoriteIcon sx={{ color: "Crimson" }} />
                   )}
-                  <Typography>{props.numberOfLikes}</Typography>
+                  {/* <Typography>{props.numberOfLikes}</Typography> */}
                 </IconButton>
               </Box>
               <Box
