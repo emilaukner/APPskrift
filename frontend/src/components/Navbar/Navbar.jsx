@@ -24,6 +24,7 @@ const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [profileShow, setProfileShow] = React.useState(false);
   const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+  const [loggedInUserId, setLoggedInUserId] = React.useState("");
   const [userLoggedIn, setUserLoggedIn] = React.useState(cookie.userId != null);
   const [loginShow, setLoginShow] = React.useState(false);
 
@@ -52,8 +53,11 @@ const Navbar = () => {
     setAnchorElUser(null);
   }
 
-  const handleLogInComplete = () => {
+  const handleLogInComplete = (userId) => {
     setUserLoggedIn(true);
+    setCookie("userId", userId);
+    setLoggedInUserId(userId);
+    console.log("UserId was set:", userId)
     setLoginShow(false);
   };
 
@@ -241,7 +245,13 @@ const Navbar = () => {
           </Box>
         </Toolbar>
       </Container>
-      <UserProfileComponent onLogOut={handleLogOut} onClose={() => setProfileShow(false)} show = {profileShow} cookie = {cookie}/>
+      <UserProfileComponent 
+        onLogOut={handleLogOut} 
+        onClose={() => setProfileShow(false)} 
+        show = {profileShow} 
+        cookie = {cookie}
+        userId={loggedInUserId}
+      />
       <LogInPopUp
         onSuccess={handleLogInComplete}
         onClose={() => setLoginShow(false)}
