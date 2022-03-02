@@ -12,13 +12,12 @@ import axios from "axios";
 import { borderRadius } from "@mui/system";
 import { useCookies } from "react-cookie";
 
-const UserProfileComponent = ({onLogOut, onClose, show}) => {
+const UserProfileComponent = ({onLogOut, onClose, show, userId}) => {
 
     const [userID, setUserID] = useState();
     const [userImage, setImage] = useState();
     const [userName, setUserName] = useState();
     const [email, setemail] = useState();
-    const [cookie, setCookie, removeCookie] = useCookies(["user"]);
 
     useEffect(() => {
 		getUser();
@@ -26,7 +25,7 @@ const UserProfileComponent = ({onLogOut, onClose, show}) => {
 
     const getUser = async () => {
         await axios
-        .get(`/users/${cookie.userId}`)
+        .get(`/users/${userId}`)
         .then((res) => {
             console.log(res.data.userId);
             setUserID(res.data.userId);

@@ -20,11 +20,13 @@ const SingleRecipeHeader = (props) => {
 
   useEffect(() => {
     axios
-      .get(`/${props.recipe.publishedBy}/`)
+      .get(`/users/${props.recipe.publishedBy}/`)
       .then((response) => {
         setUser(response.data.username);
-      })
-  })
+      }).catch((error)=> {
+        console.log(error)      }
+      )
+  }, [])
 
 
   //const title = props.title    HELP
@@ -62,7 +64,7 @@ const SingleRecipeHeader = (props) => {
                 <Typography style={{fontSize: "3em", fontWeight: "bold"}}>{title}</Typography>
             </Grid>
             <Grid item xs={12} style={{paddingBottom:"2%", paddingLeft:"1%", display:"flex"}}>
-                <Box style={{display: "flex", padding:"0.7%"}}>
+                {/* <Box style={{display: "flex", padding:"0.7%"}}>
                   <Rating 
                       name="half-rating-read"
                       defaultValue={score}
@@ -72,7 +74,7 @@ const SingleRecipeHeader = (props) => {
                   <Typography style={{fontSize:"1em", color: "darkgrey"}}>{scoreNumber}</Typography>
                 </Box>
                 
-                {FavoriteButton(props)}
+                {FavoriteButton(props)} */}
             </Grid>   
             <Grid item xs={12}><Divider/></Grid>
             <Grid item xs={12} style={{display:"flex", padding:"1%"}}>

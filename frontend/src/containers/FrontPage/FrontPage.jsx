@@ -217,8 +217,8 @@ const FrontPage = () => {
         style={{
           display: "flex",
           justifyContent: "space-around",
-          paddingTop: "10%",
-          paddingBottom: "4%",
+          paddingTop: "5%",
+          paddingBottom: "1%",
         }}
       >
         {createRecipeModules()}
