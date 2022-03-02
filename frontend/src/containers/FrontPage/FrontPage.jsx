@@ -11,6 +11,7 @@ import { Box, Grid, Divider, Typography } from "@mui/material";
 import UserProfileComponent from "../../components/UserProfileComponent/UserProfileComponent";
 import { useCookies } from "react-cookie";
 import { getFilteredRecipes } from "./helpers";
+import { width } from "@mui/system";
 
 const FrontPage = () => {
   //TODO make catogories a own component
@@ -212,16 +213,25 @@ const FrontPage = () => {
           <Grid item xs />
         </Grid>
       </Box>
-
       <div
         style={{
           display: "flex",
-          justifyContent: "space-around",
-          paddingTop: "5%",
-          paddingBottom: "1%",
-        }}
-      >
-        {createRecipeModules()}
+          width: "100%",
+          justifyContent: "center"
+        }}>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr 1fr",
+            gridGap: "20px",
+            justifyContent: "space-around",
+            paddingTop: "5%",
+            paddingBottom: "1%",
+          }}
+        >
+          {createRecipeModules()}
+        </div>
       </div>
       <UserProfileComponent showProfile={true}/>
       <FloatingCreateRecipeButton showButton={true} />
