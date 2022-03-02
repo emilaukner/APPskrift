@@ -11,7 +11,7 @@ import {
   Box,
 } from "@mui/material";
 import { useState } from "react";
-import { useCookies } from "react-cookie"; 
+import { useCookies } from "react-cookie";
 import axios from "axios";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -25,7 +25,7 @@ const SingleRecipeModule = (props) => {
   //React hooks with the states liked and saved
   const [liked, setLiked] = useState(props.likedByUser);
   const [saved, setSaved] = useState(props.savedByUser);
-	const [cookie, setCookie] = useCookies(["user"])
+  const [cookie, setCookie] = useCookies(["user"]);
 
   /* Function that is called when user presses like button.
   If liked = true a delete request is made. If liked = false a post request is made.*/
@@ -63,9 +63,9 @@ const SingleRecipeModule = (props) => {
   const postUnlikeRecipe = async () => {
     await axios
       .delete(`/users/${cookie.userId}d/favorites/`, {
-				data: {
-					id: `${props.recipeId}`,
-				}
+        data: {
+          id: `${props.recipeId}`,
+        },
       })
       .then(() => {
         setLiked(!liked);
@@ -95,9 +95,9 @@ const SingleRecipeModule = (props) => {
   const postUnsaveRecipe = async () => {
     await axios
       .delete(`/users/${cookie.userId}/saved/`, {
-				data: {
-					id: `${props.recipeId}`,
-				}
+        data: {
+          id: `${props.recipeId}`,
+        },
       })
       .then(() => {
         setSaved(!saved);
@@ -109,7 +109,10 @@ const SingleRecipeModule = (props) => {
 
   return (
     <>
-      <Link to={`/recipe/${props.recipeId}/`} style={{textDecoration:"none"}}>
+      <Link
+        to={`/recipe/${props.recipeId}/`}
+        style={{ textDecoration: "none" }}
+      >
         <Card sx={{ maxWidth: 300 }}>
           <CardMedia component="img" height="250" image={props.image} />
           <CardContent>
@@ -165,7 +168,7 @@ const SingleRecipeModule = (props) => {
                 }}
               >
                 <AccessTimeIcon />
-                <Typography>{props.timeEstimate} min</Typography>
+                <Typography>{props.timeEstimate}</Typography>
               </Box>
               <Box
                 sx={{
