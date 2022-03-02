@@ -136,13 +136,13 @@ const Navbar = () => {
                   </Typography>
                 </MenuItem>
               </NavLink>
-              <NavLink to="/my-favorites/" style={{ textDecoration: "none" }}>
+              {/* <NavLink to="/my-favorites/" style={{ textDecoration: "none" }}>
                 <MenuItem key="3" onClick={handleCloseNavMenu}>
                   <Typography textAlign="center" style={{ color: "darkgray" }}>
                     Mine favoritter
                   </Typography>
                 </MenuItem>
-              </NavLink>
+              </NavLink> */}
               <NavLink to="/saved-recipes/" style={{ textDecoration: "none" }}>
                 <MenuItem key="4" onClick={handleCloseNavMenu}>
                   <Typography textAlign="center" style={{ color: "darkgray" }}>
@@ -186,7 +186,7 @@ const Navbar = () => {
                 Mine oppskrifter
               </Button>
             </NavLink>
-            <NavLink to="/my-favorites/" style={{ textDecoration: "none" }}>
+            {/* <NavLink to="/my-favorites/" style={{ textDecoration: "none" }}>
               <Button
                 key="3"
                 onClick={handleCloseNavMenu}
@@ -194,7 +194,7 @@ const Navbar = () => {
               >
                 Mine favoritter
               </Button>
-            </NavLink>
+            </NavLink> */}
             <NavLink to="/saved-recipes/" style={{ textDecoration: "none" }}>
               <Button
                 key="4"
