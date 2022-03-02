@@ -74,7 +74,7 @@ const SingleRecipeHeader = (props) => {
                   <Typography style={{fontSize:"1em", color: "darkgrey"}}>{scoreNumber}</Typography>
                 </Box>
                 */}
-            {FavoriteButton(props)}
+            {FavoriteButton(props.recipe)}
           </Grid>
           <Grid item xs={12}>
             <Divider />
