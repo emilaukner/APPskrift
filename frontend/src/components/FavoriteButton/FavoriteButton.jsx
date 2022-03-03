@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Typography, IconButton } from "@mui/material";
 import { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -12,8 +12,12 @@ const FavoriteButton = (props) => {
   const numberOfLikes = "";
 
   //React hooks with the states liked and saved
-  const [liked, setLiked] = useState(props.recipe.liked);
+  const [liked, setLiked] = useState(false);
   const [cookie, setCookie] = useCookies(["user"]);
+
+  useEffect(() => {
+    getIsLiked();
+  }, [])
 
   /* Function that is called when user presses like button.
     If liked = true a delete request is made. If liked = false a post request is made.*/
@@ -21,11 +25,26 @@ const FavoriteButton = (props) => {
     liked ? postUnlikeRecipe() : postLikeRecipe();
   };
 
+  const getIsLiked = async () => {
+    await axios
+      .get(`/users/${cookie.userId}/favorites/`)
+      .then((res) => {
+        const likedRecipes = res.data;
+        console.log("Recipe:", props)
+        if(likedRecipes.includes(props.recipeId)) {
+          setLiked(true);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   //API request to like recipe
   const postLikeRecipe = async () => {
     await axios
       .post(`/users/${cookie.userId}/favorites/`, {
-        id: `${props.recipe.recipeId}`,
+        id: `${props.recipeId}`,
       })
       .then(() => {
         setLiked(!liked);
@@ -40,7 +59,7 @@ const FavoriteButton = (props) => {
     await axios
       .delete(`/users/${cookie.userId}/favorites/`, {
         data: {
-          id: `${props.recipe.recipeId}`,
+          id: `${props.recipeId}`,
         },
       })
       .then(() => {
