@@ -26,6 +26,7 @@ const CreateRecipePage = () => {
   //===============Categories selection =======================//
   const [meal, setMeal] = useState("Frokost");
   const [estimate, setEstimate] = useState("15 min");
+  const [difficulty, setDifficulty] = useState("E");
   const [cousine, setCousine] = useState("Europeisk");
   const [otherCategories, setOtherCategories] = useState(() => []);
 
@@ -38,6 +39,12 @@ const CreateRecipePage = () => {
   const handleChangeEstimate = (event, newEstimate) => {
     if (newEstimate !== null) {
       setEstimate(newEstimate);
+    }
+  };
+
+  const handleChangeDifficulty = (event, newDifficulty) => {
+    if (newDifficulty !== null) {
+      setDifficulty(newDifficulty);
     }
   };
 
@@ -61,25 +68,15 @@ const CreateRecipePage = () => {
     setIngredients("");
     setMeal("Frokost");
     setEstimate("15 min");
+    setDifficulty("E");
     setCousine("Europeisk");
     setOtherCategories(() => []);
   };
 
   const postRecipeRequest = async () => {
-    // const recipe = {
-    //   title: title,
-    //   difficulty: "E",
-    //   estimate: 10,
-    //   ingredients: ingredients,
-    //   steps: steps,
-    //   category: "",
-    //   publishedBy: cookie.userId,
-    // };
-
-    // TODO SLIK VI MÅ GJØRE OM API TIL Å TA IMOT RECIPE, SLETTE DEN OVER
     const recipe = {
       title: title,
-      difficulty: "E",
+      difficulty: difficulty,
       ingredients: ingredients,
       steps: steps,
       publishedBy: cookie.userId,
@@ -267,6 +264,26 @@ const CreateRecipePage = () => {
                         </ToggleButton>
                       </ToggleButtonGroup>
                     </Grid>
+
+                    <Grid item xs={4}>
+                      <Typography variant="subtitle1" component="div">
+                        Vanskelighetsgrad
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={8}>
+                      <ToggleButtonGroup
+                        color="primary"
+                        size="small"
+                        value={difficulty}
+                        exclusive
+                        onChange={handleChangeDifficulty}
+                      >
+                        <ToggleButton value="E">Easy</ToggleButton>
+                        <ToggleButton value="M">Medium</ToggleButton>
+                        <ToggleButton value="H">Hard</ToggleButton>
+                      </ToggleButtonGroup>
+                    </Grid>
+
                     <Grid item xs={4}>
                       <Typography variant="subtitle1" component="div">
                         Kjøkken

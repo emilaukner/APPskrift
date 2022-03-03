@@ -18,6 +18,7 @@ const FrontPage = () => {
   //===============Categories selection =======================//
   const [meal, setMeal] = useState(() => []);
   const [estimate, setEstimate] = useState(() => []);
+  const [difficulty, setDifficulty] = useState(() => []);
   const [cousine, setCousine] = useState(() => []);
   const [otherCategories, setOtherCategories] = useState(() => []);
 
@@ -27,6 +28,10 @@ const FrontPage = () => {
 
   const handleChangeEstimate = (event, newEstimate) => {
     setEstimate(newEstimate);
+  };
+
+  const handleChangeDifficulty = (event, newDifficulty) => {
+    setDifficulty(newDifficulty);
   };
 
   const handleChangeCousine = (event, newCouisine) => {
@@ -89,11 +94,12 @@ const FrontPage = () => {
   }, []);
 
   const createRecipeModules = () => {
-    console.log(recipeData)
+    console.log(recipeData);
     const recipes = getFilteredRecipes(
       recipeData,
       meal,
       estimate,
+      difficulty,
       cousine,
       otherCategories
     ).map((recipe) => {
@@ -189,7 +195,26 @@ const FrontPage = () => {
                     </ToggleButtonGroup>
                   </Grid>
                 </Grid>
-                <Grid item xs={5}>
+
+                <Grid item xs={3}>
+                  <Grid item>
+                    <Typography variant="caption">Vanskelighetsgrad</Typography>
+                  </Grid>
+                  <Grid item>
+                    <ToggleButtonGroup
+                      color="primary"
+                      size="small"
+                      value={difficulty}
+                      onChange={handleChangeDifficulty}
+                    >
+                      <ToggleButton value="E">Easy</ToggleButton>
+                      <ToggleButton value="M">Medium</ToggleButton>
+                      <ToggleButton value="H">Hard</ToggleButton>
+                    </ToggleButtonGroup>
+                  </Grid>
+                </Grid>
+
+                <Grid item xs={4}>
                   <Grid item>
                     <Typography variant="caption">Øvrige kategorier</Typography>
                   </Grid>
@@ -217,9 +242,9 @@ const FrontPage = () => {
         style={{
           display: "flex",
           width: "100%",
-          justifyContent: "center"
-        }}>
-
+          justifyContent: "center",
+        }}
+      >
         <div
           style={{
             display: "grid",
@@ -233,7 +258,7 @@ const FrontPage = () => {
           {createRecipeModules()}
         </div>
       </div>
-      <UserProfileComponent showProfile={true}/>
+      <UserProfileComponent showProfile={true} />
       <FloatingCreateRecipeButton showButton={true} />
     </>
   );
