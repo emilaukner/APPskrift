@@ -44,7 +44,6 @@ const SingleRecipeModule = (props) => {
   };
 
   //API request to like recipe
-  //TODO change hardcoded userId to `${currentUserId}`
   const postLikeRecipe = async () => {
     await axios
       .post(`/users/${cookie.userId}/favorites/`, {
@@ -59,10 +58,9 @@ const SingleRecipeModule = (props) => {
   };
 
   //API request to delete like on a recipe
-  //TODO change hardcoded userId to `${currentUserId}`
   const postUnlikeRecipe = async () => {
     await axios
-      .delete(`/users/${cookie.userId}d/favorites/`, {
+      .delete(`/users/${cookie.userId}/favorites/`, {
         data: {
           id: `${props.recipeId}`,
         },
@@ -76,7 +74,6 @@ const SingleRecipeModule = (props) => {
   };
 
   //API request to save recipe
-  //TODO change hardcoded userId to `${currentUserId}`
   const postSaveRecipe = async () => {
     await axios
       .post(`/users/${cookie.userId}/saved/`, {
@@ -91,7 +88,6 @@ const SingleRecipeModule = (props) => {
   };
 
   //API request to delete recipe from saved
-  //TODO change hardcoded userId to `${currentUserId}`
   const postUnsaveRecipe = async () => {
     await axios
       .delete(`/users/${cookie.userId}/saved/`, {

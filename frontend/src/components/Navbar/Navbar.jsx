@@ -59,12 +59,14 @@ const Navbar = () => {
     setLoggedInUserId(userId);
     console.log("UserId was set:", userId)
     setLoginShow(false);
+    window.location.reload(false);
   };
 
   const handleLogOut = () => {
     removeCookie("userId");
     setUserLoggedIn(false);
     setProfileShow(false);
+    window.location.reload(false);
   };
 
   return (
@@ -250,7 +252,7 @@ const Navbar = () => {
         onClose={() => setProfileShow(false)} 
         show = {profileShow} 
         cookie = {cookie}
-        userId={loggedInUserId}
+        userId={cookie.userId}
       />
       <LogInPopUp
         onSuccess={handleLogInComplete}
