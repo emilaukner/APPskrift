@@ -4,13 +4,13 @@ import './index.css';
 import App from './App';
 import { CookiesProvider } from "react-cookie";
 import reportWebVitals from './reportWebVitals';
-import ColorThemeAppProvider from "./ColorThemeAppProvider"
+import {ToggleColorMode} from "./ColorThemeAppProvider"
 
 
 ReactDOM.render(
 	<CookiesProvider>
 		<React.StrictMode>
-			<ColorThemeAppProvider/>
+			<ToggleColorMode/>
 		</React.StrictMode>
 	</CookiesProvider>,
   document.getElementById('root')
