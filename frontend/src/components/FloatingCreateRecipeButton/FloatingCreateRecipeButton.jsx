@@ -13,7 +13,7 @@ const CreateRecipeButton = (props) => {
             <Box>
               <Fab variant="extended">
                 <EditIcon />
-                Create Recipe
+                Lag Oppskrift
               </Fab>
             </Box>
           </Link>

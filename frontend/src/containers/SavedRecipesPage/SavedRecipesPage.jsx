@@ -107,7 +107,7 @@ const SavedRecipesPage = () => {
         style={{
           display: "flex",
           justifyContent: "space-around",
-          paddingTop: "10%",
+          paddingTop: "0%",
           paddingBottom: "4%",
         }}
       >

@@ -81,7 +81,7 @@ const MyRecipesPage = () => {
     },
     {
       id: "assessment",
-      label: "Vurdering",
+      label: "",
       minWidth: 50,
     },
     {
@@ -91,7 +91,7 @@ const MyRecipesPage = () => {
     },
     {
       id: "options",
-      label: "Options",
+      label: "Valg",
       minWidth: 40,
     },
   ];
@@ -126,12 +126,13 @@ const MyRecipesPage = () => {
 						: recipe.difficulty === "H"
 						? "Hard"
 						: "",
-					<Rating
-						name="half-rating-read"
-						defaultValue={recipe.score}
-						precision={0.5}
-						readOnly
-					/>,
+          <></>,
+					// <Rating
+					// 	name="half-rating-read"
+					// 	defaultValue={recipe.score}
+					// 	precision={0.5}
+					// 	readOnly
+					// />,
 					recipe.estimate,
 					<>
 						<IconButton

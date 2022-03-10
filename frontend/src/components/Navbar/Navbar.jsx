@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
+import UserProfileComponent from "../UserProfileComponent/UserProfileComponent"
 import { useCookies } from "react-cookie";
 import LogInPopUp from "../LogInPopUp/LogInPopUp";
 import Logo from "../../assets/Logo.png";
@@ -21,7 +22,9 @@ const settings = ["Min profil", "Logg ut"];
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [profileShow, setProfileShow] = React.useState(false);
   const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+  const [loggedInUserId, setLoggedInUserId] = React.useState("");
   const [userLoggedIn, setUserLoggedIn] = React.useState(cookie.userId != null);
   const [loginShow, setLoginShow] = React.useState(false);
 
@@ -40,17 +43,34 @@ const Navbar = () => {
     setAnchorElUser(null);
   };
 
-  const handleLogInComplete = () => {
+  const handleProfile = () => {
+    setProfileShow(true);
+    setAnchorElUser(null);
+  }
+
+  const handleLogin = () => {
+    setLoginShow(true);
+    setAnchorElUser(null);
+  }
+
+  const handleLogInComplete = (userId) => {
     setUserLoggedIn(true);
+    setCookie("userId", userId);
+    setLoggedInUserId(userId);
+    console.log("UserId was set:", userId)
     setLoginShow(false);
+    window.location.reload(false);
   };
 
   const handleLogOut = () => {
     removeCookie("userId");
     setUserLoggedIn(false);
+    setProfileShow(false);
+    window.location.reload(false);
   };
 
   return (
+    <>
     <AppBar position="static" style={{ background: "#FFFFFF" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ backgorundColor: "red" }}>
@@ -118,13 +138,13 @@ const Navbar = () => {
                   </Typography>
                 </MenuItem>
               </NavLink>
-              <NavLink to="/my-favorites/" style={{ textDecoration: "none" }}>
+              {/* <NavLink to="/my-favorites/" style={{ textDecoration: "none" }}>
                 <MenuItem key="3" onClick={handleCloseNavMenu}>
                   <Typography textAlign="center" style={{ color: "darkgray" }}>
                     Mine favoritter
                   </Typography>
                 </MenuItem>
-              </NavLink>
+              </NavLink> */}
               <NavLink to="/saved-recipes/" style={{ textDecoration: "none" }}>
                 <MenuItem key="4" onClick={handleCloseNavMenu}>
                   <Typography textAlign="center" style={{ color: "darkgray" }}>
@@ -168,7 +188,7 @@ const Navbar = () => {
                 Mine oppskrifter
               </Button>
             </NavLink>
-            <NavLink to="/my-favorites/" style={{ textDecoration: "none" }}>
+            {/* <NavLink to="/my-favorites/" style={{ textDecoration: "none" }}>
               <Button
                 key="3"
                 onClick={handleCloseNavMenu}
@@ -176,7 +196,7 @@ const Navbar = () => {
               >
                 Mine favoritter
               </Button>
-            </NavLink>
+            </NavLink> */}
             <NavLink to="/saved-recipes/" style={{ textDecoration: "none" }}>
               <Button
                 key="4"
@@ -210,16 +230,16 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem key="Min profil" onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Min profil</Typography>
-              </MenuItem>
-
+              {userLoggedIn ? (                
+              <MenuItem display={{profileItem: "none"}} key={"Min Profil"} onClick={handleProfile}>
+                  <Typography textAlign="center">Min Profil</Typography>
+              </MenuItem>) : null}
               {userLoggedIn ? (
                 <MenuItem key="Logg ut" onClick={handleLogOut}>
                   <Typography textAlign="center">Logg ut</Typography>
                 </MenuItem>
               ) : (
-                <MenuItem key="Logg inn" onClick={() => setLoginShow(true)}>
+                <MenuItem key="Logg inn" onClick={handleLogin}>
                   <Typography textAlign="center">Logg inn</Typography>
                 </MenuItem>
               )}
@@ -227,12 +247,20 @@ const Navbar = () => {
           </Box>
         </Toolbar>
       </Container>
+      <UserProfileComponent 
+        onLogOut={handleLogOut} 
+        onClose={() => setProfileShow(false)} 
+        show = {profileShow} 
+        cookie = {cookie}
+        userId={cookie.userId}
+      />
       <LogInPopUp
         onSuccess={handleLogInComplete}
         onClose={() => setLoginShow(false)}
         show={loginShow}
       />
     </AppBar>
+    </>
   );
 };
 export default Navbar;
