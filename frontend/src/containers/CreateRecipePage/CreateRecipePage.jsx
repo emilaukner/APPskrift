@@ -61,8 +61,8 @@ const CreateRecipePage = () => {
 
   const handleImageChange = (event) => {
     event.preventDefault();
-    console.log(event.target.files[0])
     setImage(event.target.files[0]);
+    console.log(image);
   }
 
   //==================Create recipe axios request ========================//
@@ -220,13 +220,34 @@ const CreateRecipePage = () => {
                       </Typography>
                     </Grid>
                     <Grid item xs={8} sx={{ marginTop: "2%" }}>
-                      <input
-                        type="file"
-                        onChange={handleImageChange} />
-                        <Button variant="outlined">
+                      <label htmlFor="upload-photo">
+                        <input
+                          type="file"
+                          id="upload-photo"
+                          name="upload-photo"
+                          hidden
+                          onChange={handleImageChange} 
+                        />
+                        <Button variant="outlined" component="span">
                           Last opp bilde
                           <FileUploadIcon />
                         </Button>
+                        {
+                          image 
+                          ?                          
+                          ( <Typography
+                            variant="caption"
+                            gutterBottom
+                            component="div"
+                          >
+                            Bilde lol
+                            {image.name}
+                          </Typography> )
+                          : null
+                        }
+                        
+                      </label>
+                        
                     </Grid>
                     <Grid item xs={12} style={{ marginTop: "10%" }}>
                       <Divider textAlign="center">

@@ -26,7 +26,7 @@ const LogInPopUp = ({onClose, onSuccess, show}) => {
 		})
 		.then((res) => {
 			console.log("Login was successful", res)
-			onSuccess(res.data.userId);
+			onSuccess(res.data);
 			//setCookie("userId", res.data.userId);
 		})
 		.catch((err) => {

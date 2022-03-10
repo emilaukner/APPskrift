@@ -16,12 +16,14 @@ const SingleRecipePage = () => {
       setRecipe(response.data);
     });
   }, []);
-  const avatarImage = Food;
+  let avatarImage = Food;
 
   // Bilder må legges inn i modellen, før den kan importeres hit
 
   if (!recipe) {
     return <>Could not find recipe</>;
+  } else {
+    avatarImage = recipe.image
   }
 
   return (

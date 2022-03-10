@@ -22,6 +22,7 @@ class User(models.Model):
     darkMode = models.BooleanField(default=False)
     favorites = models.ManyToManyField('Recipe', blank=True, related_name="favorite")
     saved = models.ManyToManyField('Recipe', blank=True, related_name="saved")
+    image = models.ImageField(upload_to="profile_images")
 
     def _str_(self):
         return self.username

@@ -16,6 +16,16 @@ class UserView(viewsets.ModelViewSet):
 	serializer_class = UserSerializer
 	queryset = User.objects.all()
 
+	# Need this for images
+	def create(self, request):
+		serializer = UserSerializer(data=request.data, many=False)
+		if (serializer.is_valid()):
+			serializer.save()
+			return Response(serializer.data, status=201)
+		else:
+			print(serializer.errors)
+			return Response(serializer.errors, status=400)
+
 	@action(methods=["get"], detail=True)
 	def recipes(self, request, pk=True):
 		recipes = None
@@ -86,9 +96,8 @@ class RecipeView(viewsets.ModelViewSet):
 	serializer_class = RecipeSerializer
 	queryset = Recipe.objects.all()
 
+	# Need this for images
 	def create(self, request):
-		##parser_classes = (FormParser,)
-		print(request.data)
 		serializer = RecipeSerializer(data=request.data, many=False)
 		if (serializer.is_valid()):
 			serializer.save()
