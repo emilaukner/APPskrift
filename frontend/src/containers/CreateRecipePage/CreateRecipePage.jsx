@@ -59,10 +59,11 @@ const CreateRecipePage = () => {
     setOtherCategories(newOtherCategories);
   };
 
-  const handleImageChange = (event) => {
+  const onImageChange = (event) => {
     event.preventDefault();
+    console.log("Trying to set image");
     setImage(event.target.files[0]);
-    console.log(image);
+    console.log("Image:", image, "Should be:", event.target.files[0]);
   }
 
   //==================Create recipe axios request ========================//
@@ -220,13 +221,13 @@ const CreateRecipePage = () => {
                       </Typography>
                     </Grid>
                     <Grid item xs={8} sx={{ marginTop: "2%" }}>
-                      <label htmlFor="upload-photo">
+                      <label htmlFor="upload-photoo">
                         <input
                           type="file"
-                          id="upload-photo"
-                          name="upload-photo"
+                          id="upload-photoo"
+                          name="upload-photoo"
+                          onChange={onImageChange} 
                           hidden
-                          onChange={handleImageChange} 
                         />
                         <Button variant="outlined" component="span">
                           Last opp bilde
@@ -240,10 +241,9 @@ const CreateRecipePage = () => {
                             gutterBottom
                             component="div"
                           >
-                            Bilde lol
                             {image.name}
                           </Typography> )
-                          : null
+                          : (null)
                         }
                         
                       </label>
