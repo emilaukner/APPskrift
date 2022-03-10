@@ -9,6 +9,7 @@ import MyRecipesPage from "./containers/MyRecipesPage/MyRecipesPage";
 import SingleRecipePage from "./containers/SingleRecipePage/SingleRecipePage";
 import CreateUser from "./components/CreateUser/CreateUser";
 import SavedRecipesPage from "./containers/SavedRecipesPage/SavedRecipesPage";
+import ShoppingList from "./containers/ShoppingList/ShoppingList";
 
 
 function App() {
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route path="/recipe/:id">
             <SingleRecipePage />
+          </Route>
+          <Route path="/shopping-list/">
+            <ShoppingList />            
           </Route>
         </Switch>
       </div>
