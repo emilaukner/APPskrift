@@ -9,13 +9,13 @@ import MyRecipesPage from "./containers/MyRecipesPage/MyRecipesPage";
 import SingleRecipePage from "./containers/SingleRecipePage/SingleRecipePage";
 import CreateUser from "./components/CreateUser/CreateUser";
 import SavedRecipesPage from "./containers/SavedRecipesPage/SavedRecipesPage";
-
+import Box from "@mui/material/Box";
 
 function App() {
   return (
     <Router>
       <Navbar />
-      <div style={{ backgroundColor: "#F8F8F8" }}>
+      <Box sx={{ bgcolor: "background.default" }}>
         <Switch>
           <Route exact path="/">
             <FrontPage />
@@ -39,7 +39,7 @@ function App() {
             <SingleRecipePage />
           </Route>
         </Switch>
-      </div>
+      </Box>
       <Footer />
     </Router>
   );

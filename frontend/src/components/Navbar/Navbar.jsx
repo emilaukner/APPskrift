@@ -16,6 +16,7 @@ import UserProfileComponent from "../UserProfileComponent/UserProfileComponent";
 import { useCookies } from "react-cookie";
 import LogInPopUp from "../LogInPopUp/LogInPopUp";
 import Logo from "../../assets/Logo.png";
+import LogoInverted from "../../assets/LogoInverted.PNG";
 import { useTheme } from "@mui/material/styles";
 import { ColorModeContext } from "../../ColorThemeAppProvider";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
@@ -78,9 +79,9 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar position="static" style={{ background: "#FFFFFF" }}>
+      <AppBar position="static" sx={{ bgcolor: "navbar.main" }}>
         <Container maxWidth="xl">
-          <Toolbar disableGutters sx={{ backgorundColor: "red" }}>
+          <Toolbar disableGutters>
             <Typography
               variant="h6"
               noWrap
@@ -93,7 +94,11 @@ const Navbar = () => {
             >
               {/*APPSKRIFT*/}
               <NavLink to="/">
-                <img src={Logo} height="45px" />
+                {theme.palette.mode === "dark" ? (
+                  <img src={LogoInverted} height="45px" />
+                ) : (
+                  <img src={Logo} height="45px" />
+                )}
               </NavLink>
             </Typography>
 
@@ -185,7 +190,11 @@ const Navbar = () => {
             >
               {/*APPSKRIFT*/}
               <NavLink to="/">
-                <img src={Logo} height="35px" />
+                {theme.palette.mode === "dark" ? (
+                  <img src={LogoInverted} height="35px" />
+                ) : (
+                  <img src={Logo} height="35px" />
+                )}
               </NavLink>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -226,15 +235,9 @@ const Navbar = () => {
                 </Button>
               </NavLink>
             </Box>
-
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              {theme.palette.mode} mode
+            <Box>
               <IconButton
+                style={{ marginRight: "0.5em" }}
                 sx={{ ml: 1 }}
                 onClick={colorMode.toggleColorMode}
                 color="inherit"
@@ -242,9 +245,17 @@ const Navbar = () => {
                 {theme.palette.mode === "dark" ? (
                   <Brightness7Icon />
                 ) : (
-                  <Brightness4Icon />
+                  <Brightness4Icon color="action" />
                 )}
               </IconButton>
+            </Box>
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+
               <Menu
                 sx={{ mt: "45px" }}
                 id="menu-appbar"

@@ -5,7 +5,7 @@ import CopyrightIcon from "@mui/icons-material/Copyright";
 const Footer = () => {
   return (
     <>
-      <Box sx={{ backgroundColor: "darkgrey", padding: "3%" }}>
+      <Box sx={{ bgcolor: "footer.primary", padding: "3%" }}>
         <Container maxWidth="lg">
           <Grid container>
             <Typography color="lightgrey">
