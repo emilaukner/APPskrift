@@ -66,7 +66,7 @@ class Recipe(models.Model):
     meal = models.CharField(max_length=255, choices=MEALS, default="Middag", blank=False)
     categories = models.ManyToManyField('Category', blank=True, related_name="categories")
     publishedBy = models.ForeignKey('User', on_delete=models.CASCADE, null=True)
-    image = models.ImageField(max_length=5242880)
+    image = models.ImageField(upload_to="recipe_images")
 
     def _str_(self):
         return self.title

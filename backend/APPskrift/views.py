@@ -83,9 +83,19 @@ class UserView(viewsets.ModelViewSet):
 
 
 class RecipeView(viewsets.ModelViewSet):
-	parser_classes = (MultiPartParser, FormParser)
 	serializer_class = RecipeSerializer
 	queryset = Recipe.objects.all()
+
+	def create(self, request):
+		##parser_classes = (FormParser,)
+		print(request.data)
+		serializer = RecipeSerializer(data=request.data, many=False)
+		if (serializer.is_valid()):
+			serializer.save()
+			return Response(serializer.data, status=201)
+		else:
+			print(serializer.errors)
+			return Response(serializer.errors, status=400)
 
 class CategoryView(viewsets.ModelViewSet): 
 	serializer_class = CategorySerializer

@@ -22,6 +22,7 @@ const CreateRecipePage = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [errorShow, setErrorShow] = useState(false);
 	const [cookie, setCookie] = useCookies(["user"])
+  const [image, setImage] = useState();
 
   //===============Categories selection =======================//
   const [meal, setMeal] = useState("Frokost");
@@ -51,6 +52,12 @@ const CreateRecipePage = () => {
     setOtherCategories(newOtherCategories);
   };
 
+  const handleImageChange = (event) => {
+    event.preventDefault();
+    console.log(event.target.files[0])
+    setImage(event.target.files[0]);
+  }
+
   //==================Create recipe axios request ========================//
 
   const handleSubmit = () => {
@@ -77,20 +84,33 @@ const CreateRecipePage = () => {
     // };
 
     // TODO SLIK VI MÅ GJØRE OM API TIL Å TA IMOT RECIPE, SLETTE DEN OVER
-    const recipe = {
-      title: title,
-      difficulty: "E",
-      ingredients: ingredients,
-      steps: steps,
-      publishedBy: cookie.userId,
-      meal: meal,
-      estimate: estimate,
-      cousine: cousine,
-      categories: otherCategories
-    };
+    // const recipe = {
+    //   title: title,
+    //   difficulty: "E",
+    //   ingredients: ingredients,
+    //   steps: steps,
+    //   publishedBy: cookie.userId,
+    //   meal: meal,
+    //   estimate: estimate,
+    //   cousine: cousine,
+    //   categories: otherCategories
+    // };
+
+    let formdata = new FormData();
+    formdata.append("title", title);
+    formdata.append("difficulty", "E");
+    formdata.append("ingredients", ingredients);
+    formdata.append("steps", steps);
+    formdata.append("publishedBy", cookie.userId);
+    formdata.append("meal", meal);
+    formdata.append("estimate", estimate);
+    formdata.append("cousine", cousine);
+    formdata.append("categories", otherCategories);
+    formdata.append("image", image);
+    
 
     await axios
-      .post("/recipes/", recipe)
+      .post("/recipes/", formdata)
       .then(function (response) {
         console.log(response);
         setShowAlert(true);
@@ -215,10 +235,13 @@ const CreateRecipePage = () => {
                       </Typography>
                     </Grid>
                     <Grid item xs={8} sx={{ marginTop: "2%" }}>
-                      <Button variant="outlined">
-                        Last opp bilde
-                        <FileUploadIcon />
-                      </Button>
+                      <input
+                        type="file"
+                        onChange={handleImageChange} />
+                        <Button variant="outlined">
+                          Last opp bilde
+                          <FileUploadIcon />
+                        </Button>
                     </Grid>
                     <Grid item xs={12} style={{ marginTop: "10%" }}>
                       <Divider textAlign="center">
@@ -278,7 +301,7 @@ const CreateRecipePage = () => {
                         size="small"
                         value={cousine}
                         exclusive
-                        onChange={handleChangeCousine}
+                        onChange={() => handleChangeCousine}
                       >
                         <ToggleButton value="Europeisk">Europeisk</ToggleButton>
                         <ToggleButton value="Asiatisk">Asiatisk</ToggleButton>
