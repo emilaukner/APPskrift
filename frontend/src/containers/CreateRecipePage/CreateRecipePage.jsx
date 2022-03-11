@@ -29,7 +29,7 @@ const CreateRecipePage = () => {
   const [estimate, setEstimate] = useState("15 min");
   const [difficulty, setDifficulty] = useState("E");
   const [cousine, setCousine] = useState("Europeisk");
-  const [otherCategories, setOtherCategories] = useState(() => []);
+  const [otherCategories, setOtherCategories] = useState([]);
 
   const handleChangeMeal = (event, newMeal) => {
     if (newMeal !== null) {
@@ -78,7 +78,7 @@ const CreateRecipePage = () => {
     setEstimate("15 min");
     setDifficulty("E");
     setCousine("Europeisk");
-    setOtherCategories(() => []);
+    setOtherCategories([]);
   };
 
   const postRecipeRequest = async () => {
@@ -91,9 +91,12 @@ const CreateRecipePage = () => {
     formdata.append("meal", meal);
     formdata.append("estimate", estimate);
     formdata.append("cousine", cousine);
-    formdata.append("categories", otherCategories);
     formdata.append("image", image);
     
+    if(otherCategories.length > 0){
+      formdata.append("categories", otherCategories);
+    }
+
 
     await axios
       .post("/recipes/", formdata)
@@ -327,7 +330,7 @@ const CreateRecipePage = () => {
                         size="small"
                         value={cousine}
                         exclusive
-                        onChange={() => handleChangeCousine}
+                        onChange={handleChangeCousine}
                       >
                         <ToggleButton value="Europeisk">Europeisk</ToggleButton>
                         <ToggleButton value="Asiatisk">Asiatisk</ToggleButton>
