@@ -22,7 +22,7 @@ class User(models.Model):
     darkMode = models.BooleanField(default=False)
     favorites = models.ManyToManyField('Recipe', blank=True, related_name="favorite")
     saved = models.ManyToManyField('Recipe', blank=True, related_name="saved")
-    image = models.ImageField(upload_to="profile_images")
+    image = models.ImageField(upload_to="profile_images", blank=True)
 
     def _str_(self):
         return self.username
@@ -67,7 +67,7 @@ class Recipe(models.Model):
     meal = models.CharField(max_length=255, choices=MEALS, default="Middag", blank=False)
     categories = models.ManyToManyField('Category', blank=True, related_name="categories")
     publishedBy = models.ForeignKey('User', on_delete=models.CASCADE, null=True)
-    image = models.ImageField(upload_to="recipe_images")
+    image = models.ImageField(upload_to="recipe_images", blank=True)
 
     def _str_(self):
         return self.title
