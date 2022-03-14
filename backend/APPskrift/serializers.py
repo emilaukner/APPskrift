@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Category, Comment, Evaluation, User, Recipe
+from .models import Category, Comment, Evaluation, Foods, User, Recipe
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -56,5 +56,14 @@ class EvaluationSerializer(serializers.ModelSerializer):
             fields = (
                 "stars", 
                 "recipe",
+                "user"
+            )
+
+class FoodsSerializer(serializers.ModelSerializer): 
+        class Meta: 
+            model = Foods
+            fields = (
+                "name", 
+                "checked", 
                 "user"
             )

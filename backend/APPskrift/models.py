@@ -95,3 +95,12 @@ class Evaluation(models.Model):
         return self.stars
 
 
+class Foods(models.Model): 
+    name = models.TextField(blank=False)
+    checked = models.BooleanField(default=False)
+    belongs = models.ForeignKey('User', on_delete=models.CASCADE, blank=False)
+
+    def __str__(self): 
+        return self.name
+
+

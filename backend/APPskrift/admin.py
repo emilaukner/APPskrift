@@ -9,5 +9,6 @@ admin.site.register(Recipe)
 admin.site.register(Category)
 admin.site.register(Comment)
 admin.site.register(Evaluation)
+admin.site.register(Foods)
 
 

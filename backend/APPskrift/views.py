@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets
-from .serializers import UserSerializer, RecipeSerializer, CategorySerializer, CommentSerializer, EvaluationSerializer
-from .models import User, Recipe, Category, Comment, Evaluation
+from .serializers import FoodsSerializer, UserSerializer, RecipeSerializer, CategorySerializer, CommentSerializer, EvaluationSerializer
+from .models import User, Recipe, Category, Comment, Evaluation, Foods
 
 from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
@@ -97,6 +97,10 @@ class CommentView(viewsets.ModelViewSet):
 class EvaluationView(viewsets.ModelViewSet):
 	serializer_class = EvaluationSerializer
 	queryset = Evaluation.objects.all()
+
+class FoodsView(viewsets.ModelViewSet):
+	serializer_class = FoodsSerializer
+	queryset = Foods.objects.all()
 
 class AuthenticationView(APIView):
 	def post(self, request):
