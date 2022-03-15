@@ -39,7 +39,6 @@ const Navbar = () => {
       .get(`/users/${cookie.userId}`)
       .then((res) => {
         setProfileImage(res.data.image);
-        console.log("Got profile image: ", profileImage);
       })
       .catch((err) => {
     console.log(err)

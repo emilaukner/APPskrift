@@ -33,7 +33,6 @@ const CreateUser = (props) => {
     await axios
       .post("/users/", data)
       .then(function (response) {
-        console.log(response);
         setUsername("");
         setEmail("");
         setPassword("");
@@ -49,7 +48,6 @@ const CreateUser = (props) => {
 
   const handleImageChange = (event) => {
     event.preventDefault();
-    console.log(event.target.files[0])
     setImage(event.target.files[0]);
   }
 

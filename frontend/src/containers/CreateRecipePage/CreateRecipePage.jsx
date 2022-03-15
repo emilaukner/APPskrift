@@ -61,9 +61,7 @@ const CreateRecipePage = () => {
 
   const onImageChange = (event) => {
     event.preventDefault();
-    console.log("Trying to set image");
     setImage(event.target.files[0]);
-    console.log("Image:", image, "Should be:", event.target.files[0]);
   }
 
   //==================Create recipe axios request ========================//
@@ -101,7 +99,6 @@ const CreateRecipePage = () => {
     await axios
       .post("/recipes/", formdata)
       .then(function (response) {
-        console.log(response);
         setShowAlert(true);
         setTimeout(function () {
           setShowAlert(false);
