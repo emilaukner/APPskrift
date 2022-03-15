@@ -15,6 +15,7 @@ const UserProfileComponent = ({onLogOut, onClose, show, userId}) => {
     const [userID, setUserID] = useState();
     const [userImage, setImage] = useState();
     const [userName, setUserName] = useState();
+    const [profileImage, setProfileImage] = useState();
     const [email, setemail] = useState();
 
     useEffect(() => {
@@ -29,6 +30,7 @@ const UserProfileComponent = ({onLogOut, onClose, show, userId}) => {
             setUserID(res.data.userId);
             setUserName(res.data.username);
             setemail(res.data.email);
+            setProfileImage(res.data.image);
         })
         .catch((err) => {
 			console.log(err)
@@ -59,7 +61,7 @@ const UserProfileComponent = ({onLogOut, onClose, show, userId}) => {
               alignItems="center"
               >
                     <Grid item xs={12}>
-                        <img alt="profilePicture" src={Profileimg} height="200" width="200" style={{borderRadius:"50%"}}/>
+                        <img alt="profilePicture" src={profileImage} height="200" width="200" style={{borderRadius:"50%"}}/>
                     </Grid>
                     <Grid item xs={12}>
                         <Typography>

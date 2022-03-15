@@ -21,14 +21,15 @@ const CreateRecipePage = () => {
   const [ingredients, setIngredients] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [errorShow, setErrorShow] = useState(false);
-  const [cookie, setCookie] = useCookies(["user"]);
+	const [cookie, setCookie] = useCookies(["user"])
+  const [image, setImage] = useState();
 
   //===============Categories selection =======================//
   const [meal, setMeal] = useState("Frokost");
   const [estimate, setEstimate] = useState("15 min");
   const [difficulty, setDifficulty] = useState("E");
   const [cousine, setCousine] = useState("Europeisk");
-  const [otherCategories, setOtherCategories] = useState(() => []);
+  const [otherCategories, setOtherCategories] = useState([]);
 
   const handleChangeMeal = (event, newMeal) => {
     if (newMeal !== null) {
@@ -58,6 +59,11 @@ const CreateRecipePage = () => {
     setOtherCategories(newOtherCategories);
   };
 
+  const onImageChange = (event) => {
+    event.preventDefault();
+    setImage(event.target.files[0]);
+  }
+
   //==================Create recipe axios request ========================//
 
   const handleSubmit = () => {
@@ -70,26 +76,29 @@ const CreateRecipePage = () => {
     setEstimate("15 min");
     setDifficulty("E");
     setCousine("Europeisk");
-    setOtherCategories(() => []);
+    setOtherCategories([]);
   };
 
   const postRecipeRequest = async () => {
-    const recipe = {
-      title: title,
-      difficulty: difficulty,
-      ingredients: ingredients,
-      steps: steps,
-      publishedBy: cookie.userId,
-      meal: meal,
-      estimate: estimate,
-      cousine: cousine,
-      categories: otherCategories,
-    };
+    let formdata = new FormData();
+    formdata.append("title", title);
+    formdata.append("difficulty", difficulty);
+    formdata.append("ingredients", ingredients);
+    formdata.append("steps", steps);
+    formdata.append("publishedBy", cookie.userId);
+    formdata.append("meal", meal);
+    formdata.append("estimate", estimate);
+    formdata.append("cousine", cousine);
+    formdata.append("image", image);
+    
+    if(otherCategories.length > 0){
+      formdata.append("categories", otherCategories);
+    }
+
 
     await axios
-      .post("/recipes/", recipe)
+      .post("/recipes/", formdata)
       .then(function (response) {
-        console.log(response);
         setShowAlert(true);
         setTimeout(function () {
           setShowAlert(false);
@@ -202,7 +211,7 @@ const CreateRecipePage = () => {
                         fullWidth
                       />
                     </Grid>
-                    {/* <Grid item xs={4} sx={{ marginTop: "2%" }}>
+                    <Grid item xs={4} sx={{ marginTop: "2%" }}>
                       <Typography
                         variant="subtitle1"
                         gutterBottom
@@ -212,11 +221,34 @@ const CreateRecipePage = () => {
                       </Typography>
                     </Grid>
                     <Grid item xs={8} sx={{ marginTop: "2%" }}>
-                      <Button variant="outlined">
-                        Last opp bilde
-                        <FileUploadIcon />
-                      </Button>
-                    </Grid> */}
+                      <label htmlFor="upload-photoo">
+                        <input
+                          type="file"
+                          id="upload-photoo"
+                          name="upload-photoo"
+                          onChange={onImageChange} 
+                          hidden
+                        />
+                        <Button variant="outlined" component="span">
+                          Last opp bilde
+                          <FileUploadIcon />
+                        </Button>
+                        {
+                          image 
+                          ?                          
+                          ( <Typography
+                            variant="caption"
+                            gutterBottom
+                            component="div"
+                          >
+                            {image.name}
+                          </Typography> )
+                          : (null)
+                        }
+                        
+                      </label>
+                        
+                    </Grid>
                     <Grid item xs={12} style={{ marginTop: "10%" }}>
                       <Divider textAlign="center">
                         <Typography>Kategorier</Typography>
