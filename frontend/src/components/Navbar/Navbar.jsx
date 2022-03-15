@@ -12,15 +12,23 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
-import UserProfileComponent from "../UserProfileComponent/UserProfileComponent"
+import UserProfileComponent from "../UserProfileComponent/UserProfileComponent";
 import { useCookies } from "react-cookie";
 import LogInPopUp from "../LogInPopUp/LogInPopUp";
 import Logo from "../../assets/Logo.png";
+import LogoInverted from "../../assets/LogoInverted.PNG";
+import { useTheme } from "@mui/material/styles";
+import { ColorModeContext } from "../../ColorThemeAppProvider";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 import axios from "axios";
 
 const settings = ["Min profil", "Logg ut"];
 
 const Navbar = () => {
+  const theme = useTheme();
+  const colorMode = React.useContext(ColorModeContext);
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [profileShow, setProfileShow] = React.useState(false);
@@ -63,17 +71,18 @@ const Navbar = () => {
   const handleProfile = () => {
     setProfileShow(true);
     setAnchorElUser(null);
-  }
+  };
 
   const handleLogin = () => {
     setLoginShow(true);
     setAnchorElUser(null);
-  }
+  };
 
   const handleLogInComplete = (user) => {
     setUserLoggedIn(true);
-    setCookie("userId", user.userId);
-    setLoggedInUserId(user.userId);
+
+    setCookie("userId", userId);
+    setLoggedInUserId(userId);
     setLoginShow(false);
     window.location.reload(false);
   };
@@ -87,124 +96,144 @@ const Navbar = () => {
 
   return (
     <>
-    <AppBar position="static" style={{ background: "#FFFFFF" }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{ backgorundColor: "red" }}>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              color: "#A9A9A9",
-            }}
-          >
-            {/*APPSKRIFT*/}
-            <NavLink to="/">
-              <img src={Logo} height="45px" />
-            </NavLink>
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-              sx={{ color: "darkgrey" }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+      <AppBar position="static" sx={{ bgcolor: "navbar.main" }}>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
               sx={{
-                display: { xs: "block", md: "none" },
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                color: "#A9A9A9",
               }}
             >
-              <NavLink to="/" style={{ textDecoration: "none" }}>
-                <MenuItem
-                  key="1"
-                  onClick={handleCloseNavMenu}
-                  style={{ textDecoration: "none" }}
-                >
-                  <Typography textAlign="center" style={{ color: "darkgray" }}>
-                    Hjem
-                  </Typography>
-                </MenuItem>
+              {/*APPSKRIFT*/}
+              <NavLink to="/">
+                {theme.palette.mode === "dark" ? (
+                  <img src={LogoInverted} height="45px" />
+                ) : (
+                  <img src={Logo} height="45px" />
+                )}
               </NavLink>
-              <NavLink to="/my-recipes/" style={{ textDecoration: "none" }}>
-                <MenuItem key="2" onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" style={{ color: "darkgray" }}>
-                    Mine oppskrifter
-                  </Typography>
-                </MenuItem>
-              </NavLink>
-              {/* <NavLink to="/my-favorites/" style={{ textDecoration: "none" }}>
+            </Typography>
+
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+                sx={{ color: "darkgrey" }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
+                <NavLink to="/" style={{ textDecoration: "none" }}>
+                  <MenuItem
+                    key="1"
+                    onClick={handleCloseNavMenu}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Typography
+                      textAlign="center"
+                      style={{ color: "darkgray" }}
+                    >
+                      Hjem
+                    </Typography>
+                  </MenuItem>
+                </NavLink>
+                <NavLink to="/my-recipes/" style={{ textDecoration: "none" }}>
+                  <MenuItem key="2" onClick={handleCloseNavMenu}>
+                    <Typography
+                      textAlign="center"
+                      style={{ color: "darkgray" }}
+                    >
+                      Mine oppskrifter
+                    </Typography>
+                  </MenuItem>
+                </NavLink>
+                {/* <NavLink to="/my-favorites/" style={{ textDecoration: "none" }}>
                 <MenuItem key="3" onClick={handleCloseNavMenu}>
                   <Typography textAlign="center" style={{ color: "darkgray" }}>
                     Mine favoritter
                   </Typography>
                 </MenuItem>
               </NavLink> */}
-              <NavLink to="/saved-recipes/" style={{ textDecoration: "none" }}>
-                <MenuItem key="4" onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" style={{ color: "darkgray" }}>
-                    Lagrede oppskrifter
-                  </Typography>
-                </MenuItem>
+                <NavLink
+                  to="/saved-recipes/"
+                  style={{ textDecoration: "none" }}
+                >
+                  <MenuItem key="4" onClick={handleCloseNavMenu}>
+                    <Typography
+                      textAlign="center"
+                      style={{ color: "darkgray" }}
+                    >
+                      Lagrede oppskrifter
+                    </Typography>
+                  </MenuItem>
+                </NavLink>
+              </Menu>
+            </Box>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{
+                flexGrow: 1,
+                display: { xs: "flex", md: "none" },
+                color: "darkgrey",
+              }}
+            >
+              {/*APPSKRIFT*/}
+              <NavLink to="/">
+                {theme.palette.mode === "dark" ? (
+                  <img src={LogoInverted} height="35px" />
+                ) : (
+                  <img src={Logo} height="35px" />
+                )}
               </NavLink>
-            </Menu>
-          </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{
-              flexGrow: 1,
-              display: { xs: "flex", md: "none" },
-              color: "darkgrey",
-            }}
-          >
-            {/*APPSKRIFT*/}
-            <NavLink to="/">
-              <img src={Logo} height="35px" />
-            </NavLink>
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <NavLink to="/" style={{ textDecoration: "none" }}>
-              <Button
-                key="1"
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "darkgrey", display: "block" }}
-              >
-                Hjem
-              </Button>
-            </NavLink>
-            <NavLink to="/my-recipes/" style={{ textDecoration: "none" }}>
-              <Button
-                key="2"
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "darkgrey", display: "block" }}
-              >
-                Mine oppskrifter
-              </Button>
-            </NavLink>
-            {/* <NavLink to="/my-favorites/" style={{ textDecoration: "none" }}>
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <NavLink to="/" style={{ textDecoration: "none" }}>
+                <Button
+                  key="1"
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "darkgrey", display: "block" }}
+                >
+                  Hjem
+                </Button>
+              </NavLink>
+              <NavLink to="/my-recipes/" style={{ textDecoration: "none" }}>
+                <Button
+                  key="2"
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "darkgrey", display: "block" }}
+                >
+                  Mine oppskrifter
+                </Button>
+              </NavLink>
+              {/* <NavLink to="/my-favorites/" style={{ textDecoration: "none" }}>
               <Button
                 key="3"
                 onClick={handleCloseNavMenu}
@@ -213,69 +242,88 @@ const Navbar = () => {
                 Mine favoritter
               </Button>
             </NavLink> */}
-            <NavLink to="/saved-recipes/" style={{ textDecoration: "none" }}>
-              <Button
-                key="4"
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "darkgrey", display: "block" }}
+              <NavLink to="/saved-recipes/" style={{ textDecoration: "none" }}>
+                <Button
+                  key="4"
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "darkgrey", display: "block" }}
+                >
+                  Lagrede oppskrifter
+                </Button>
+              </NavLink>
+            </Box>
+            <Box>
+              <IconButton
+                style={{ marginRight: "0.5em" }}
+                sx={{ ml: 1 }}
+                onClick={colorMode.toggleColorMode}
+                color="inherit"
               >
-                Lagrede oppskrifter
-              </Button>
-            </NavLink>
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src={profileImage} />
+                {theme.palette.mode === "dark" ? (
+                  <Brightness7Icon />
+                ) : (
+                  <Brightness4Icon color="action" />
+                )}
               </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {userLoggedIn ? (                
-              <MenuItem display={{profileItem: "none"}} key={"Min Profil"} onClick={handleProfile}>
-                  <Typography textAlign="center">Min Profil</Typography>
-              </MenuItem>) : null}
-              {userLoggedIn ? (
-                <MenuItem key="Logg ut" onClick={handleLogOut}>
-                  <Typography textAlign="center">Logg ut</Typography>
-                </MenuItem>
-              ) : (
-                <MenuItem key="Logg inn" onClick={handleLogin}>
-                  <Typography textAlign="center">Logg inn</Typography>
-                </MenuItem>
-              )}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-      <UserProfileComponent 
-        onLogOut={handleLogOut} 
-        onClose={() => setProfileShow(false)} 
-        show = {profileShow} 
-        cookie = {cookie}
-        userId={cookie.userId}
-      />
-      <LogInPopUp
-        onSuccess={handleLogInComplete}
-        onClose={() => setLoginShow(false)}
-        show={loginShow}
-      />
-    </AppBar>
+            </Box>
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src={profileImage} />
+                </IconButton>
+              </Tooltip>
+
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {userLoggedIn ? (
+                  <MenuItem
+                    display={{ profileItem: "none" }}
+                    key={"Min Profil"}
+                    onClick={handleProfile}
+                  >
+                    <Typography textAlign="center">Min Profil</Typography>
+                  </MenuItem>
+                ) : null}
+                {userLoggedIn ? (
+                  <MenuItem key="Logg ut" onClick={handleLogOut}>
+                    <Typography textAlign="center">Logg ut</Typography>
+                  </MenuItem>
+                ) : (
+                  <MenuItem key="Logg inn" onClick={handleLogin}>
+                    <Typography textAlign="center">Logg inn</Typography>
+                  </MenuItem>
+                )}
+              </Menu>
+            </Box>
+          </Toolbar>
+        </Container>
+        <UserProfileComponent
+          onLogOut={handleLogOut}
+          onClose={() => setProfileShow(false)}
+          show={profileShow}
+          cookie={cookie}
+          userId={cookie.userId}
+        />
+        <LogInPopUp
+          onSuccess={handleLogInComplete}
+          onClose={() => setLoginShow(false)}
+          show={loginShow}
+        />
+      </AppBar>
     </>
   );
 };
