@@ -12,6 +12,7 @@ import UserProfileComponent from "../../components/UserProfileComponent/UserProf
 import { useCookies } from "react-cookie";
 import { getFilteredRecipes } from "./helpers";
 import { width } from "@mui/system";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 const FrontPage = () => {
   //TODO make catogories a own component
@@ -21,6 +22,7 @@ const FrontPage = () => {
   const [difficulty, setDifficulty] = useState(() => []);
   const [cousine, setCousine] = useState(() => []);
   const [otherCategories, setOtherCategories] = useState(() => []);
+  const [searchTerm, setSearchTerm] = useState(""); 
 
   const handleChangeMeal = (event, newMeal) => {
     setMeal(newMeal);
@@ -41,6 +43,10 @@ const FrontPage = () => {
   const handleChangeOtherCategories = (event, newOtherCategories) => {
     setOtherCategories(newOtherCategories);
   };
+
+  const handleSearch = (newSearchTerm) => {
+    setSearchTerm(newSearchTerm);
+  }
   //====================== Category end================================//
 
   const [recipeData, setRecipeData] = useState([]);
@@ -94,20 +100,20 @@ const FrontPage = () => {
   }, []);
 
   const createRecipeModules = () => {
-    console.log(recipeData);
     const recipes = getFilteredRecipes(
       recipeData,
       meal,
       estimate,
       difficulty,
       cousine,
-      otherCategories
+      otherCategories, 
+      searchTerm
     ).map((recipe) => {
       return (
         <SingleRecepieModule
           recipeId={recipe.recipeId}
           title={recipe.title}
-          image={Dish}
+          image={recipe.image}
           meal={recipe.meal}
           cousine={recipe.cousine}
           timeEstimate={recipe.estimate}
@@ -135,7 +141,10 @@ const FrontPage = () => {
           <Grid item xs />
           <Grid container xs={10}>
             <Paper>
-              <Grid container rowSpacing={1} sx={{ padding: "2%" }}>
+              <Grid container rowSpacing={1} sx={{ padding: "2%" }}>'
+                <Grid container direction="row" justifyContent= "center">
+                  <Grid item lg={12}><SearchBar handleSearch={handleSearch}/></Grid>
+                </Grid>
                 <Grid item xs={3}>
                   <Grid item>
                     <Typography variant="caption">Måltid</Typography>

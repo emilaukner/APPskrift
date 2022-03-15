@@ -12,7 +12,8 @@ class UserSerializer(serializers.ModelSerializer):
                 "email", 
                 "darkMode", 
                 "favorites",
-								"saved"
+				"saved",
+                "image"
             )
 
 class RecipeSerializer(serializers.ModelSerializer):
@@ -29,6 +30,7 @@ class RecipeSerializer(serializers.ModelSerializer):
                     "estimate",
                     "meal",
 					"categories",
+                    "image",
 					"publishedBy"
 				)
                 
