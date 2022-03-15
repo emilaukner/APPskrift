@@ -65,7 +65,7 @@ const SavedRecipesPage = () => {
           <SingleRecipeModule
             recipeId={recipe.recipeId}
             title={recipe.title}
-            image={Dish}
+            image={recipe.image}
             meal={recipe.meal}
             cousine={recipe.cousine}
             timeEstimate={recipe.estimate}

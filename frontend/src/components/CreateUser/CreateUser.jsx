@@ -17,28 +17,27 @@ const CreateUser = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [profilePicture, setProfilePicture] = useState("");
+  const [image, setImage] = useState("");
 
   const handleSubmit = () => {
     postCreateUserRequest();
   };
 
   const postCreateUserRequest = async () => {
-    const user = {
-      username: username,
-      email: email,
-      password: password,
-      profilPicture: profilePicture,
-    };
+    let data = new FormData();
+    data.append("username", username);
+    data.append("email", email);
+    data.append("password", password);
+    data.append("image", image);
+
     await axios
-      .post("/users/", user)
+      .post("/users/", data)
       .then(function (response) {
-        console.log(response);
         setUsername("");
         setEmail("");
         setPassword("");
         setConfirmPassword("");
-        setProfilePicture("");
+        setImage("");
 				props.onComplete();
       })
       .catch(function (error) {
@@ -46,6 +45,11 @@ const CreateUser = (props) => {
         //TODO show an error if post request fails.
       });
   };
+
+  const handleImageChange = (event) => {
+    event.preventDefault();
+    setImage(event.target.files[0]);
+  }
 
   return (
     <StyledCreateUser show={props.show}>
@@ -128,18 +132,32 @@ const CreateUser = (props) => {
                   )}
                 </Grid>
 
-                {/* <Grid item xs={4} sx={{ marginTop: "2%" }}>
-                  <Typography variant="subtitle1" gutterBottom component="div">
-                    Legg til bilde
-                  </Typography>
-                </Grid>
-                <Grid item xs={8} sx={{ marginTop: "2%" }}>
-                  TODO implement image oppload 
-                  <Button variant="outlined">
-                    Last opp bilde
-                    <FileUploadIcon />
-                  </Button>
-                </Grid> */}
+                <label htmlFor="upload-photo">
+                        <input
+                          type="file"
+                          id="upload-photo"
+                          name="upload-photo"
+                          hidden
+                          onChange={handleImageChange} 
+                        />
+                        <Button variant="outlined" component="span">
+                          Last opp bilde
+                          <FileUploadIcon />
+                        </Button>
+                        {
+                          image 
+                          ?                          
+                          ( <Typography
+                            variant="caption"
+                            gutterBottom
+                            component="div"
+                          >
+                            {image.name}
+                          </Typography> )
+                          : null
+                        }
+                        
+                      </label>
                 <br />
                 <br />
                 <Grid

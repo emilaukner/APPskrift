@@ -21,6 +21,7 @@ import { useTheme } from "@mui/material/styles";
 import { ColorModeContext } from "../../ColorThemeAppProvider";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
+import axios from "axios";
 
 const settings = ["Min profil", "Logg ut"];
 
@@ -33,8 +34,24 @@ const Navbar = () => {
   const [profileShow, setProfileShow] = React.useState(false);
   const [cookie, setCookie, removeCookie] = useCookies(["user"]);
   const [loggedInUserId, setLoggedInUserId] = React.useState("");
+  const [profileImage, setProfileImage] = React.useState("");
   const [userLoggedIn, setUserLoggedIn] = React.useState(cookie.userId != null);
   const [loginShow, setLoginShow] = React.useState(false);
+
+  React.useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+      await axios
+      .get(`/users/${cookie.userId}`)
+      .then((res) => {
+        setProfileImage(res.data.image);
+      })
+      .catch((err) => {
+    console.log(err)
+  })
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -61,11 +78,11 @@ const Navbar = () => {
     setAnchorElUser(null);
   };
 
-  const handleLogInComplete = (userId) => {
+  const handleLogInComplete = (user) => {
     setUserLoggedIn(true);
+
     setCookie("userId", userId);
     setLoggedInUserId(userId);
-    console.log("UserId was set:", userId);
     setLoginShow(false);
     window.location.reload(false);
   };
@@ -252,7 +269,7 @@ const Navbar = () => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="Remy Sharp" src={profileImage} />
                 </IconButton>
               </Tooltip>
 

@@ -20,7 +20,7 @@ const SingleRecipeHeader = (props) => {
     axios
       .get(`/users/${props.recipe.publishedBy}/`)
       .then((response) => {
-        setUser(response.data.username);
+        setUser(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -47,8 +47,13 @@ const SingleRecipeHeader = (props) => {
       break;
   }
   const time = props.recipe.estimate;
-  const name = user;
-  const avatarImage = Food;
+  let name = "Name";
+  let avatarImage = Food;
+
+  if(user) {
+    avatarImage = user.image;
+    name = user.username;
+  }
 
   return (
     <>

@@ -18,25 +18,23 @@ const LogInPopUp = ({ onClose, onSuccess, show }) => {
   const [cookie, setCookie] = useCookies(["user"]);
   const [showCreateUser, setShowCreateUser] = useState(false);
 
-  const submitLogin = async () => {
-    await axios
-      .post("/auth/", {
-        email: email,
-        password: password,
-      })
-      .then((res) => {
-        console.log("Login was successful", res);
-        onSuccess(res.data.userId);
-        //setCookie("userId", res.data.userId);
-      })
-      .catch((err) => {
-        console.log(err);
-        setError(true);
-        setTimeout(function () {
-          setError(false);
-        }, 2000);
-      });
-  };
+	const submitLogin = async () => {
+		await axios
+		.post("/auth/", {
+			email: email,
+			password: password
+		})
+		.then((res) => {
+			onSuccess(res.data);
+		})
+		.catch((err) => {
+			console.log(err)
+			setError(true);
+			setTimeout(function () {
+				setError(false);
+			}, 2000);
+		})
+	}
 
   const onCreateUserClose = () => {
     setShowCreateUser(false);

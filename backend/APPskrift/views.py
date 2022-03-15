@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from .serializers import UserSerializer, RecipeSerializer, CategorySerializer, CommentSerializer, EvaluationSerializer
 from .models import User, Recipe, Category, Comment, Evaluation
 
-from rest_framework.parsers import JSONParser
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -15,6 +15,16 @@ from django.http import HttpResponse, JsonResponse
 class UserView(viewsets.ModelViewSet):
 	serializer_class = UserSerializer
 	queryset = User.objects.all()
+
+	# Need this for images
+	def create(self, request):
+		serializer = UserSerializer(data=request.data, many=False)
+		if (serializer.is_valid()):
+			serializer.save()
+			return Response(serializer.data, status=201)
+		else:
+			print(serializer.errors)
+			return Response(serializer.errors, status=400)
 
 	@action(methods=["get"], detail=True)
 	def recipes(self, request, pk=True):
@@ -85,6 +95,16 @@ class UserView(viewsets.ModelViewSet):
 class RecipeView(viewsets.ModelViewSet):
 	serializer_class = RecipeSerializer
 	queryset = Recipe.objects.all()
+
+	# Need this for images
+	def create(self, request):
+		serializer = RecipeSerializer(data=request.data, many=False)
+		if (serializer.is_valid()):
+			serializer.save()
+			return Response(serializer.data, status=201)
+		else:
+			print(serializer.errors)
+			return Response(serializer.errors, status=400)
 
 class CategoryView(viewsets.ModelViewSet): 
 	serializer_class = CategorySerializer
