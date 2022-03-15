@@ -77,6 +77,7 @@ const CreateRecipePage = () => {
     setDifficulty("E");
     setCousine("Europeisk");
     setOtherCategories([]);
+    setImage("");
   };
 
   const postRecipeRequest = async () => {
