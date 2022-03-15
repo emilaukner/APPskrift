@@ -9,7 +9,7 @@ from APPskrift.serializers import *
 class RecipeTestCase(APITestCase):
 
 	def setUp(self):
-		self.recipe = Recipe.objects.create(title='food', estimate=1, ingredients='stuff', steps='make the food')
+		self.recipe = Recipe.objects.create(title='food', estimate=1, ingredients='stuff', steps='make the food', meal="Middag")
 
 	def test_creation(self):
 		data = {
@@ -134,3 +134,21 @@ class UserViewTestCase(APITestCase):
 			fail("Saved recipe should not exist after deletion")
 		except:
 			pass
+
+class EvaluationViewTestCase(APITestCase):
+	def setUp(self):
+		self.user1 = User.objects.create(username="test1", password="test", email="test1@test.com")
+		self.user2 = User.objects.create(username="test2", password="test", email="test2@test.com")
+		self.recipe = Recipe.objects.create(title='test', ingredients='stuff', steps='make the food', publishedBy=self.user1)
+		self.evaluation1 = Evaluation.objects.create(stars=1, evalRecipe=self.recipe, publishedBy=self.user1)
+		self.evaluation2 = Evaluation.objects.create(stars=5, evalRecipe=self.recipe, publishedBy=self.user2)
+
+	def test_evalAvg(self):
+		request = self.client.post("/evaluations/", {
+			"stars" : self.evaluation2.stars,
+			"recipe" : str(self.evaluation2.evalRecipe.recipeId),
+			"publishedBy" : str(self.evaluation2.publishedBy.userId),			
+		})
+		self.assertEqual(self.recipe.publishedBy, self.user1)
+		self.assertEqual(self.recipe.evaluations, None)
+

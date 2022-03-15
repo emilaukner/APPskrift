@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from flask import request
 from rest_framework import viewsets
 from .serializers import UserSerializer, RecipeSerializer, CategorySerializer, CommentSerializer, EvaluationSerializer
 from .models import User, Recipe, Category, Comment, Evaluation
@@ -117,6 +118,30 @@ class CommentView(viewsets.ModelViewSet):
 class EvaluationView(viewsets.ModelViewSet):
 	serializer_class = EvaluationSerializer
 	queryset = Evaluation.objects.all()
+
+	def create(self, request):
+		print(request.data["recipe"])
+		stars = request.data["stars"]
+		recipe = Recipe.objects.get(recipeId=request.data["recipe"])
+		publishedBy = User.objects.get(userId=request.data["publishedBy"])
+		evaluation = Evaluation(stars=stars,evalRecipe=recipe, publishedBy=publishedBy)
+		evaluation.save()
+		self.avgEval(request)
+		return Response("Haha taper")
+
+	def avgEval(self, request):
+		recipe = Recipe.objects.get(recipeId=request.data["recipe"])
+		evalSet = EvaluationSerializer(data=Evaluation.objects.filter(recipe=request.data["recipe"]), many=True)
+		if(evalSet.is_valid()):
+			count = evalSet.data.length
+			sum = 0
+			for evaluation in evalSet.data:
+				sum += evaluation.stars
+			avg = sum/count
+			recipe.avgEvaluation = avg
+			recipe.save()
+		else:
+			print(evalSet.errors)
 
 class AuthenticationView(APIView):
 	def post(self, request):

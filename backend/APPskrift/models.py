@@ -68,6 +68,8 @@ class Recipe(models.Model):
     categories = models.ManyToManyField('Category', blank=True, related_name="categories")
     publishedBy = models.ForeignKey('User', on_delete=models.CASCADE, null=True)
     image = models.ImageField(upload_to="recipe_images", blank=True)
+    evaluations = models.ForeignKey('Evaluation', on_delete=models.CASCADE, null=True)
+    avgEvaluation = models.FloatField(null=True)
 
     def _str_(self):
         return self.title
@@ -88,9 +90,10 @@ class Comment(models.Model):
     def __str__(self): 
         return self.commentId
 
-class Evaluation(models.Model): 
+class Evaluation(models.Model):
+    evaluationId = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) 
     stars = models.IntegerField()
-    recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, blank=False)
+    evalRecipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, blank=False)
     publishedBy = models.ForeignKey('User', on_delete=models.CASCADE, blank=False)
 
     def __str__(self): 
