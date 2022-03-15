@@ -11,7 +11,7 @@ import CreateUser from "../CreateUser/CreateUser";
 import axios from "axios";
 import { grid } from "@mui/system";
 
-const LogInPopUp = ({onClose, onSuccess, show}) => {
+const LogInPopUp = ({onClose, onSuccess, show, alertMessage}) => {
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
 	const [error, setError] = useState(false);
@@ -43,10 +43,13 @@ const LogInPopUp = ({onClose, onSuccess, show}) => {
 
 	return(
 		<StyledLoginPopup show={show}>
- 				<Box sx={{ width: "30%", top: "5%", left: "37.5%", position: "fixed" }}>
+ 				<Box sx={{ width: "30%", top: "5%", left: "37.5%", position: "fixed", zIndex: 99 }}>
 					<Paper sx={{padding: "7%"}}>	
 					{error ? (
 						<Alert severity="error">Feilet! Kunne ikke logge inn!</Alert>
+					) : null}
+					{alertMessage ? (
+						<Alert severity="error">{alertMessage}</Alert>
 					) : null}
 						<Grid container spacing={2}>
 							<Grid item xs={11}>

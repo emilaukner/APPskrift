@@ -20,7 +20,7 @@ import axios from "axios";
 
 const settings = ["Min profil", "Logg ut"];
 
-const Navbar = () => {
+const Navbar = ({onAuthFail}) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [profileShow, setProfileShow] = React.useState(false);
@@ -73,7 +73,6 @@ const Navbar = () => {
   const handleLogInComplete = (user) => {
     setUserLoggedIn(true);
     setCookie("userId", user.userId);
-    setLoggedInUserId(user.userId);
     setLoginShow(false);
     window.location.reload(false);
   };

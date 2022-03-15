@@ -5,7 +5,7 @@ import { Paper, Typography, Box, Grid } from "@mui/material";
 import SingleRecipeModule from "../../components/SingleRecipeModule/SingleRecipeModule";
 import Dish from "../../assets/DishDeleteMe.png";
 
-const SavedRecipesPage = () => {
+const SavedRecipesPage = ({onAuthFail}) => {
   const [recipeData, setRecipeData] = useState([]);
   const [recipeLikedData, setRecipeLikedData] = useState([]);
   const [recipeSavedData, setRecipeSavedData] = useState([]);
@@ -21,6 +21,7 @@ const SavedRecipesPage = () => {
       })
       .catch((error) => {
         console.log(error);
+        onAuthFail();
       });
   };
 
