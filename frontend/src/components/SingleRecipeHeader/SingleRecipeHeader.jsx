@@ -13,6 +13,8 @@ import axios from "axios";
 const SingleRecipeHeader = (props) => {
   const [user, setUser] = useState();
   const [recipe, setRecipe] = useState(props.recipe);
+  const [ratingValue, setValue] = useState(props.recipe.avgEvaluation);
+  const [showRating, setShowRating] = useState(true);
 
   console.log(props);
 
@@ -69,16 +71,30 @@ const SingleRecipeHeader = (props) => {
             xs={12}
             style={{ paddingBottom: "2%", paddingLeft: "1%", display: "flex" }}
           >
-            {/* <Box style={{display: "flex", padding:"0.7%"}}>
-                  <Rating 
-                      name="half-rating-read"
-                      defaultValue={score}
-                      precision={0.5}
-                      readOnly
-                  />
-                  <Typography style={{fontSize:"1em", color: "darkgrey"}}>{scoreNumber}</Typography>
+            <Box style={{display: "flex", padding:"0.7%"}}>
+              {showRating ? 
+                          (<Rating 
+                            name="simple-controlled"
+                            value = {ratingValue}
+                            precision={0.5}
+                            onChange={(event, newValue) => {
+                              setValue(newValue)
+                              setShowRating(false)
+                            }}
+                        />) : (
+                          <Rating 
+                          name="simple-controlled"
+                          value = {ratingValue}
+                          precision={0.5}
+                          readOnly
+                          
+                      />
+                        )
+            }
+
+                  <Typography style={{fontSize:"1em", color: "darkgrey"}}>{ratingValue}</Typography>
                 </Box>
-                */}
+              
             {FavoriteButton(props.recipe)}
           </Grid>
           <Grid item xs={12}>
