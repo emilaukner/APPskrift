@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useH } from "react";
 import axios from "axios";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
@@ -159,6 +159,10 @@ const MyRecipesPage = ({onAuthFail}) => {
     event.preventDefault();
     event.stopPropagation();
     console.log("Edit: " + id);
+    return(      <Link
+      to={`/recipe/${props.id}/`}
+      style={{ textDecoration: "none" }}
+    />)
     //TODO show modal to edit recipe and remove console log
   };
 
