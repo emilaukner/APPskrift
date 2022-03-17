@@ -4,6 +4,7 @@ import SingleComment from "./SingleComment/SingleComment";
 import { useParams } from "react-router-dom";
 import List from "@mui/material/List";
 import axios from "axios";
+import WriteComment from "./WriteComment/WriteComment";
 
 const CommentSection = () => {
   const { id } = useParams();
@@ -39,10 +40,13 @@ const CommentSection = () => {
       <Box sx={{ width: "100%" }}>
         <Paper>
           <Grid container style={{ padding: "3em" }}>
-            <Grid item xs={12}>
+            <Grid item xs={10}>
               <Typography style={{ fontSize: "2em", fontWeight: "bold" }}>
                 Kommentarer
               </Typography>
+            </Grid>
+            <Grid item xs={2}>
+              <WriteComment/>
             </Grid>
             <Grid item xs={12} style={{ paddingTop: "2em" }}>
               <List>

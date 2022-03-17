@@ -15,7 +15,7 @@ import { width } from "@mui/system";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import CommentSection from "../../components/CommentSection/CommentSection";
 
-const FrontPage = () => {
+const FrontPage = ({onAuthFail, userLoggedIn}) => {
   //TODO make catogories a own component
   //===============Categories selection =======================//
   const [meal, setMeal] = useState(() => []);
@@ -122,6 +122,7 @@ const FrontPage = () => {
           likedByUser={recipeLikedData.includes(recipe.recipeId) ? true : false}
           savedByUser={recipeSavedData.includes(recipe.recipeId) ? true : false}
           numberOfLikes={253}
+          onAuthFail={() => onAuthFail()}
         />
       );
     });
@@ -271,7 +272,7 @@ const FrontPage = () => {
         </div>
       </div>
       <UserProfileComponent showProfile={true} />
-      <FloatingCreateRecipeButton showButton={true} />
+      <FloatingCreateRecipeButton showButton={userLoggedIn}/> 
       <CommentSection />
     </>
   );

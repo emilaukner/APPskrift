@@ -11,12 +11,11 @@ import CreateUser from "../CreateUser/CreateUser";
 import axios from "axios";
 import { grid } from "@mui/system";
 
-const LogInPopUp = ({ onClose, onSuccess, show }) => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [error, setError] = useState(false);
-  const [cookie, setCookie] = useCookies(["user"]);
-  const [showCreateUser, setShowCreateUser] = useState(false);
+const LogInPopUp = ({onClose, onSuccess, show, alertMessage}) => {
+	const [email, setEmail] = useState();
+	const [password, setPassword] = useState();
+	const [error, setError] = useState(false);
+	const [showCreateUser, setShowCreateUser] = useState(false);
 
 	const submitLogin = async () => {
 		await axios
@@ -41,80 +40,83 @@ const LogInPopUp = ({ onClose, onSuccess, show }) => {
     onClose();
   };
 
-  return (
-    <StyledLoginPopup show={show}>
-      <Box sx={{ width: "30%", top: "5%", left: "37.5%", position: "fixed" }}>
-        <Paper sx={{ padding: "7%" }}>
-          {error ? (
-            <Alert severity="error">Feilet! Kunne ikke logge inn!</Alert>
-          ) : null}
-          <Grid container spacing={2}>
-            <Grid item xs={11}>
-              <Typography variant="h4" component="div" gutterBottom>
-                Logg Inn
-              </Typography>
-            </Grid>
-            <Grid item xs={1}>
-              <CloseIcon
-                style={{
-                  fill: "red",
-                  cursor: "pointer",
-                }}
-                onClick={onClose}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="p" component="div" gutterBottom>
-                Begynn å lag dine egne oppskrifter nå!
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                id="login-input"
-                label="Epost"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                sx={{
-                  width: "100%",
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                id="login-input"
-                type="password"
-                label="Passord"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                sx={{
-                  width: "100%",
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Button
-                variant="contained"
-                sx={{
-                  width: "100%",
-                }}
-                onClick={submitLogin}
-              >
-                Logg inn
-              </Button>
-            </Grid>
-            <Grid item xs={12}>
-              <Link onClick={() => setShowCreateUser(true)}>Lag en bruker</Link>
-            </Grid>
-          </Grid>
-        </Paper>
-      </Box>
-      <CreateUser
-        show={showCreateUser}
-        onComplete={() => setShowCreateUser(false)}
-        onClose={onCreateUserClose}
-      />
-    </StyledLoginPopup>
-  );
-};
+	return(
+		<StyledLoginPopup show={show}>
+ 				<Box sx={{ width: "30%", top: "5%", left: "37.5%", position: "fixed", zIndex: 99 }}>
+					<Paper sx={{padding: "7%"}}>	
+					{error ? (
+						<Alert severity="error">Feilet! Kunne ikke logge inn!</Alert>
+					) : null}
+					{alertMessage ? (
+						<Alert severity="error">{alertMessage}</Alert>
+					) : null}
+						<Grid container spacing={2}>
+							<Grid item xs={11}>
+								<Typography variant="h4" component="div" gutterBottom>
+									Logg Inn
+								</Typography>
+							</Grid>
+							<Grid item xs={1}>
+								<CloseIcon 
+								style={{
+									fill: "red",
+									cursor: "pointer",
+								}}
+								onClick={onClose}
+								/>
+							</Grid>
+							<Grid item xs={12}>
+								<Typography variant="p" component="div" gutterBottom>
+									Begynn å lag dine egne oppskrifter nå!
+								</Typography>
+							</Grid>
+							<Grid item xs={12}>
+								<TextField
+									id="login-input"
+									label="Epost"
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
+									sx={{
+										width: "100%",
+									}}
+								/>
+							</Grid>
+							<Grid item xs={12}>
+								<TextField
+									id="login-input"
+									type="password"
+									label="Passord"
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
+									sx={{
+										width: "100%",
+									}}
+								/>
+							</Grid>
+							<Grid item xs={12}>
+								<Button 
+									variant="contained"
+									sx={{
+										width: "100%",
+									}}
+									onClick={submitLogin}
+								>
+									Logg inn
+								</Button>
+							</Grid>
+							<Grid item xs={12}>
+								<Link onClick={() => setShowCreateUser(true)}>Lag en bruker</Link>
+							</Grid>
+						</Grid>
+					</Paper>
+			</Box>
+			<CreateUser 
+				show={showCreateUser} 
+				onComplete={() => setShowCreateUser(false)}
+				onClose={onCreateUserClose}
+			/>
+		</StyledLoginPopup>
+	)
+}
 
 export default LogInPopUp;
