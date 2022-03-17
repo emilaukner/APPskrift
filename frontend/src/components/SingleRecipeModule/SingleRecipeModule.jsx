@@ -20,6 +20,7 @@ import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 import { Link } from "react-router-dom";
+import {showLogin} from "../Navbar/Navbar";
 
 const SingleRecipeModule = (props) => {
   //React hooks with the states liked and saved
@@ -54,6 +55,7 @@ const SingleRecipeModule = (props) => {
       })
       .catch((error) => {
         console.log(error);
+        props.onAuthFail();
       });
   };
 
@@ -70,6 +72,7 @@ const SingleRecipeModule = (props) => {
       })
       .catch((error) => {
         console.log(error);
+        props.onAuthFail();
       });
   };
 
@@ -84,6 +87,7 @@ const SingleRecipeModule = (props) => {
       })
       .catch((error) => {
         console.log(error);
+        props.onAuthFail();
       });
   };
 
@@ -100,6 +104,7 @@ const SingleRecipeModule = (props) => {
       })
       .catch((error) => {
         console.log(error);
+        props.onAuthFail();
       });
   };
 
