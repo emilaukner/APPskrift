@@ -32,7 +32,8 @@ class RecipeSerializer(serializers.ModelSerializer):
 					"categories",
                     "image",
 					"publishedBy",
-                    "avgEvaluation"
+                    "avgEvaluation",
+                    "evaluations",
 				)
                 
 class CategorySerializer(serializers.ModelSerializer):

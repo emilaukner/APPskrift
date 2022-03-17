@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets
 from .serializers import UserSerializer, RecipeSerializer, CategorySerializer, CommentSerializer, EvaluationSerializer
 from .models import User, Recipe, Category, Comment, Evaluation
-
+from django.db.models import Q
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -115,11 +115,18 @@ class EvaluationView(viewsets.ModelViewSet):
 	def create(self, request):
 		stars = request.data["stars"]
 		recipe = Recipe.objects.get(recipeId=request.data["recipe"])
-		publishedBy = User.objects.get(userId=request.data["publishedBy"])
-		evaluation = Evaluation(stars=stars,evalRecipe=recipe, publishedBy=publishedBy)
-		evaluation.save()
-		recipe.evaluations.add(evaluation)
-		recipe.save()
+		evalUser = User.objects.get(userId=request.data["publishedBy"])
+		try:
+			criterion1 = Q(evalRecipe=recipe)
+			critierion2 = Q(publishedBy=evalUser)
+			evaluation = Evaluation.objects.get(criterion1, critierion2)
+			evaluation.stars = stars
+			evaluation.save()
+		except Evaluation.DoesNotExist:
+			evaluation = Evaluation(stars=stars,evalRecipe=recipe, publishedBy=evalUser)
+			evaluation.save()
+			recipe.evaluations.add(evaluation)
+			recipe.save()
 		self.avgEval(request, recipe)
 		return Response(recipe.avgEvaluation, status=200)
 
@@ -132,8 +139,7 @@ class EvaluationView(viewsets.ModelViewSet):
 				count +=1
 				sum += evaluation['stars']
 			avg = sum/count
-			recipe.avgEvaluation = round(avg,1)
-			print(recipe.avgEvaluation)
+			recipe.avgEvaluation = round(avg,2)
 			recipe.save()
 		else:
 			print(evalSet.errors)

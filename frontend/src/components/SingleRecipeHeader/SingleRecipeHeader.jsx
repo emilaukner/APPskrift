@@ -27,7 +27,25 @@ const SingleRecipeHeader = (props) => {
       .catch((error) => {
         console.log(error);
       });
+      axios
+      .get(`/recipes/${props.recipe.recipeId}/`)
+      .then((response) => {
+        setValue(response.data.avgEvaluation)
+        console.log(response.data.avgEvaluation)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }, []);
+
+  const setRating = ((newValue) => {
+    axios
+      .post(`/evaluations/`, {
+        stars : newValue,
+        publishedBy : user.userId,
+        recipe : props.recipe.recipeId,
+      })
+  });
 
   //const title = props.title    HELP
   const title = props.recipe.title;
@@ -78,8 +96,9 @@ const SingleRecipeHeader = (props) => {
                             value = {ratingValue}
                             precision={0.5}
                             onChange={(event, newValue) => {
-                              setValue(newValue)
-                              setShowRating(false)
+                              setValue(newValue);
+                              setRating(newValue);
+                              setShowRating(false);
                             }}
                         />) : (
                           <Rating 

@@ -159,7 +159,7 @@ class EvaluationViewTestCase(APITestCase):
 		response = self.client.post("/evaluations/", {
 			"stars" : 2,
 			"recipe" : str(self.recipe.recipeId),
-			"publishedBy" : str(self.user1.userId),			
+			"publishedBy" : str(self.user2.userId),			
 		})
 		self.recipe = Recipe.objects.get(recipeId=self.recipe.recipeId)
 
