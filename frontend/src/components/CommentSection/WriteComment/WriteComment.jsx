@@ -41,9 +41,10 @@ const WriteComment = () => {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Legg til kommentar
-      </Button>
+      {cookie.userId 
+      ? <Button variant="outlined" onClick={handleClickOpen}> Legg til kommentar</Button>
+      : (null)
+      }  
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Legg til kommentar</DialogTitle>
         <DialogContent>
