@@ -149,6 +149,7 @@ class EvaluationViewTestCase(APITestCase):
 			"recipe" : str(self.evaluation2.evalRecipe.recipeId),
 			"publishedBy" : str(self.evaluation2.publishedBy.userId),			
 		})
+		print(self.recipe)
 		self.assertEqual(self.recipe.publishedBy, self.user1)
-		self.assertEqual(self.recipe.evaluations, None)
+		self.assertEqual(self.recipe.avgEvaluation, 3.7)
 

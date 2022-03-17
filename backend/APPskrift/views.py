@@ -126,19 +126,22 @@ class EvaluationView(viewsets.ModelViewSet):
 		publishedBy = User.objects.get(userId=request.data["publishedBy"])
 		evaluation = Evaluation(stars=stars,evalRecipe=recipe, publishedBy=publishedBy)
 		evaluation.save()
-		self.avgEval(request)
+		recipe.evaluations.add(evaluation)
+		recipe.save()
+		self.avgEval(request, recipe)
 		return Response("Haha taper")
 
-	def avgEval(self, request):
-		recipe = Recipe.objects.get(recipeId=request.data["recipe"])
-		evalSet = EvaluationSerializer(data=Evaluation.objects.filter(recipe=request.data["recipe"]), many=True)
-		if(evalSet.is_valid()):
-			count = evalSet.data.length
+	def avgEval(self, request, recipe):
+		evalSet = EvaluationSerializer(Evaluation.objects.filter(evalRecipe=request.data["recipe"]), many=True).data
+		if(evalSet.__len__ != 0):
+			count = 0
 			sum = 0
-			for evaluation in evalSet.data:
-				sum += evaluation.stars
+			for evaluation in evalSet:
+				count +=1
+				sum += evaluation['stars']
 			avg = sum/count
-			recipe.avgEvaluation = avg
+			recipe.avgEvaluation = round(avg,1)
+			print(recipe.avgEvaluation)
 			recipe.save()
 		else:
 			print(evalSet.errors)

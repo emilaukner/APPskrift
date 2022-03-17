@@ -68,7 +68,7 @@ class Recipe(models.Model):
     categories = models.ManyToManyField('Category', blank=True, related_name="categories")
     publishedBy = models.ForeignKey('User', on_delete=models.CASCADE, null=True)
     image = models.ImageField(upload_to="recipe_images", blank=True)
-    evaluations = models.ForeignKey('Evaluation', on_delete=models.CASCADE, null=True)
+    evaluations = models.ManyToManyField('Evaluation', blank=True, null=True)
     avgEvaluation = models.FloatField(null=True)
 
     def _str_(self):

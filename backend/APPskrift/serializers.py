@@ -56,7 +56,8 @@ class EvaluationSerializer(serializers.ModelSerializer):
         class Meta:
             model = Evaluation
             fields = (
+                "evaluationId",
                 "stars", 
-                "recipe",
-                "user"
+                "evalRecipe",
+                "publishedBy"
             )
