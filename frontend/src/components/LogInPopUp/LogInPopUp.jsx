@@ -3,10 +3,10 @@ import Paper from "@mui/material/Paper";
 import { Grid, Typography, Button, Alert } from "@mui/material";
 import { TextField } from "@mui/material";
 import { useState } from "react";
-import { StyledLoginPopup } from "./LoginPopUp.style";
+import { StyledLoginPopup } from "./style";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import CreateUser from "../CreateUser/CreateUser";
 import axios from "axios";
 import { grid } from "@mui/system";
@@ -15,7 +15,6 @@ const LogInPopUp = ({onClose, onSuccess, show, alertMessage}) => {
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
 	const [error, setError] = useState(false);
-	const [cookie, setCookie] = useCookies(["user"])
 	const [showCreateUser, setShowCreateUser] = useState(false);
 
 	const submitLogin = async () => {
@@ -36,10 +35,10 @@ const LogInPopUp = ({onClose, onSuccess, show, alertMessage}) => {
 		})
 	}
 
-	const onCreateUserClose = () => {
-		setShowCreateUser(false);
-		onClose();
-	}
+  const onCreateUserClose = () => {
+    setShowCreateUser(false);
+    onClose();
+  };
 
 	return(
 		<StyledLoginPopup show={show}>

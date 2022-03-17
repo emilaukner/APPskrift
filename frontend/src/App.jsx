@@ -12,6 +12,7 @@ import LogInPopUp from "./components/LogInPopUp/LogInPopUp";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 
+import Box from "@mui/material/Box";
 
 function App() {
   const [loginShow, setLoginShow] = useState(false);
@@ -38,7 +39,7 @@ function App() {
         alertMessage={alertMessage}
       />
       <Navbar />
-      <div style={{ backgroundColor: "#F8F8F8" }}>
+      <Box sx={{ bgcolor: "background.default" }}>
         <Switch>
           <Route exact path="/">
             <FrontPage onAuthFail={onAuthfailed} userLoggedIn={cookie.userId != null} />
@@ -62,7 +63,7 @@ function App() {
             <SingleRecipePage onAuthFail={onAuthfailed}/>
           </Route>
         </Switch>
-      </div>
+      </Box>
       <Footer />
     </Router>
   );
