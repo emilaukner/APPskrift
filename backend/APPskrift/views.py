@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404
-from flask import request
 from rest_framework import viewsets
 from .serializers import UserSerializer, RecipeSerializer, CategorySerializer, CommentSerializer, EvaluationSerializer
 from .models import User, Recipe, Category, Comment, Evaluation
@@ -46,13 +45,11 @@ class UserView(viewsets.ModelViewSet):
 		user = get_object_or_404(User, pk=self.kwargs.get("pk"))
 		data = UserSerializer(user, many=False).data
 		favorites = data["favorites"]
-		print(favorites)
 		return Response(favorites)
 	
 	@favorites.mapping.post
 	def add_favorites(self, request, pk=True):
 		recipe_pk = request.data["id"]
-		print(recipe_pk)
 		user = self.get_object()
 		recipe = get_object_or_404(Recipe, pk=recipe_pk)
 		user.favorites.add(recipe)
@@ -61,7 +58,6 @@ class UserView(viewsets.ModelViewSet):
 	@favorites.mapping.delete
 	def remove_favorites(self, request, pk=True):
 		recipe_pk = request.data["id"]
-		print(recipe_pk)
 		user = self.get_object()
 		recipe = get_object_or_404(Recipe, pk=recipe_pk)
 		user.favorites.remove(recipe)
@@ -72,14 +68,11 @@ class UserView(viewsets.ModelViewSet):
 		user = get_object_or_404(User, pk=self.kwargs.get("pk"))
 		data = UserSerializer(user, many=False).data
 		saved = data["saved"]
-		print(saved)
 		return Response(saved)
 	
 	@saved.mapping.post
 	def add_saved(self, request, pk=True):
-		print(request.data)
 		saved_pk = request.data["id"]
-		print(saved_pk)
 		user = self.get_object()
 		recipe = get_object_or_404(Recipe, pk=saved_pk)
 		user.saved.add(recipe)
@@ -120,7 +113,6 @@ class EvaluationView(viewsets.ModelViewSet):
 	queryset = Evaluation.objects.all()
 
 	def create(self, request):
-		print(request.data["recipe"])
 		stars = request.data["stars"]
 		recipe = Recipe.objects.get(recipeId=request.data["recipe"])
 		publishedBy = User.objects.get(userId=request.data["publishedBy"])
@@ -129,11 +121,11 @@ class EvaluationView(viewsets.ModelViewSet):
 		recipe.evaluations.add(evaluation)
 		recipe.save()
 		self.avgEval(request, recipe)
-		return Response("Haha taper")
+		return Response(recipe.avgEvaluation, status=200)
 
 	def avgEval(self, request, recipe):
 		evalSet = EvaluationSerializer(Evaluation.objects.filter(evalRecipe=request.data["recipe"]), many=True).data
-		if(evalSet.__len__ != 0):
+		if(len(evalSet) != 0):
 			count = 0
 			sum = 0
 			for evaluation in evalSet:

@@ -69,7 +69,7 @@ class Recipe(models.Model):
     publishedBy = models.ForeignKey('User', on_delete=models.CASCADE, null=True)
     image = models.ImageField(upload_to="recipe_images", blank=True)
     evaluations = models.ManyToManyField('Evaluation', blank=True, null=True)
-    avgEvaluation = models.FloatField(null=True)
+    avgEvaluation = models.FloatField(null=True, default=0)
 
     def _str_(self):
         return self.title
