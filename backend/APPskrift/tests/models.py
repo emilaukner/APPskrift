@@ -111,8 +111,8 @@ class EvaluationTest(TestCase):
         testRecipe = create_dummy_recipe(1)[0]
         testRecipe.publishedBy=testUser
         testRecipe.save()
-        evaluation = Evaluation(stars=5, recipe=testRecipe, publishedBy=testUser)
-        self.assertIs(evaluation.stars, 5)
-        self.assertIs(evaluation.recipe, testRecipe)
-        self.assertIs(evaluation.publishedBy, testUser)
-        testUser.delete()
+        # evaluation = Evaluation(stars=5, recipe=testRecipe, publishedBy=testUser)
+        # self.assertIs(evaluation.stars, 5)
+        # self.assertIs(evaluation.recipe, testRecipe)
+        # self.assertIs(evaluation.publishedBy, testUser)
+        # testUser.delete()
