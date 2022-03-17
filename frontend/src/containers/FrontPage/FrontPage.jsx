@@ -273,7 +273,6 @@ const FrontPage = ({onAuthFail, userLoggedIn}) => {
       </div>
       <UserProfileComponent showProfile={true} />
       <FloatingCreateRecipeButton showButton={userLoggedIn}/> 
-      <CommentSection />
     </>
   );
 };

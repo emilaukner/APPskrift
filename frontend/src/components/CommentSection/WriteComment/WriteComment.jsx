@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -22,10 +22,11 @@ const WriteComment = () => {
         const comment = {
             comment: userComment,
             recipe: id,
-            user: cookie.userId
+            publishedBy: cookie.userId
         }
-        axios.post("/comments/",comment)
+        axios.post("/comments/", comment).then((res)=> console.log("kommentar" + res.data)).catch((error)=> console.log("kommentar" +error))
         setOpen(false);
+        window.location.reload(false);
     }
 
   const [open, setOpen] = React.useState(false);

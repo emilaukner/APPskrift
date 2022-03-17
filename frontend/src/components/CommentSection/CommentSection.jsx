@@ -13,11 +13,12 @@ const CommentSection = () => {
   useEffect(() => {
     axios.get(`/comments/`).then((response) => {
       setComments(response.data);
+      console.log(response.data)
     });
   }, []);
 
   const createCommentModules = () => {
-    comments
+    const userComments = comments
       .filter((comment) => {
         if (comment.recipe === id) return true;
         return false;
@@ -26,13 +27,14 @@ const CommentSection = () => {
       .map((comment) => {
         return (
           <SingleComment
+            key={comment.publishedBy}
             dateTimeMade={comment.dateTimeMade}
             comment={comment.comment}
             publishedBy={comment.publishedBy}
           />
         );
       });
-    return recipes;
+    return userComments;
   };
 
   return (
@@ -50,11 +52,8 @@ const CommentSection = () => {
             </Grid>
             <Grid item xs={12} style={{ paddingTop: "2em" }}>
               <List>
-                <SingleComment
-                  dateTimeMade="09.03.2022"
-                  comment="dette er en test"
-                />
-                {createCommentModules}
+                
+                {createCommentModules()}
               </List>
             </Grid>
           </Grid>

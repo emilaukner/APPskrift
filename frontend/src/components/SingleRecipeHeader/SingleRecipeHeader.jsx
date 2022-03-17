@@ -9,6 +9,7 @@ import CircleIcon from "@mui/icons-material/Circle";
 import Food from "../../assets/Food.png";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const SingleRecipeHeader = (props) => {
   const [user, setUser] = useState();
@@ -92,10 +93,12 @@ const SingleRecipeHeader = (props) => {
             <Typography>{time}</Typography>
           </Grid>
           <Grid item xs={12} style={{ display: "flex", padding: "1%" }}>
-            <Avatar
-              src={avatarImage}
-              style={{ height: 56, width: 56 }}
-            ></Avatar>
+            <Link to="/123/" style={{ textDecoration: "none" }}>
+              <Avatar
+                src={avatarImage}
+                style={{ height: 56, width: 56 }}
+              ></Avatar>
+            </Link>
             <Typography style={{ padding: 14, align: "center" }}>
               {name}
             </Typography>

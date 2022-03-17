@@ -13,7 +13,7 @@ const SingleComment = (props) => {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    axios.get(`/users/${props.publishedBy}`).then((response) => {
+    axios.get(`/users/${props?.publishedBy}`).then((response) => {
       setUser(response.data);
     });
   }, []);
