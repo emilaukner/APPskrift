@@ -18,40 +18,14 @@ const SingleComment = (props) => {
     });
   }, []);
 
+  const date = new Date(props.dateTimeMade);
+
   return (
     <>
-      {/* REMOVE THIS SECTION DOWN TO "========....." */}
-      <ListItem>
-        <ListItemAvatar>
-          <Link to="/linkToUserPage/" style={{ textDecoration: "none" }}>
-            <Avatar>
-              <Avatar />
-            </Avatar>
-          </Link>
-        </ListItemAvatar>
-        <ListItemText
-          primary="Kristoffer Grude"
-          secondary="Publisert 09.03.2022"
-        />
-        <Grid item xs={9}>
-          <Typography>
-            test fwakhwa hw hhw akh kdhwak hkwahfkhw hfkwa hhfwa khh hw khw fkhw
-            kfhkhfwa khwa kw h her hfkh hwah hwaf khhf kwahf kwa hhfwa khwf hwh
-            khwa hw h khfw hwakh fhwaf khwaf khk hkw hfhwa
-          </Typography>
-        </Grid>
-      </ListItem>
-      <Divider
-        component="li"
-        style={{ paddingTop: "1em", paddingBottom: "1em" }}
-      />
-      {/* ===========================*/}
-
-      {/* KEEP THIS SECTTION  - this is component with props */}
       <ListItem>
         <ListItemAvatar>
           {/* TODO make the avatar link to the user profile that made the comment */}
-          <Link to="/linkToUserPage/" style={{ textDecoration: "none" }}>
+          <Link to={`/user/recipes/${props.publishedBy}`} style={{ textDecoration: "none" }}>
             <Avatar>
               <Avatar src={user?.image} />
             </Avatar>
@@ -59,7 +33,7 @@ const SingleComment = (props) => {
         </ListItemAvatar>
         <ListItemText
           primary={user?.username}
-          secondary={`Publisert ${props.dateTimeMade}`}
+          secondary={`Publisert ${("00"+date.getDay()).slice(-2)}.${("00"+date.getMonth()).slice(-2)}.${date.getFullYear()}`}
         />
         <Grid item xs={9}>
           <Typography>{props.comment}</Typography>

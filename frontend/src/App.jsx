@@ -63,6 +63,9 @@ function App() {
           <Route path="/recipe/:id">
             <SingleRecipePage onAuthFail={onAuthfailed}/>
           </Route>
+          <Route path="/user/recipes/:id">
+            UserRecipes
+          </Route>
         </Switch>
       </Box>
       <Footer />
