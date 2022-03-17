@@ -50,11 +50,9 @@ const SavedRecipesPage = ({onAuthFail}) => {
   };
 
   //On load of page these api requests is made to get data
-  useEffect(() => {
-    getRecipesLikedRequest();
-    getRecipesSavedRequest();
-    getRecipesRequest();
-  }, []);
+  useEffect(() => { getRecipesLikedRequest() }, []);
+  useEffect(() => { getRecipesSavedRequest() }, []);
+  useEffect(() => { getRecipesRequest() }, []); 
 
   const createRecipeModules = () => {
     console.log("Saved:", recipeSavedData);
