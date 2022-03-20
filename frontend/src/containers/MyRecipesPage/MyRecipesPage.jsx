@@ -19,7 +19,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import { useCookies } from "react-cookie";
 
-const MyRecipesPage = () => {
+const MyRecipesPage = ({onAuthFail}) => {
   //========= Hook that stores my recepies ======/
 	const [rows, setRows] = useState([])
   const [myRecipes, setMyRecipes] = useState([
@@ -64,10 +64,12 @@ const MyRecipesPage = () => {
 		axios
 		.get(`/users/${cookie.userId}/recipes/`)
 		.then((response) => {
-			console.log("Updating recipes:", response.data)
 			setMyRecipes(response.data);
 			addRecipesToRows();
-		});
+		})
+    .catch((err) => {
+      onAuthFail();
+    })
 	}
 
   //============= Create column types ============//

@@ -25,7 +25,7 @@ import axios from "axios";
 
 const settings = ["Min profil", "Logg ut"];
 
-const Navbar = () => {
+const Navbar = ({onAuthFail}) => {
   const theme = useTheme();
   const colorMode = React.useContext(ColorModeContext);
 
@@ -80,9 +80,7 @@ const Navbar = () => {
 
   const handleLogInComplete = (user) => {
     setUserLoggedIn(true);
-
-    setCookie("userId", userId);
-    setLoggedInUserId(userId);
+    setCookie("userId", user.userId);
     setLoginShow(false);
     window.location.reload(false);
   };
