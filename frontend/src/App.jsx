@@ -8,7 +8,6 @@ import MyRecipesPage from "./containers/MyRecipesPage/MyRecipesPage";
 import SingleRecipePage from "./containers/SingleRecipePage/SingleRecipePage";
 import CreateUser from "./components/CreateUser/CreateUser";
 import SavedRecipesPage from "./containers/SavedRecipesPage/SavedRecipesPage";
-import UsersRecipePage from "./containers/UsersRecipePage/UsersRecipePage";
 import LogInPopUp from "./components/LogInPopUp/LogInPopUp";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
@@ -64,8 +63,8 @@ function App() {
           <Route path="/recipe/:id">
             <SingleRecipePage onAuthFail={onAuthfailed}/>
           </Route>
-          <Route path="/user-recipes/:id">
-            <UsersRecipePage onAuthFail={onAuthfailed}/>
+          <Route path="/user/recipes/:id">
+            UserRecipes
           </Route>
         </Switch>
       </Box>
