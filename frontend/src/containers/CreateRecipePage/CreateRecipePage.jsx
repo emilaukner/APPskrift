@@ -92,26 +92,48 @@ const CreateRecipePage = () => {
     formdata.append("cousine", cousine);
     formdata.append("image", image);
     
-    if(otherCategories.length > 0){
-      formdata.append("categories", otherCategories);
-    }
-
+    let id = "";
 
     await axios
-      .post("/recipes/", formdata)
-      .then(function (response) {
-        setShowAlert(true);
-        setTimeout(function () {
-          setShowAlert(false);
-        }, 2000);
-      })
-      .catch(function (error) {
-        console.log(error);
-        setErrorShow(true);
-        setTimeout(function () {
-          setErrorShow(false);
-        }, 2000);
-      });
+    .post("/recipes/", formdata)
+    .then(function (response) {
+      id = response.data.recipeId;
+      setShowAlert(true);
+      setTimeout(function () {
+        setShowAlert(false);
+      }, 2000);
+    })
+    .catch(function (error) {
+      console.log(error);
+      setErrorShow(true);
+      setTimeout(function () {
+        setErrorShow(false);
+      }, 2000);
+    });
+
+    const data = {
+      "title": title,
+      "ingredients": ingredients,
+      "steps": steps,
+      "categories": otherCategories
+    }
+
+    await axios
+    .put(`/recipes/${id}/`, data)
+    .then(function (response) {
+      console.log(response.data)
+      setShowAlert(true);
+      setTimeout(function () {
+        setShowAlert(false);
+      }, 2000);
+    })
+    .catch(function (error) {
+      console.log(error);
+      setErrorShow(true);
+      setTimeout(function () {
+        setErrorShow(false);
+      }, 2000);
+    });
   };
 
   return (

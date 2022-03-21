@@ -110,6 +110,7 @@ const FrontPage = ({onAuthFail, userLoggedIn}) => {
       otherCategories,
       searchTerm
     ).map((recipe) => {
+      console.log(recipe);
       return (
         <SingleRecepieModule
           recipeId={recipe.recipeId}
