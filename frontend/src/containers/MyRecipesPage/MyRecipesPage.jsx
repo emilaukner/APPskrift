@@ -137,11 +137,16 @@ const MyRecipesPage = ({onAuthFail}) => {
 					// />,
 					recipe.estimate,
 					<>
-						<IconButton
-							onClick={(event) => handleEditRecipeClick(event, recipe.recipeId)}
-						>
-							<EditIcon />
-						</IconButton>
+              <IconButton
+                onClick={(event) => handleEditRecipeClick(event, recipe.recipeId)}
+              >
+                <Link
+                  to={`/edit-recipe/${recipe.recipeId}/`}
+                  style={{ textDecoration: "none", color: "inherit", height: "1em" }}
+                >
+                  <EditIcon />
+                </Link>
+              </IconButton>
 						<IconButton
 							onClick={(event) => handleDeleteRecipeClick(event, recipe.recipeId)}
 						>
@@ -159,10 +164,6 @@ const MyRecipesPage = ({onAuthFail}) => {
     event.preventDefault();
     event.stopPropagation();
     console.log("Edit: " + id);
-    return(      <Link
-      to={`/recipe/${props.id}/`}
-      style={{ textDecoration: "none" }}
-    />)
     //TODO show modal to edit recipe and remove console log
   };
 

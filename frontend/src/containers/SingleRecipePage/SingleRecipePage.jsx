@@ -4,6 +4,7 @@ import axios from "axios";
 import DirectionSection from "../../components/DirectionSection/DirectionSection";
 import IngredientSection from "../../components/IngredientSection/IngredientSection";
 import SingleRecipeHeader from "../../components/SingleRecipeHeader/SingleRecipeHeader";
+import CommentSection from "../../components/CommentSection/CommentSection";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Food from "../../assets/Food.png";
@@ -44,6 +45,9 @@ const SingleRecipePage = () => {
         </Grid>
         <Grid item xs={9}>
           <DirectionSection recipe={recipe} />
+        </Grid>
+        <Grid item xs={12}>
+          <CommentSection recipe={recipe}/>
         </Grid>
       </Grid>
     </>

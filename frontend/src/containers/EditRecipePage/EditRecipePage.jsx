@@ -14,8 +14,9 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import Divider from "@mui/material/Divider";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-const CreateRecipePage = ({onAuthFail}) => {
+const EditRecipePage = ({onAuthFail}) => {
   const { id } = useParams();
 
   //=============== General recipe info =====================//
@@ -38,15 +39,14 @@ const CreateRecipePage = ({onAuthFail}) => {
 	useEffect(() => {
 		axios.get(`/recipes/${id}`)
 			.then((res) => {
-				setTitle(res.title);
-				setSteps(res.steps);
-				setIngredients(res.ingredients);
-				setImage(res.image);
-				setMeal(res.meal);
-				setEstimate(res.estimate);
-				setDifficulty(res.difficulty);
-				setCousine(res.cousine);
-				setOtherCategories(res.otherCategories);
+				setTitle(res.data.title);
+				setSteps(res.data.steps);
+				setIngredients(res.data.ingredients);
+				setMeal(res.data.meal);
+				setEstimate(res.data.estimate);
+				setDifficulty(res.data.difficulty);
+				setCousine(res.data.cousine);
+				setOtherCategories(res.data.categories);
 			})
 			.catch((err) => {
 				onAuthFail();
@@ -78,6 +78,7 @@ const CreateRecipePage = ({onAuthFail}) => {
   };
 
   const handleChangeOtherCategories = (event, newOtherCategories) => {
+    console.log(newOtherCategories);
     setOtherCategories(newOtherCategories);
   };
 
@@ -91,15 +92,6 @@ const CreateRecipePage = ({onAuthFail}) => {
   const handleSubmit = () => {
     postRecipeRequest();
     window.scrollTo({ top: 0, behavior: "smooth" });
-    setTitle("");
-    setSteps("");
-    setIngredients("");
-    setMeal("Frokost");
-    setEstimate("15 min");
-    setDifficulty("E");
-    setCousine("Europeisk");
-    setOtherCategories([]);
-    setImage("");
   };
 
   const postRecipeRequest = async () => {
@@ -113,36 +105,55 @@ const CreateRecipePage = ({onAuthFail}) => {
     formdata.append("estimate", estimate);
     formdata.append("cousine", cousine);
     formdata.append("image", image);
-    
-    if(otherCategories.length > 0){
-      formdata.append("categories", otherCategories);
-    }
-
 
     await axios
-      .post("/recipes/", formdata)
-      .then(function (response) {
-        setShowAlert(true);
-        setTimeout(function () {
-          setShowAlert(false);
-        }, 2000);
-      })
-      .catch(function (error) {
-        console.log(error);
-        setErrorShow(true);
-        setTimeout(function () {
-          setErrorShow(false);
-        }, 2000);
-      });
+    .put(`/recipes/${id}/`, formdata)
+    .then(function (response) {
+      setShowAlert(true);
+      setTimeout(function () {
+        setShowAlert(false);
+      }, 2000);
+    })
+    .catch(function (error) {
+      console.log(error);
+      setErrorShow(true);
+      setTimeout(function () {
+        setErrorShow(false);
+      }, 2000);
+    });
+
+    const data = {
+      "title": title,
+      "ingredients": ingredients,
+      "steps": steps,
+      "categories": otherCategories
+    }
+
+    await axios
+    .put(`/recipes/${id}/`, data)
+    .then(function (response) {
+      console.log(response.data)
+      setShowAlert(true);
+      setTimeout(function () {
+        setShowAlert(false);
+      }, 2000);
+    })
+    .catch(function (error) {
+      console.log(error);
+      setErrorShow(true);
+      setTimeout(function () {
+        setErrorShow(false);
+      }, 2000);
+    });
   };
 
   return (
     <>
       {showAlert ? (
-        <Alert severity="success">Velykket! Oppskrift ble lagt ut</Alert>
+        <Alert severity="success">Velykket! Oppskrift ble oppdatert</Alert>
       ) : null}
       {errorShow ? (
-        <Alert severity="error">Feilet! Oppskriften ble ikke lagt til</Alert>
+        <Alert severity="error">Feilet! Oppskriften ble ikke oppdatert</Alert>
       ) : null}
       <Box
         sx={{
@@ -164,7 +175,7 @@ const CreateRecipePage = ({onAuthFail}) => {
             <Grid item xs={8}>
               <Paper sx={{ padding: "7%" }}>
                 <Typography variant="h4" component="div" gutterBottom>
-                  Opprett ny oppskrift
+                  Rediger oppskrift
                 </Typography>
                 <br />
                 <br />
@@ -406,4 +417,4 @@ const CreateRecipePage = ({onAuthFail}) => {
   );
 };
 
-export default CreateRecipePage;
+export default EditRecipePage;

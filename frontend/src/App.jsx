@@ -14,6 +14,7 @@ import { useState } from "react";
 import { useCookies } from "react-cookie";
 
 import Box from "@mui/material/Box";
+import EditRecipePage from "./containers/EditRecipePage/EditRecipePage";
 
 
 function App() {
@@ -64,9 +65,12 @@ function App() {
           <Route path="/recipe/:id">
             <SingleRecipePage onAuthFail={onAuthfailed}/>
           </Route>
-          {/* <Route path="/user-recipes/:id">
-            <UsersRecipePage onAuthFail={onAuthfailed}/>
-          </Route> */}
+          <Route path="/edit-recipe/:id">
+            <EditRecipePage onAuthFail={onAuthfailed}/>
+          </Route>
+          <Route path="/user/recipes/:id">
+            UserRecipes
+          </Route>
         </Switch>
       </Box>
       <Footer />

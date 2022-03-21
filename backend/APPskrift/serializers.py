@@ -49,7 +49,7 @@ class CommentSerializer(serializers.ModelSerializer):
                 "comment", 
                 "dateTimeMade", 
                 "recipe",
-                "user"
+                "publishedBy"
             )
 
 class EvaluationSerializer(serializers.ModelSerializer):
