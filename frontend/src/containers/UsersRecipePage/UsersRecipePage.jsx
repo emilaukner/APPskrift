@@ -10,24 +10,28 @@ const UsersRecipePage = () => {
   const [user, setUser] = useState();
   const [recipeData, setRecipes] = useState();
 
-  console.log("ID", id)
-
   useEffect(() => {
     axios.get(`/users/${id}/`)
     .then((response) => {
       console.log(response);
       setUser(response.data);
-    });
+    })
+    .catch(err => {
+      console.log(err)
+    })
     axios.get(`/users/${id}/recipes/`)
     .then((response) => {
+      console.log(response)
       setRecipes(response.data);
+    })
+    .catch(err => {
+      console.log(err)
     })
   }, []);
 
 
   const createRecipeModules = () => {
     const recipes = recipeData
-      .filter((recipe) => recipe.publishedBy === { id })
       .map((recipe) => {
         return (
           <SingleRecipeModule
@@ -44,6 +48,22 @@ const UsersRecipePage = () => {
     return recipes;
   };
 
+  if(!recipeData) {
+    console.log("Could not find recipes for user", id)
+    return(
+      <>
+        <Typography
+                variant="h4"
+                component="div"
+                gutterBottom
+                sx={{ padding: "3%", textAlign: "center" }}
+              >
+          Finner ingen oppskrifter på denne brukeren
+        </Typography>
+      </>
+    )
+  }
+
   return (
     <>
       <Box>
@@ -57,7 +77,7 @@ const UsersRecipePage = () => {
                 gutterBottom
                 sx={{ padding: "3%", textAlign: "center" }}
               >
-                {/* { user.username}'s oppskrifter */}
+                { user.username}'s oppskrifter
               </Typography>
             </Paper>
           </Grid>
@@ -72,9 +92,8 @@ const UsersRecipePage = () => {
           paddingBottom: "4%",
         }}
       >
-        {createRecipeModules()}
+      {createRecipeModules()}
       </div>
-      
     </>
   );
 };

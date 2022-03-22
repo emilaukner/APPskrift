@@ -137,7 +137,7 @@ const SingleRecipeHeader = (props) => {
             <Typography>{time}</Typography>
           </Grid>
           <Grid item xs={12} style={{ display: "flex", padding: "1%" }}>
-            <Link to="/123/" style={{ textDecoration: "none" }}>
+            <Link to={`/user/recipes/${props.recipe.publishedBy}`} style={{ textDecoration: "none" }}>
               <Avatar
                 src={avatarImage}
                 style={{ height: 56, width: 56 }}
