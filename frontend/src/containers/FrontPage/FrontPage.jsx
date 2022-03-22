@@ -13,6 +13,7 @@ import { useCookies } from "react-cookie";
 import { getFilteredRecipes } from "./helpers";
 import { width } from "@mui/system";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import CommentSection from "../../components/CommentSection/CommentSection";
 
 const FrontPage = ({onAuthFail, userLoggedIn}) => {
   //TODO make catogories a own component
@@ -22,7 +23,7 @@ const FrontPage = ({onAuthFail, userLoggedIn}) => {
   const [difficulty, setDifficulty] = useState(() => []);
   const [cousine, setCousine] = useState(() => []);
   const [otherCategories, setOtherCategories] = useState(() => []);
-  const [searchTerm, setSearchTerm] = useState(""); 
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleChangeMeal = (event, newMeal) => {
     setMeal(newMeal);
@@ -46,7 +47,7 @@ const FrontPage = ({onAuthFail, userLoggedIn}) => {
 
   const handleSearch = (newSearchTerm) => {
     setSearchTerm(newSearchTerm);
-  }
+  };
   //====================== Category end================================//
 
   const [recipeData, setRecipeData] = useState([]);
@@ -106,9 +107,10 @@ const FrontPage = ({onAuthFail, userLoggedIn}) => {
       estimate,
       difficulty,
       cousine,
-      otherCategories, 
+      otherCategories,
       searchTerm
     ).map((recipe) => {
+      console.log(recipe);
       return (
         <SingleRecepieModule
           recipeId={recipe.recipeId}
@@ -120,7 +122,7 @@ const FrontPage = ({onAuthFail, userLoggedIn}) => {
           difficulty={recipe.difficulty}
           likedByUser={recipeLikedData.includes(recipe.recipeId) ? true : false}
           savedByUser={recipeSavedData.includes(recipe.recipeId) ? true : false}
-          numberOfLikes={253}
+          numberOfLikes={recipe.nbOfLikes}
           onAuthFail={() => onAuthFail()}
         />
       );
@@ -142,9 +144,11 @@ const FrontPage = ({onAuthFail, userLoggedIn}) => {
           <Grid item xs />
           <Grid container xs={10}>
             <Paper>
-              <Grid container rowSpacing={1} sx={{ padding: "2%" }}>'
-                <Grid container direction="row" justifyContent= "center">
-                  <Grid item lg={12}><SearchBar handleSearch={handleSearch}/></Grid>
+              <Grid container rowSpacing={1} sx={{ padding: "2%" }}>
+                <Grid container direction="row" justifyContent="center">
+                  <Grid item lg={12}>
+                    <SearchBar handleSearch={handleSearch} />
+                  </Grid>
                 </Grid>
                 <Grid item xs={3}>
                   <Grid item>

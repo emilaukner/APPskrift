@@ -53,7 +53,7 @@ const CreateUser = (props) => {
 
   return (
     <StyledCreateUser show={props.show}>
-      <Box sx={{ width: "30%", top: "5%", left: "37.5%", position: "fixed" }}>
+      <Box sx={{ width: "30%", top: "5%", left: "37.5%", position: "fixed", zIndex: 100}}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid>
             <Paper sx={{ padding: "7%" }}>
