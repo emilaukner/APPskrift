@@ -6,31 +6,24 @@ import { Paper, Typography, Box, Grid } from "@mui/material";
 
 
 const UsersRecipePage = () => {
-
-  const [recipeData, setRecipeData] = useState([]);
-
   const { id } = useParams();
   const [user, setUser] = useState();
+  const [recipeData, setRecipes] = useState();
+
+  console.log("ID", id)
+
   useEffect(() => {
-    axios.get(`/user-recipes/${id}/`).then((response) => {
+    axios.get(`/users/${id}/`)
+    .then((response) => {
+      console.log(response);
       setUser(response.data);
     });
+    axios.get(`/users/${id}/recipes/`)
+    .then((response) => {
+      setRecipes(response.data);
+    })
   }, []);
 
-   //This function gets all recepies in database
-   const getRecipesRequest = async () => {
-    await axios
-      .get("/recipes/")
-      .then((response) => {
-        setRecipeData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  //On load of page these api requests is made to get data
-  useEffect(() => { getRecipesRequest() }, []);
 
   const createRecipeModules = () => {
     const recipes = recipeData
@@ -64,7 +57,7 @@ const UsersRecipePage = () => {
                 gutterBottom
                 sx={{ padding: "3%", textAlign: "center" }}
               >
-                { user.username}'s oppskrifter
+                {/* { user.username}'s oppskrifter */}
               </Typography>
             </Paper>
           </Grid>
