@@ -7,26 +7,35 @@ import Rating from "@mui/material/Rating";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CircleIcon from "@mui/icons-material/Circle";
 import Food from "../../assets/Food.png";
+import { useCookies } from "react-cookie";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import axios from "axios";
 
 const SingleRecipeHeader = (props) => {
-  const [user, setUser] = useState();
+  const [recipeUser, setRecipeUser] = useState(props.user);
   const [recipe, setRecipe] = useState(props.recipe);
+  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
   const [ratingValue, setValue] = useState(props.recipe.avgEvaluation);
   const [showRating, setShowRating] = useState(true);
 
-  console.log(props);
 
   useEffect(() => {
     axios
-      .get(`/users/${props.recipe.publishedBy}/`)
+      .get(`/recipes/${props.recipe.recipeId}/`)
       .then((response) => {
-        setUser(response.data);
+        setRecipe(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
+      axios
+        .get(`/users/${props.recipe.publishedBy}/`)
+        .then((res) => {
+          setRecipeUser(res.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        }) 
       axios
       .get(`/recipes/${props.recipe.recipeId}/`)
       .then((response) => {
@@ -42,7 +51,7 @@ const SingleRecipeHeader = (props) => {
     axios
       .post(`/evaluations/`, {
         stars : newValue,
-        publishedBy : user.userId,
+        publishedBy : cookie.userId,
         recipe : props.recipe.recipeId,
       })
   });
@@ -70,9 +79,9 @@ const SingleRecipeHeader = (props) => {
   let name = "Name";
   let avatarImage = Food;
 
-  if(user) {
-    avatarImage = user.image;
-    name = user.username;
+  if(recipeUser) {
+    avatarImage = recipeUser.image;
+    name = recipeUser.username;
   }
 
   return (

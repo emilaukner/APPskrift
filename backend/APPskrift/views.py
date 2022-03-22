@@ -139,7 +139,7 @@ class EvaluationView(viewsets.ModelViewSet):
 				count +=1
 				sum += evaluation['stars']
 			avg = sum/count
-			recipe.avgEvaluation = round(avg,2)
+			recipe.avgEvaluation = round(avg,1)
 			recipe.save()
 		else:
 			print(evalSet.errors)
