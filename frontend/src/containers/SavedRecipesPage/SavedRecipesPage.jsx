@@ -12,7 +12,8 @@ const SavedRecipesPage = ({onAuthFail}) => {
 
   const [cookie, setCookie] = useCookies(["user"]);
 
-  //This function gets all liked recepies by current user
+  //On load of page these api requests is made to get data
+  //This function gets all liked recipes by current user
   const getRecipesLikedRequest = async () => {
     await axios
       .get(`/users/${cookie.userId}/favorites/`)
@@ -24,8 +25,11 @@ const SavedRecipesPage = ({onAuthFail}) => {
         onAuthFail();
       });
   };
+  useEffect(() => {
+    getRecipesLikedRequest();
+  }, []);
 
-  //This function gets all saved recepies by current user
+  //This function gets all saved recipes by current user
   const getRecipesSavedRequest = async () => {
     await axios
       .get(`/users/${cookie.userId}/saved/`)
@@ -36,8 +40,11 @@ const SavedRecipesPage = ({onAuthFail}) => {
         console.log(error);
       });
   };
+  useEffect(() => {
+    getRecipesSavedRequest();
+  }, []);
 
-  //This function gets all recepies in database
+  //This function gets all recipes in database
   const getRecipesRequest = async () => {
     await axios
       .get("/recipes/")

@@ -14,12 +14,17 @@ import { Link } from "react-router-dom";
 
 const SingleRecipeHeader = (props) => {
   const [recipeUser, setRecipeUser] = useState(props.user);
+  useEffect(() => {
+    axios
+      .get(`/users/${props.recipe.publishedBy}/`)
+      .then((res) => {   
+         setRecipeUser(res.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      }) 
+  }, []);
   const [recipe, setRecipe] = useState(props.recipe);
-  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
-  const [ratingValue, setValue] = useState(props.recipe.avgEvaluation);
-  const [showRating, setShowRating] = useState(true);
-
-
   useEffect(() => {
     axios
       .get(`/recipes/${props.recipe.recipeId}/`)
@@ -29,14 +34,10 @@ const SingleRecipeHeader = (props) => {
       .catch((error) => {
         console.log(error);
       });
-      axios
-        .get(`/users/${props.recipe.publishedBy}/`)
-        .then((res) => {
-          setRecipeUser(res.data)
-        })
-        .catch((error) => {
-          console.log(error)
-        }) 
+  }, []);
+  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+  const [ratingValue, setValue] = useState(props.recipe.avgEvaluation);
+  useEffect(() => {
       axios
       .get(`/recipes/${props.recipe.recipeId}/`)
       .then((response) => {
@@ -47,6 +48,8 @@ const SingleRecipeHeader = (props) => {
         console.log(error)
       })
   }, []);
+
+  const [showRating, setShowRating] = useState(true);
 
   const setRating = ((newValue) => {
     axios
