@@ -389,7 +389,7 @@ const CreateRecipePage = () => {
                       <Button
                         variant="contained"
                         onClick={handleSubmit}
-                        disabled={!title || !steps || !ingredients}
+                        disabled={!title || !steps || !ingredients || !image}
                       >
                         Fullfør
                       </Button>

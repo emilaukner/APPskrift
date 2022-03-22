@@ -7,26 +7,58 @@ import Rating from "@mui/material/Rating";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CircleIcon from "@mui/icons-material/Circle";
 import Food from "../../assets/Food.png";
+import { useCookies } from "react-cookie";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 const SingleRecipeHeader = (props) => {
-  const [user, setUser] = useState();
-  const [recipe, setRecipe] = useState(props.recipe);
-
-  console.log(props);
-
+  const [recipeUser, setRecipeUser] = useState(props.user);
   useEffect(() => {
     axios
       .get(`/users/${props.recipe.publishedBy}/`)
+      .then((res) => {   
+         setRecipeUser(res.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      }) 
+  }, []);
+  const [recipe, setRecipe] = useState(props.recipe);
+  useEffect(() => {
+    axios
+      .get(`/recipes/${props.recipe.recipeId}/`)
       .then((response) => {
-        setUser(response.data);
+        setRecipe(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+  const [ratingValue, setValue] = useState(props.recipe.avgEvaluation);
+  useEffect(() => {
+      axios
+      .get(`/recipes/${props.recipe.recipeId}/`)
+      .then((response) => {
+        setValue(response.data.avgEvaluation)
+        console.log(response.data.avgEvaluation)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }, []);
+
+  const [showRating, setShowRating] = useState(true);
+
+  const setRating = ((newValue) => {
+    axios
+      .post(`/evaluations/`, {
+        stars : newValue,
+        publishedBy : cookie.userId,
+        recipe : props.recipe.recipeId,
+      })
+  });
 
   //const title = props.title    HELP
   const title = props.recipe.title;
@@ -51,9 +83,9 @@ const SingleRecipeHeader = (props) => {
   let name = "Name";
   let avatarImage = Food;
 
-  if(user) {
-    avatarImage = user.image;
-    name = user.username;
+  if(recipeUser) {
+    avatarImage = recipeUser.image;
+    name = recipeUser.username;
   }
 
   return (
@@ -70,16 +102,31 @@ const SingleRecipeHeader = (props) => {
             xs={12}
             style={{ paddingBottom: "2%", paddingLeft: "1%", display: "flex" }}
           >
-            {/* <Box style={{display: "flex", padding:"0.7%"}}>
-                  <Rating 
-                      name="half-rating-read"
-                      defaultValue={score}
-                      precision={0.5}
-                      readOnly
-                  />
-                  <Typography style={{fontSize:"1em", color: "darkgrey"}}>{scoreNumber}</Typography>
+            <Box style={{display: "flex", padding:"0.7%"}}>
+              {showRating ? 
+                          (<Rating 
+                            name="simple-controlled"
+                            value = {ratingValue}
+                            precision={0.5}
+                            onChange={(event, newValue) => {
+                              setValue(newValue);
+                              setRating(newValue);
+                              setShowRating(false);
+                            }}
+                        />) : (
+                          <Rating 
+                          name="simple-controlled"
+                          value = {ratingValue}
+                          precision={0.5}
+                          readOnly
+                          
+                      />
+                        )
+            }
+
+                  <Typography style={{fontSize:"1em", color: "darkgrey"}}>{ratingValue}</Typography>
                 </Box>
-                */}
+              
             {FavoriteButton(props.recipe)}
           </Grid>
           <Grid item xs={12}>
@@ -93,7 +140,7 @@ const SingleRecipeHeader = (props) => {
             <Typography>{time}</Typography>
           </Grid>
           <Grid item xs={12} style={{ display: "flex", padding: "1%" }}>
-            <Link to="/123/" style={{ textDecoration: "none" }}>
+            <Link to={`/user/recipes/${props.recipe.publishedBy}`} style={{ textDecoration: "none" }}>
               <Avatar
                 src={avatarImage}
                 style={{ height: 56, width: 56 }}
