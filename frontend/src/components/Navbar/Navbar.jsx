@@ -92,6 +92,12 @@ const Navbar = ({onAuthFail}) => {
     window.location.reload(false);
   };
 
+  const handleColor = () => {
+
+    setCookie("theme", theme);
+    colorMode.toggleColorMode()
+  }
+
   return (
     <>
       <AppBar position="static" sx={{ bgcolor: "navbar.main" }}>
@@ -254,7 +260,7 @@ const Navbar = ({onAuthFail}) => {
               <IconButton
                 style={{ marginRight: "0.5em" }}
                 sx={{ ml: 1 }}
-                onClick={colorMode.toggleColorMode}
+                onClick={handleColor}
                 color="inherit"
               >
                 {theme.palette.mode === "dark" ? (
