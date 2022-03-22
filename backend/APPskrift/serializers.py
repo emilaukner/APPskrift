@@ -31,7 +31,9 @@ class RecipeSerializer(serializers.ModelSerializer):
                     "meal",
 					"categories",
                     "image",
-					"publishedBy"
+					"publishedBy",
+                    "avgEvaluation",
+                    "evaluations",
 				)
                 
 class CategorySerializer(serializers.ModelSerializer):
@@ -56,7 +58,8 @@ class EvaluationSerializer(serializers.ModelSerializer):
         class Meta:
             model = Evaluation
             fields = (
+                "evaluationId",
                 "stars", 
-                "recipe",
-                "user"
+                "evalRecipe",
+                "publishedBy"
             )
