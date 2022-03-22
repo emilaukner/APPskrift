@@ -38,10 +38,6 @@ const Navbar = ({onAuthFail}) => {
   const [userLoggedIn, setUserLoggedIn] = React.useState(cookie.userId != null);
   const [loginShow, setLoginShow] = React.useState(false);
 
-  React.useEffect(() => {
-    getUser();
-  }, []);
-
   const getUser = async () => {
       await axios
       .get(`/users/${cookie.userId}`)
@@ -50,8 +46,11 @@ const Navbar = ({onAuthFail}) => {
       })
       .catch((err) => {
     console.log(err)
-  })
+    })
   }
+  React.useEffect(() => {
+    getUser();
+  }, []);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
