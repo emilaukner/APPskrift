@@ -18,10 +18,6 @@ const UserProfileComponent = ({onLogOut, onClose, show, userId}) => {
     const [profileImage, setProfileImage] = useState();
     const [email, setemail] = useState();
 
-    useEffect(() => {
-		getUser();
-  }, [show]);
-
     const getUser = async () => {
         await axios
         .get(`/users/${userId}`)
@@ -36,7 +32,10 @@ const UserProfileComponent = ({onLogOut, onClose, show, userId}) => {
 			console.log(err)
 		})
     };
-  
+    useEffect(() => {
+		getUser();
+    }, [show]);
+    
   return (
     <>
     <StyledProfilePopup show={show}>

@@ -11,7 +11,6 @@ import axios from "axios";
 const SingleComment = (props) => {
   // state of the author (user) og a comment
   const [user, setUser] = useState();
-
   useEffect(() => {
     axios.get(`/users/${props?.publishedBy}`).then((response) => {
       setUser(response.data);
