@@ -110,6 +110,7 @@ const FrontPage = ({onAuthFail, userLoggedIn}) => {
       otherCategories,
       searchTerm
     ).map((recipe) => {
+      console.log(recipe);
       return (
         <SingleRecepieModule
           recipeId={recipe.recipeId}
@@ -121,7 +122,7 @@ const FrontPage = ({onAuthFail, userLoggedIn}) => {
           difficulty={recipe.difficulty}
           likedByUser={recipeLikedData.includes(recipe.recipeId) ? true : false}
           savedByUser={recipeSavedData.includes(recipe.recipeId) ? true : false}
-          numberOfLikes={253}
+          numberOfLikes={recipe.nbOfLikes}
           onAuthFail={() => onAuthFail()}
         />
       );
