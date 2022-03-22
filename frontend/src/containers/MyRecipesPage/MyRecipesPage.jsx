@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useH } from "react";
 import axios from "axios";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
@@ -137,11 +137,16 @@ const MyRecipesPage = ({onAuthFail}) => {
 					// />,
 					recipe.estimate,
 					<>
-						<IconButton
-							onClick={(event) => handleEditRecipeClick(event, recipe.recipeId)}
-						>
-							<EditIcon />
-						</IconButton>
+              <IconButton
+                onClick={(event) => handleEditRecipeClick(event, recipe.recipeId)}
+              >
+                <Link
+                  to={`/edit-recipe/${recipe.recipeId}/`}
+                  style={{ textDecoration: "none", color: "inherit", height: "1em" }}
+                >
+                  <EditIcon />
+                </Link>
+              </IconButton>
 						<IconButton
 							onClick={(event) => handleDeleteRecipeClick(event, recipe.recipeId)}
 						>

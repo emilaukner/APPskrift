@@ -9,7 +9,7 @@ from APPskrift.serializers import *
 class RecipeTestCase(APITestCase):
 
 	def setUp(self):
-		self.recipe = Recipe.objects.create(title='food', estimate=1, ingredients='stuff', steps='make the food')
+		self.recipe = Recipe.objects.create(title='food', estimate=1, ingredients='stuff', steps='make the food', meal="Middag")
 
 	def test_creation(self):
 		data = {
@@ -134,3 +134,35 @@ class UserViewTestCase(APITestCase):
 			fail("Saved recipe should not exist after deletion")
 		except:
 			pass
+
+class EvaluationViewTestCase(APITestCase):
+	def setUp(self):
+		self.user1 = User.objects.create(username="test1", password="test", email="test1@test.com")
+		self.user2 = User.objects.create(username="test2", password="test", email="test2@test.com")
+		self.recipe = Recipe.objects.create(title='test', ingredients='stuff', steps='make the food', publishedBy=self.user1)
+
+	def test_evalAvg(self):
+		self.assertEqual(self.recipe.publishedBy, self.user1)
+		self.assertEqual(self.recipe.avgEvaluation, 0)
+
+		response = self.client.post("/evaluations/", {
+			"stars" : 4,
+			"recipe" : str(self.recipe.recipeId),
+			"publishedBy" : str(self.user1.userId),			
+		})
+		self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+		self.recipe = Recipe.objects.get(recipeId=self.recipe.recipeId)
+
+		self.assertEqual(self.recipe.avgEvaluation, 4)
+
+		response = self.client.post("/evaluations/", {
+			"stars" : 2,
+			"recipe" : str(self.recipe.recipeId),
+			"publishedBy" : str(self.user2.userId),			
+		})
+		self.recipe = Recipe.objects.get(recipeId=self.recipe.recipeId)
+
+		self.assertEqual(response.status_code, status.HTTP_200_OK)
+		self.assertEqual(self.recipe.avgEvaluation, 3)
+
