@@ -38,6 +38,9 @@ const Navbar = ({onAuthFail}) => {
   const [userLoggedIn, setUserLoggedIn] = React.useState(cookie.userId != null);
   const [loginShow, setLoginShow] = React.useState(false);
 
+  console.log("Colortheme:",theme.palette.mode);
+  setCookie("theme", theme.palette.mode);
+
   React.useEffect(() => {
     getUser();
   }, []);
@@ -93,8 +96,6 @@ const Navbar = ({onAuthFail}) => {
   };
 
   const handleColor = () => {
-
-    setCookie("theme", theme);
     colorMode.toggleColorMode()
   }
 
