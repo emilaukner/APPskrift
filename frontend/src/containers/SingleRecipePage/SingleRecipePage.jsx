@@ -8,8 +8,9 @@ import CommentSection from "../../components/CommentSection/CommentSection";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Food from "../../assets/Food.png";
+import { getThemeProps } from "@mui/system";
 
-const SingleRecipePage = () => {
+const SingleRecipePage = (props) => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState();
   useEffect(() => {
@@ -29,7 +30,7 @@ const SingleRecipePage = () => {
 
   return (
     <>
-      <Grid container spacing={5} style={{ padding: "2%" }}>
+      <Grid container spacing={5} style={{ padding: "2%", margin: "0%" }}>
         <Grid item xs={3}>
           <Avatar
             src={avatarImage}
@@ -38,7 +39,7 @@ const SingleRecipePage = () => {
           ></Avatar>
         </Grid>
         <Grid item xs={9}>
-          <SingleRecipeHeader recipe={recipe} />
+          <SingleRecipeHeader recipe={recipe} onAuthFail={props.onAuthFail} />
         </Grid>
         <Grid item xs={3}>
           <IngredientSection recipe={recipe} />
