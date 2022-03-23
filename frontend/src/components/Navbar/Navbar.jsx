@@ -35,7 +35,7 @@ const Navbar = ({onAuthFail}) => {
   const [cookie, setCookie, removeCookie] = useCookies(["user"]);
   const [loggedInUserId, setLoggedInUserId] = React.useState("");
   const [profileImage, setProfileImage] = React.useState("");
-  const [userLoggedIn, setUserLoggedIn] = React.useState(cookie.userId != null);
+  const [userLoggedIn, setUserLoggedIn] = React.useState(cookie.userId != "null");
   const [loginShow, setLoginShow] = React.useState(false);
 
   const getUser = async () => {
@@ -85,7 +85,7 @@ const Navbar = ({onAuthFail}) => {
   };
 
   const handleLogOut = () => {
-    removeCookie("userId");
+    setCookie("userId", null);
     setUserLoggedIn(false);
     setProfileShow(false);
     window.location.reload(false);

@@ -15,14 +15,14 @@ const UsersRecipePage = () => {
     .then((response) => {
       console.log(response);
       setUser(response.data);
-    })
-    .catch(err => {
-      console.log(err)
-    })
-    axios.get(`/users/${id}/recipes/`)
-    .then((response) => {
-      console.log(response)
-      setRecipes(response.data);
+      axios.get(`/users/${id}/recipes/`)
+      .then((response) => {
+        console.log(response)
+        setRecipes(response.data);
+      })
+      .catch(err => {
+        console.log(err)
+      })
     })
     .catch(err => {
       console.log(err)
