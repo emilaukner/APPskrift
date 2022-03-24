@@ -131,35 +131,14 @@ const CreateUser = (props) => {
                     />
                   )}
                 </Grid>
-
-                <label htmlFor="upload-photo">
-                        <input
-                          type="file"
-                          id="upload-photo"
-                          name="upload-photo"
-                          hidden
-                          onChange={handleImageChange} 
-                        />
-                        <Button variant="outlined" component="span">
-                          Last opp bilde
-                          <FileUploadIcon />
-                        </Button>
-                        {
-                          image 
-                          ?                          
-                          ( <Typography
-                            variant="caption"
-                            gutterBottom
-                            component="div"
-                          >
-                            {image.name}
-                          </Typography> )
-                          : null
-                        }
-                        
-                      </label>
-                <br />
-                <br />
+                <Grid item xs={8} sx={{ marginTop: "2%" }}>
+                  <input
+                    type="file"
+                    id="upload-photo"
+                    name="upload-photo"
+                    onChange={handleImageChange} 
+                  />
+                </Grid>
                 <Grid
                   container
                   rowSpacing={1}

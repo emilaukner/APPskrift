@@ -14,6 +14,16 @@ import { Link } from "react-router-dom";
 
 const SingleRecipeHeader = (props) => {
   const [recipeUser, setRecipeUser] = useState(props.user);
+  useEffect(() => {
+    axios
+      .get(`/users/${props.recipe.publishedBy}/`)
+      .then((res) => {   
+         setRecipeUser(res.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      }) 
+  }, []);
   const [recipe, setRecipe] = useState(props.recipe);
   const [liked, setLiked] = useState(props.likedByUser);
   const [nbOfLikes, setNbOfLikes] = useState(props.numberOfLikes); 
@@ -162,7 +172,7 @@ useEffect(() => {
 
   return (
     <>
-      <Box>
+      <Box sx={{color: "text.primary"}}>
         <Grid container style={{ padding: "0%" }}>
           <Grid item xs={12} style={{ padding: "1%" }}>
             <Typography style={{ fontSize: "3em", fontWeight: "bold" }}>
@@ -225,7 +235,7 @@ useEffect(() => {
             <Typography>{time}</Typography>
           </Grid>
           <Grid item xs={12} style={{ display: "flex", padding: "1%" }}>
-            <Link to="/123/" style={{ textDecoration: "none" }}>
+            <Link to={`/user/recipes/${props.recipe.publishedBy}`} style={{ textDecoration: "none" }}>
               <Avatar
                 src={avatarImage}
                 style={{ height: 56, width: 56 }}

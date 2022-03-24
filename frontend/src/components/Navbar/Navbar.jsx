@@ -35,12 +35,11 @@ const Navbar = ({onAuthFail}) => {
   const [cookie, setCookie, removeCookie] = useCookies(["user"]);
   const [loggedInUserId, setLoggedInUserId] = React.useState("");
   const [profileImage, setProfileImage] = React.useState("");
-  const [userLoggedIn, setUserLoggedIn] = React.useState(cookie.userId != null);
+  const [userLoggedIn, setUserLoggedIn] = React.useState(cookie.userId != "null");
   const [loginShow, setLoginShow] = React.useState(false);
 
-  React.useEffect(() => {
-    getUser();
-  }, []);
+  console.log("Colortheme:",theme.palette.mode);
+  setCookie("theme", theme.palette.mode);
 
   const getUser = async () => {
       await axios
@@ -50,8 +49,11 @@ const Navbar = ({onAuthFail}) => {
       })
       .catch((err) => {
     console.log(err)
-  })
+    })
   }
+  React.useEffect(() => {
+    getUser();
+  }, []);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -86,11 +88,15 @@ const Navbar = ({onAuthFail}) => {
   };
 
   const handleLogOut = () => {
-    removeCookie("userId");
+    setCookie("userId", null);
     setUserLoggedIn(false);
     setProfileShow(false);
     window.location.reload(false);
   };
+
+  const handleColor = () => {
+    colorMode.toggleColorMode()
+  }
 
   return (
     <>
@@ -254,7 +260,7 @@ const Navbar = ({onAuthFail}) => {
               <IconButton
                 style={{ marginRight: "0.5em" }}
                 sx={{ ml: 1 }}
-                onClick={colorMode.toggleColorMode}
+                onClick={handleColor}
                 color="inherit"
               >
                 {theme.palette.mode === "dark" ? (

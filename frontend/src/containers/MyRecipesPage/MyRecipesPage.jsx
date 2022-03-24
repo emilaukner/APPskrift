@@ -48,18 +48,11 @@ const MyRecipesPage = ({onAuthFail}) => {
       estimate: "35 min",
     },
   ]);
+  
 
 	const [cookie, setCookie] = useCookies(["user"])
 
   //=========== API get request for all "My recipes" =========//
-  useEffect(() => {
-		getRecipes();
-  }, []);
-
-	useEffect(() => {
-		addRecipesToRows();
-	}, [myRecipes]);
-
 	const getRecipes = () => {
 		axios
 		.get(`/users/${cookie.userId}/recipes/`)
@@ -71,6 +64,9 @@ const MyRecipesPage = ({onAuthFail}) => {
       onAuthFail();
     })
 	}
+  useEffect(() => {
+		getRecipes();
+  }, []);
 
   //============= Create column types ============//
   const columns = [
@@ -158,6 +154,9 @@ const MyRecipesPage = ({onAuthFail}) => {
 		});
 		setRows(temp);
 }
+useEffect(() => {
+  addRecipesToRows();
+}, [myRecipes]);
 
   //========== Functions to handle delete and edit of recepies =======//
   const handleEditRecipeClick = (event, id) => {
