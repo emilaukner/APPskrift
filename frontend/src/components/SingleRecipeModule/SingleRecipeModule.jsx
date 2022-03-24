@@ -24,9 +24,10 @@ import {showLogin} from "../Navbar/Navbar";
 
 const SingleRecipeModule = (props) => {
   //React hooks with the states liked and saved
+  console.log(props.likedByUser); 
   const [liked, setLiked] = useState(props.likedByUser);
   const [saved, setSaved] = useState(props.savedByUser);
-  const [nbOfLikes, setNbOfLikes] = useState(props.numberOfLikes)
+  const [nbOfLikes, setNbOfLikes] = useState(props.numberOfLikes); 
   const [cookie, setCookie] = useCookies(["user"]);
 
   /* Function that is called when user presses like button.
@@ -56,7 +57,6 @@ const SingleRecipeModule = (props) => {
         setLiked(!liked);
       })
       .catch((error) => {
-        console.log(error);
         props.onAuthFail();
       });
   };

@@ -70,6 +70,7 @@ class Recipe(models.Model):
     image = models.ImageField(upload_to="recipe_images", blank=True)
     evaluations = models.ManyToManyField('Evaluation', blank=True)
     avgEvaluation = models.FloatField(blank=True, null=True, default=0)
+    nbOfLikes = models.IntegerField(default=0, blank=True)
 
     def _str_(self):
         return self.title
