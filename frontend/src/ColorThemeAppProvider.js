@@ -1,12 +1,14 @@
 import * as React from 'react';
 import App from "./App"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { useCookies } from "react-cookie";
 import Footer from './components/Footer/Footer';
 
 export const ColorModeContext = React.createContext({toggleColorMode: () =>{}});
 
-export const ToggleColorMode =()=> {
-    const [mode, setMode] = React.useState('light');
+export const ToggleColorMode = () => {
+    const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+    const [mode, setMode] = React.useState(cookie.theme);
     const colorMode = React.useMemo(
       () => ({
         toggleColorMode: () => {
@@ -33,8 +35,6 @@ export const ToggleColorMode =()=> {
           footer: {
             primary: "darkgrey"
           }, 
-          
-          
         }
         
       : {
@@ -48,10 +48,7 @@ export const ToggleColorMode =()=> {
           navbar: {
             main: "#121212"
           },
-         
-         
-        }),
-            
+        }),   
           },
         }),
       [mode],
