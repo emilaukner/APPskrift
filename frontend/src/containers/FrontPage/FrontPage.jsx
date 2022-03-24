@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import FullWidthImageHeader from "../../components/FullWidthImageHeader/FullWidthImageHeader";
 import FloatingCreateRecipeButton from "../../components/FloatingCreateRecipeButton/FloatingCreateRecipeButton";
 import Food from "../../assets/Food.png";
-import SingleRecepieModule from "../../components/SingleRecipeModule/SingleRecipeModule";
+import SingleRecipeModule from "../../components/SingleRecipeModule/SingleRecipeModule";
 import Dish from "../../assets/DishDeleteMe.png";
 import axios from "axios";
 import CreateUser from "../../components/CreateUser/CreateUser";
@@ -57,7 +57,9 @@ const FrontPage = ({onAuthFail, userLoggedIn}) => {
 
   const [cookie, setCookie] = useCookies(["user"]);
 
-  //This function gets all liked recepies by current user
+//On load of page these api requests are made to get data
+
+  //This function gets all liked recipes by current user
   const getRecipesLikedRequest = async () => {
     await axios
       .get(`/users/${cookie.userId}/favorites/`)
@@ -68,8 +70,11 @@ const FrontPage = ({onAuthFail, userLoggedIn}) => {
         console.log(error);
       });
   };
+  useEffect(() => {
+    getRecipesLikedRequest();
+  }, []);
 
-  //This function gets all saved recepies by current user
+  //This function gets all saved recipes by current user
   const getRecipesSavedRequest = async () => {
     await axios
       .get(`/users/${cookie.userId}/saved/`)
@@ -80,8 +85,11 @@ const FrontPage = ({onAuthFail, userLoggedIn}) => {
         console.log(error);
       });
   };
+  useEffect(() => {
+    getRecipesSavedRequest();
+  }, []);
 
-  //This function gets all recepies in database
+  //This function gets all recipes in database
   const getRecipesRequest = async () => {
     await axios
       .get("/recipes/")
@@ -92,11 +100,7 @@ const FrontPage = ({onAuthFail, userLoggedIn}) => {
         console.log(error);
       });
   };
-
-  //On load of page these api requests is made to get data
   useEffect(() => {
-    getRecipesLikedRequest();
-    getRecipesSavedRequest();
     getRecipesRequest();
   }, []);
 
@@ -112,7 +116,7 @@ const FrontPage = ({onAuthFail, userLoggedIn}) => {
     ).map((recipe) => {
       console.log(recipe);
       return (
-        <SingleRecepieModule
+        <SingleRecipeModule
           recipeId={recipe.recipeId}
           title={recipe.title}
           image={recipe.image}
