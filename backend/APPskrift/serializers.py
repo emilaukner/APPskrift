@@ -34,6 +34,7 @@ class RecipeSerializer(serializers.ModelSerializer):
 					"publishedBy",
                     "avgEvaluation",
                     "evaluations",
+                    "nbOfLikes",
 				)
                 
 class CategorySerializer(serializers.ModelSerializer):
