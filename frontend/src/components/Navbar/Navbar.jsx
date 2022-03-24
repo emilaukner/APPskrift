@@ -38,6 +38,9 @@ const Navbar = ({onAuthFail}) => {
   const [userLoggedIn, setUserLoggedIn] = React.useState(cookie.userId != "null");
   const [loginShow, setLoginShow] = React.useState(false);
 
+  console.log("Colortheme:",theme.palette.mode);
+  setCookie("theme", theme.palette.mode);
+
   const getUser = async () => {
       await axios
       .get(`/users/${cookie.userId}`)
@@ -90,6 +93,10 @@ const Navbar = ({onAuthFail}) => {
     setProfileShow(false);
     window.location.reload(false);
   };
+
+  const handleColor = () => {
+    colorMode.toggleColorMode()
+  }
 
   return (
     <>
@@ -253,7 +260,7 @@ const Navbar = ({onAuthFail}) => {
               <IconButton
                 style={{ marginRight: "0.5em" }}
                 sx={{ ml: 1 }}
-                onClick={colorMode.toggleColorMode}
+                onClick={handleColor}
                 color="inherit"
               >
                 {theme.palette.mode === "dark" ? (

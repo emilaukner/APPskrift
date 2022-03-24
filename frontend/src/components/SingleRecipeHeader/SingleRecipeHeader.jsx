@@ -90,7 +90,7 @@ const SingleRecipeHeader = (props) => {
 
   return (
     <>
-      <Box>
+      <Box sx={{color: "text.primary"}}>
         <Grid container style={{ padding: "0%" }}>
           <Grid item xs={12} style={{ padding: "1%" }}>
             <Typography style={{ fontSize: "3em", fontWeight: "bold" }}>
