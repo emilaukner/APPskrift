@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Grid, Avatar } from "@mui/material";
+import { Typography, Grid, Avatar, IconButton,} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Rating from "@mui/material/Rating";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CircleIcon from "@mui/icons-material/Circle";
 import Food from "../../assets/Food.png";
 import { useCookies } from "react-cookie";
-import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -25,19 +25,103 @@ const SingleRecipeHeader = (props) => {
       }) 
   }, []);
   const [recipe, setRecipe] = useState(props.recipe);
-  useEffect(() => {
+  const [liked, setLiked] = useState(props.likedByUser);
+  const [nbOfLikes, setNbOfLikes] = useState(props.numberOfLikes); 
+  const [recipeLikedData, setRecipeLikedData] = useState([]); 
+  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+  const [ratingValue, setValue] = useState(props.recipe.avgEvaluation);
+  const [showRating, setShowRating] = useState(true);
+
+  /* Function that is called when user presses like button.
+  If liked = true a delete request is made. If liked = false a post request is made.*/
+  const LikeRecipe = (event) => {
+    console.log(liked);
+    event.preventDefault();
+    event.stopPropagation();
+    liked ? postUnlikeRecipe() : postLikeRecipe();
+  };
+
+  //API request to like recipe
+  const postLikeRecipe = async () => {
+    await axios
+      .post(`/users/${cookie.userId}/favorites/`, {
+        id: `${props.recipe.recipeId}`,
+      })
+      .then(() => {
+        setNbOfLikes(nbOfLikes+1);
+        setLiked(!liked);
+      })
+      .catch((error) => {
+        console.log(error);
+        props.onAuthFail();
+      });
+  };
+
+  //API request to delete like on a recipe
+  const postUnlikeRecipe = async () => {
+    await axios
+      .delete(`/users/${cookie.userId}/favorites/`, {
+        data: {
+          id: `${props.recipe.recipeId}`,
+        },
+      })
+      .then(() => {
+        setNbOfLikes(nbOfLikes-1);
+        setLiked(!liked);
+      })
+      .catch((error) => {
+        console.log(error);
+        props.onAuthFail();
+      });
+  };
+
+
+useEffect(() => {
     axios
       .get(`/recipes/${props.recipe.recipeId}/`)
       .then((response) => {
-        setRecipe(response.data);
+        setNbOfLikes(response.data.nbOfLikes)
       })
       .catch((error) => {
         console.log(error);
       });
+    }, []);
+
+useEffect(() => {
+      axios
+        .get(`/users/${cookie.userId}/favorites/`)
+        .then((response) => {
+          setRecipeLikedData(response.data)
+          setLiked(response.data.includes(recipe.recipeId) ? true : false)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      }, []);
+
+useEffect(() => {
+      axios
+        .get(`/recipes/${props.recipe.recipeId}/`)
+        .then((response) => {
+          setNbOfLikes(response.data.nbOfLikes)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      }, []);
+
+useEffect(() => {
+      axios
+        .get(`/users/${props.recipe.publishedBy}/`)
+        .then((res) => {
+          setRecipeUser(res.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        }) 
   }, []);
-  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
-  const [ratingValue, setValue] = useState(props.recipe.avgEvaluation);
-  useEffect(() => {
+
+useEffect(() => {       
       axios
       .get(`/recipes/${props.recipe.recipeId}/`)
       .then((response) => {
@@ -48,8 +132,6 @@ const SingleRecipeHeader = (props) => {
         console.log(error)
       })
   }, []);
-
-  const [showRating, setShowRating] = useState(true);
 
   const setRating = ((newValue) => {
     axios
@@ -127,7 +209,20 @@ const SingleRecipeHeader = (props) => {
                   <Typography style={{fontSize:"1em", color: "darkgrey"}}>{ratingValue}</Typography>
                 </Box>
               
-            {FavoriteButton(props.recipe)}
+                <Box>
+                <IconButton
+                  onClick={LikeRecipe}
+                  aria-label="add to favorites"
+                  sx={{ fontSize: "1em", color: "darkgrey" }}
+                >
+                  {!liked ? (
+                    <FavoriteBorderIcon />
+                  ) : (
+                    <FavoriteIcon sx={{ color: "Crimson" }} />
+                  )}
+                  <Typography>{nbOfLikes}</Typography>
+                </IconButton>
+              </Box>
           </Grid>
           <Grid item xs={12}>
             <Divider />

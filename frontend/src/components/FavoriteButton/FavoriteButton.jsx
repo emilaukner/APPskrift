@@ -9,7 +9,6 @@ import { useCookies } from "react-cookie";
 
 const FavoriteButton = (props) => {
   // Byttes ut med props.numberOfLikes    HELP
-  const numberOfLikes = "";
 
   //React hooks with the states liked and saved
   const [liked, setLiked] = useState(false);
@@ -83,7 +82,7 @@ const FavoriteButton = (props) => {
           ) : (
             <FavoriteIcon sx={{ color: "Crimson" }} />
           )}
-          <Typography>{numberOfLikes}</Typography>
+          <Typography>{props.nbOfLikes}</Typography>
         </IconButton>
       </Box>
     </>
