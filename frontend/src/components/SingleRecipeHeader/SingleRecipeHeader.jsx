@@ -43,12 +43,12 @@ const SingleRecipeHeader = (props) => {
 
   //API request to like recipe
   const postLikeRecipe = async () => {
-    setNbOfLikes(nbOfLikes+1);
     await axios
       .post(`/users/${cookie.userId}/favorites/`, {
         id: `${props.recipe.recipeId}`,
       })
       .then(() => {
+        setNbOfLikes(nbOfLikes+1);
         setLiked(!liked);
       })
       .catch((error) => {
@@ -59,7 +59,6 @@ const SingleRecipeHeader = (props) => {
 
   //API request to delete like on a recipe
   const postUnlikeRecipe = async () => {
-    setNbOfLikes(nbOfLikes-1);
     await axios
       .delete(`/users/${cookie.userId}/favorites/`, {
         data: {
@@ -67,6 +66,7 @@ const SingleRecipeHeader = (props) => {
         },
       })
       .then(() => {
+        setNbOfLikes(nbOfLikes-1);
         setLiked(!liked);
       })
       .catch((error) => {
