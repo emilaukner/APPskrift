@@ -52,6 +52,8 @@ class UserView(viewsets.ModelViewSet):
 		recipe_pk = request.data["id"]
 		user = self.get_object()
 		recipe = get_object_or_404(Recipe, pk=recipe_pk)
+		recipe.nbOfLikes += 1
+		recipe.save()
 		user.favorites.add(recipe)
 		return Response("Nice", status=200)
 
@@ -60,6 +62,8 @@ class UserView(viewsets.ModelViewSet):
 		recipe_pk = request.data["id"]
 		user = self.get_object()
 		recipe = get_object_or_404(Recipe, pk=recipe_pk)
+		recipe.nbOfLikes -= 1
+		recipe.save()
 		user.favorites.remove(recipe)
 		return Response("OK", status=200)
 

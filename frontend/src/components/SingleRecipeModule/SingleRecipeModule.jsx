@@ -24,9 +24,10 @@ import {showLogin} from "../Navbar/Navbar";
 
 const SingleRecipeModule = (props) => {
   //React hooks with the states liked and saved
+  console.log(props.likedByUser); 
   const [liked, setLiked] = useState(props.likedByUser);
   const [saved, setSaved] = useState(props.savedByUser);
-  const [nbOfLikes, setNbOfLikes] = useState(props.numberOfLikes)
+  const [nbOfLikes, setNbOfLikes] = useState(props.numberOfLikes); 
   const [cookie, setCookie] = useCookies(["user"]);
 
   /* Function that is called when user presses like button.
@@ -47,23 +48,21 @@ const SingleRecipeModule = (props) => {
 
   //API request to like recipe
   const postLikeRecipe = async () => {
-    setNbOfLikes(nbOfLikes+1);
     await axios
       .post(`/users/${cookie.userId}/favorites/`, {
         id: `${props.recipeId}`,
       })
       .then(() => {
+        setNbOfLikes(nbOfLikes+1);
         setLiked(!liked);
       })
       .catch((error) => {
-        console.log(error);
         props.onAuthFail();
       });
   };
 
   //API request to delete like on a recipe
   const postUnlikeRecipe = async () => {
-    setNbOfLikes(nbOfLikes-1);
     await axios
       .delete(`/users/${cookie.userId}/favorites/`, {
         data: {
@@ -71,6 +70,7 @@ const SingleRecipeModule = (props) => {
         },
       })
       .then(() => {
+        setNbOfLikes(nbOfLikes-1);
         setLiked(!liked);
       })
       .catch((error) => {
