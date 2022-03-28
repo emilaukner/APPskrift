@@ -9,10 +9,13 @@ class UserAdmin(admin.ModelAdmin):
 class RecipeAdmin(admin.ModelAdmin):
 	list_display = ["title", "recipeId"]
 
+class CommentAdmin(admin.ModelAdmin):
+	list_display = ["commentId", "comment"]
+
 admin.site.register(User, UserAdmin)
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Category)
-admin.site.register(Comment)
+admin.site.register(Comment, CommentAdmin)
 admin.site.register(Evaluation)
 
 
